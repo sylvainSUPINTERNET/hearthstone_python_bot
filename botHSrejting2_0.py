@@ -1,4 +1,4 @@
-import pyautogui
+import pyautogui as pg
 import subprocess #Запуск приложений windows
 import time #работа со временем
 
@@ -9,14 +9,14 @@ def startlnk(): #функция запуска приложения
 
 
 def pointclick():  # функция произвольного нажатия в цикле
-    pyautogui.doubleClick(1599, 524)
+    pg.doubleClick(1599, 524)
 
 
 def ss(template):  # функция определения и двойного нажатия на координаты кнопки
     try:
-        buttonx, buttony = pyautogui.locateCenterOnScreen(template, region=(0, 0, 1600, 900), confidence=0.7) 
-        pyautogui.moveTo(buttonx, buttony)
-        pyautogui.doubleClick(buttonx, buttony)
+        buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 1600, 900), confidence=0.7) 
+        pg.moveTo(buttonx, buttony)
+        pg.doubleClick(buttonx, buttony)
         print(buttonx, buttony)
         time.sleep(2)
     except TypeError:
@@ -28,8 +28,8 @@ def start_game(template):
     global Ggame
     global cikl
     try:
-        buttonx, buttony = pyautogui.locateCenterOnScreen(template, region=(0, 0, 1600, 900), confidence=0.7) 
-        pyautogui.moveTo(buttonx, buttony)
+        buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 1600, 900), confidence=0.7) 
+        pg.moveTo(buttonx, buttony)
         print(buttonx, buttony)
         Gcikl += 1
         hod = 1
@@ -48,11 +48,11 @@ def start_game(template):
 def vash_hod(template):
     global game #индикатор своего хода
     try:
-        buttonx, buttony = pyautogui.locateCenterOnScreen(template, region=(0, 0, 1600, 900), confidence=0.7) 
+        buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 1600, 900), confidence=0.7) 
         if game == 0:
             game = 1
             print("Старт хода")  
-            pyautogui.moveTo(buttonx, buttony, duration=0)                     
+            pg.moveTo(buttonx, buttony, duration=0)                     
             time.sleep(15) 
             return game
         time.sleep(2)
@@ -66,8 +66,8 @@ def chughoj_hod(template):
     global hod 
     global mana
     try:
-        buttonx, buttony = pyautogui.locateCenterOnScreen(template, region=(0, 0, 1600, 900), confidence=0.7) 
-        pyautogui.moveTo(buttonx, buttony)
+        buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 1600, 900), confidence=0.7) 
+        pg.moveTo(buttonx, buttony)
         print(buttonx, buttony)
         time.sleep(2)
         if game == 1 :
@@ -95,26 +95,26 @@ def karta(template):  # функция покупки юнита
     global game
     global moneta
     try:
-        buttonx, buttony = pyautogui.locateCenterOnScreen(template, region=(0, 500, 1600, 400), confidence=0.7) 
-        pyautogui.moveTo(buttonx, buttony)
+        buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 500, 1600, 400), confidence=0.7) 
+        pg.moveTo(buttonx, buttony)
         print(buttonx, buttony)
         print("unit", unit)
         print("hod", hod)
         print("game", game)
-        pyautogui.press(['right'])
+        pg.press(['right'])
         if hod == 4 and unit == 0:
             moneta=1
             print("Выложил монету на стол")
-            pyautogui.moveTo(buttonx, buttony, duration=0) #перемещение к кнопке 
-            pyautogui.mouseDown(button='left') #нажать левую клавишу мыши
-            pyautogui.moveTo(969, 614, duration=1) #перемещение
-            pyautogui.mouseUp(button='left') #отпустить левую клавиши мыши
+            pg.moveTo(buttonx, buttony, duration=0) #перемещение к кнопке 
+            pg.mouseDown(button='left') #нажать левую клавишу мыши
+            pg.moveTo(969, 614, duration=1) #перемещение
+            pg.mouseUp(button='left') #отпустить левую клавиши мыши
         if unit == 0 and hod > 3 and game == 1 and mana >=5 :
             print("Выложил одну карту на стол")
-            pyautogui.moveTo(buttonx, buttony, duration=0) #перемещение к кнопке 
-            pyautogui.mouseDown(button='left') #нажать левую клавишу мыши
-            pyautogui.moveTo(969, 614, duration=1) #перемещение
-            pyautogui.mouseUp(button='left') #отпустить левую клавиши мыши
+            pg.moveTo(buttonx, buttony, duration=0) #перемещение к кнопке 
+            pg.mouseDown(button='left') #нажать левую клавишу мыши
+            pg.moveTo(969, 614, duration=1) #перемещение
+            pg.mouseUp(button='left') #отпустить левую клавиши мыши
             unit +=1                    
         return unit
         return hod
@@ -125,28 +125,28 @@ def karta(template):  # функция покупки юнита
 
 def health(template):  # функция лечения
     try:
-        buttonx, buttony = pyautogui.locateCenterOnScreen(template, region=(800, 600, 400, 300), confidence=0.7) 
-        pyautogui.moveTo(buttonx, buttony)
+        buttonx, buttony = pg.locateCenterOnScreen(template, region=(800, 600, 400, 300), confidence=0.7) 
+        pg.moveTo(buttonx, buttony)
         print(buttonx, buttony)
-        pyautogui.press(['right'])
+        pg.press(['right'])
         print("лечение")
-        pyautogui.moveTo(buttonx, buttony, duration=0) #перемещение к кнопке 
-        pyautogui.mouseDown(button='left') #нажать левую клавишу мыши
-        pyautogui.moveTo(800, buttony, duration=1) #перемещение
-        pyautogui.mouseUp(button='left') #отпустить левую клавиши мыши
+        pg.moveTo(buttonx, buttony, duration=0) #перемещение к кнопке 
+        pg.mouseDown(button='left') #нажать левую клавишу мыши
+        pg.moveTo(800, buttony, duration=1) #перемещение
+        pg.mouseUp(button='left') #отпустить левую клавиши мыши
     except TypeError:
         print("Не востановил здоровье")
         
 def projgrysh(template):
     global progr
     try:
-        buttonx, buttony = pyautogui.locateCenterOnScreen(template, region=(0, 0, 1600, 900), confidence=0.7) 
-        pyautogui.moveTo(buttonx, buttony)
+        buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 1600, 900), confidence=0.7) 
+        pg.moveTo(buttonx, buttony)
         print(buttonx, buttony)
         progr +=1
         print("Пройгрыш ", progr)  #выводит значение
-        pyautogui.moveTo(buttonx, buttony, duration=0) #перемещение
-        pyautogui.doubleClick(buttonx, buttony)
+        pg.moveTo(buttonx, buttony, duration=0) #перемещение
+        pg.doubleClick(buttonx, buttony)
         time.sleep(2) #время ожидания запуска HS
         return progr
     except TypeError:
@@ -156,13 +156,13 @@ def projgrysh(template):
 def vyjgrysh(template):
     global vygr 
     try:
-        buttonx, buttony = pyautogui.locateCenterOnScreen(template, region=(0, 0, 1600, 900), confidence=0.7) 
-        pyautogui.moveTo(buttonx, buttony)
+        buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 1600, 900), confidence=0.7) 
+        pg.moveTo(buttonx, buttony)
         print(buttonx, buttony)
         vygr +=1
         print("Выйгрыш ", vygr)  #выводит значение
-        pyautogui.moveTo(buttonx, buttony, duration=0) #перемещение
-        pyautogui.doubleClick(buttonx, buttony)
+        pg.moveTo(buttonx, buttony, duration=0) #перемещение
+        pg.doubleClick(buttonx, buttony)
         time.sleep(2) #время ожидания запуска HS
         return vygr
     except TypeError:
@@ -172,12 +172,12 @@ def vyjgrysh(template):
 def endGame(template):
     global Ggame
     try:
-        buttonx, buttony = pyautogui.locateCenterOnScreen(template, region=(0, 0, 1600, 900), confidence=0.7) 
-        pyautogui.moveTo(buttonx, buttony)
+        buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 1600, 900), confidence=0.7) 
+        pg.moveTo(buttonx, buttony)
         print(buttonx, buttony)
         Ggame = 0
         print("Конец игры")  #выводит значение 
-        pyautogui.doubleClick(buttonx, buttony)
+        pg.doubleClick(buttonx, buttony)
         time.sleep(2) #время ожидания запуска HS
         return Ggame
     except TypeError:
@@ -225,23 +225,23 @@ while "Бесконечный цикл":  # Цикл анализа
         vash_hod("btn_end.png")
         print ("hod=", hod)
         if hod == 1 and game == 1 :
-            pyautogui.press(['right'])
+            pg.press(['right'])
             vash_hod("btn_end.png")
             ss("btn_end.png")
 
         if hod > 1 and hod < 4 and game == 1 :
-            pyautogui.press(['right'])
+            pg.press(['right'])
             health("btn_health.png")
             vash_hod("btn_end.png")
             ss("btn_end.png")
 
         if hod == 4 and game == 1 :
-            pyautogui.press(['right'])
+            pg.press(['right'])
             karta("000.png")
             if moneta == 1 :
                 mana +=1
                 karta("555.png")
-                pyautogui.press(['right'])
+                pg.press(['right'])
             else:
                 health("btn_health.png")
             moneta=0
@@ -249,140 +249,140 @@ while "Бесконечный цикл":  # Цикл анализа
             ss("btn_end.png")
             
         if hod ==5 and game == 1:
-            pyautogui.press(['right'])
+            pg.press(['right'])
             karta("555.png")
             if unit == 0:
                 health("btn_health.png")                      
-            pyautogui.press(['right'])
+            pg.press(['right'])
             vash_hod("btn_end.png")
             ss("btn_end.png")
             
         if hod ==6 and game == 1:
-            pyautogui.press(['right'])
+            pg.press(['right'])
             karta("666.png")
-            pyautogui.press(['right'])
+            pg.press(['right'])
             karta("555.png")            
             if unit == 0:
                 health("btn_health.png")                      
-            pyautogui.press(['right'])
+            pg.press(['right'])
             vash_hod("btn_end.png")
             ss("btn_end.png")
             
         if hod ==7 and game == 1:
             if unit == 0:
-                pyautogui.press(['right'])
+                pg.press(['right'])
                 karta("777.png")
                 if unit == 1:
                     mana = 0
                 if unit == 0:
-                    pyautogui.press(['right'])
+                    pg.press(['right'])
                     karta("666.png")
                     if unit == 1:
                         mana = 1
                 if unit == 0:
-                    pyautogui.press(['right'])
+                    pg.press(['right'])
                     karta("555.png")
                     if unit == 1:
                         mana = 2
             if mana >= 2:
                 health("btn_health.png")                      
-            pyautogui.press(['right'])
+            pg.press(['right'])
             vash_hod("btn_end.png")
             ss("btn_end.png")
             
         if hod ==8 and game == 1:
             if unit == 0:
-                pyautogui.press(['right'])
+                pg.press(['right'])
                 karta("888.png")
                 if unit == 1:
                     mana = 0
                 if unit == 0:
-                    pyautogui.press(['right'])
+                    pg.press(['right'])
                     karta("777.png")
                     if unit == 1:
                         mana = 1
                 if unit == 0:
-                    pyautogui.press(['right'])
+                    pg.press(['right'])
                     karta("666.png")
                     if unit == 1:
                         mana = 2
                 if unit == 0:
-                    pyautogui.press(['right'])
+                    pg.press(['right'])
                     karta("555.png")
                     if unit == 1:
                         mana = 3
             if mana >= 2:
                 health("btn_health.png")                      
-            pyautogui.press(['right'])
+            pg.press(['right'])
             vash_hod("btn_end.png")
             ss("btn_end.png")
             
         if hod ==9 and game == 1:
             if unit == 0:
-                pyautogui.press(['right'])
+                pg.press(['right'])
                 karta("999.png")
                 if unit == 1:
                     mana = 0
                 if unit == 0:
-                    pyautogui.press(['right'])
+                    pg.press(['right'])
                     karta("888.png")
                     if unit == 1:
                         mana = 1
                 if unit == 0:
-                    pyautogui.press(['right'])
+                    pg.press(['right'])
                     karta("777.png")
                     if unit == 1:
                         mana = 2
                 if unit == 0:
-                    pyautogui.press(['right'])
+                    pg.press(['right'])
                     karta("666.png")
                     if unit == 1:
                         mana = 3
                 if unit == 0:
-                    pyautogui.press(['right'])
+                    pg.press(['right'])
                     karta("555.png")
                     if unit == 1:
                         mana = 4
             if mana >= 2:
                 health("btn_health.png")                      
-            pyautogui.press(['right'])
+            pg.press(['right'])
             vash_hod("btn_end.png")
             ss("btn_end.png")
             
         if hod >= 10 and game == 1:
             if unit == 0:
-                pyautogui.press(['right'])
+                pg.press(['right'])
                 karta("101010.png")
                 if unit == 1:
                     mana = 0
                 if unit == 0:
-                    pyautogui.press(['right'])
+                    pg.press(['right'])
                     karta("999.png")
                     if unit == 1:
                         mana = 1
                 if unit == 0:
-                    pyautogui.press(['right'])
+                    pg.press(['right'])
                     karta("888.png")
                     if unit == 1:
                         mana = 2
                 if unit == 0:
-                    pyautogui.press(['right'])
+                    pg.press(['right'])
                     karta("777.png")
                     if unit == 1:
                         mana = 3
                 if unit == 0:
-                    pyautogui.press(['right'])
+                    pg.press(['right'])
                     karta("666.png")
                     if unit == 1:
                         mana = 4
                 if unit == 0:
-                    pyautogui.press(['right'])
+                    pg.press(['right'])
                     karta("555.png")
                     if unit == 1:
                         mana = 5                
             if mana >= 2:
                 health("btn_health.png")                      
-            pyautogui.press(['right'])
+            pg.press(['right'])
             vash_hod("btn_end.png")
             ss("btn_end.png")
             
