@@ -7,10 +7,8 @@ def startlnk(): #функция запуска приложения
     subprocess.Popen('C:\Program Files (x86)\Battle.net\Battle.net Launcher.exe') #запуск приложения
     time.sleep(2) #время ожидания запуска battle.net
 
-
 def pointclick():  # функция произвольного нажатия в цикле
     pg.doubleClick(1599, 524)
-
 
 def ss(template):  # функция определения и двойного нажатия на координаты кнопки
     try:
@@ -43,7 +41,6 @@ def start_game(template):
         time.sleep(15) 
     except TypeError:
         print("Игра не началась")
-                    
 
 def vash_hod(template):
     global game #индикатор своего хода
@@ -58,7 +55,6 @@ def vash_hod(template):
         time.sleep(2)
     except TypeError:
         print("Не мой ход")
-
 
 def chughoj_hod(template):
     global game
@@ -86,8 +82,6 @@ def chughoj_hod(template):
         return mana
     except TypeError:
         print("Не чужой ход")
-        
-
 
 def karta(template):  # функция покупки юнита
     global unit
@@ -151,7 +145,6 @@ def projgrysh(template):
         return progr
     except TypeError:
         print("Не пройгрыш")
-        
 
 def vyjgrysh(template):
     global vygr 
@@ -167,7 +160,6 @@ def vyjgrysh(template):
         return vygr
     except TypeError:
         print("Не выйгрыш")
-        
 
 def endGame(template):
     global Ggame
@@ -196,7 +188,6 @@ vygr=0 #подсчет выйгрышей
 Gcikl=0 #счетчик циклов внутри игры
 moneta=0 #индикатор монеты в руке
 mana=0  #счетчик маны во время хода
-template = "00_btn_game.png"
 
 while "Бесконечный цикл":  # Цикл анализа
     cikl +=1
@@ -240,7 +231,7 @@ while "Бесконечный цикл":  # Цикл анализа
             karta("000.png")
             if moneta == 1 :
                 mana +=1
-                karta("555.png")
+                karta("btn_m5.png")
                 pg.press(['right'])
             else:
                 health("btn_health.png")
@@ -250,7 +241,7 @@ while "Бесконечный цикл":  # Цикл анализа
             
         if hod ==5 and game == 1:
             pg.press(['right'])
-            karta("555.png")
+            karta("btn_m5.png")
             if unit == 0:
                 health("btn_health.png")                      
             pg.press(['right'])
@@ -261,7 +252,7 @@ while "Бесконечный цикл":  # Цикл анализа
             pg.press(['right'])
             karta("666.png")
             pg.press(['right'])
-            karta("555.png")            
+            karta("btn_m5.png")
             if unit == 0:
                 health("btn_health.png")                      
             pg.press(['right'])
@@ -271,7 +262,7 @@ while "Бесконечный цикл":  # Цикл анализа
         if hod ==7 and game == 1:
             if unit == 0:
                 pg.press(['right'])
-                karta("777.png")
+                karta("btn_m7.png")
                 if unit == 1:
                     mana = 0
                 if unit == 0:
@@ -281,7 +272,7 @@ while "Бесконечный цикл":  # Цикл анализа
                         mana = 1
                 if unit == 0:
                     pg.press(['right'])
-                    karta("555.png")
+                    karta("btn_m5.png")
                     if unit == 1:
                         mana = 2
             if mana >= 2:
@@ -298,7 +289,7 @@ while "Бесконечный цикл":  # Цикл анализа
                     mana = 0
                 if unit == 0:
                     pg.press(['right'])
-                    karta("777.png")
+                    karta("btn_m7.png")
                     if unit == 1:
                         mana = 1
                 if unit == 0:
@@ -308,7 +299,7 @@ while "Бесконечный цикл":  # Цикл анализа
                         mana = 2
                 if unit == 0:
                     pg.press(['right'])
-                    karta("555.png")
+                    karta("btn_m5.png")
                     if unit == 1:
                         mana = 3
             if mana >= 2:
@@ -330,7 +321,7 @@ while "Бесконечный цикл":  # Цикл анализа
                         mana = 1
                 if unit == 0:
                     pg.press(['right'])
-                    karta("777.png")
+                    karta("btn_m7.png")
                     if unit == 1:
                         mana = 2
                 if unit == 0:
@@ -340,7 +331,7 @@ while "Бесконечный цикл":  # Цикл анализа
                         mana = 3
                 if unit == 0:
                     pg.press(['right'])
-                    karta("555.png")
+                    karta("btn_m5.png")
                     if unit == 1:
                         mana = 4
             if mana >= 2:
@@ -352,7 +343,7 @@ while "Бесконечный цикл":  # Цикл анализа
         if hod >= 10 and game == 1:
             if unit == 0:
                 pg.press(['right'])
-                karta("101010.png")
+                karta("btn_m10.png")
                 if unit == 1:
                     mana = 0
                 if unit == 0:
@@ -367,7 +358,7 @@ while "Бесконечный цикл":  # Цикл анализа
                         mana = 2
                 if unit == 0:
                     pg.press(['right'])
-                    karta("777.png")
+                    karta("btn_m7.png")
                     if unit == 1:
                         mana = 3
                 if unit == 0:
@@ -377,7 +368,7 @@ while "Бесконечный цикл":  # Цикл анализа
                         mana = 4
                 if unit == 0:
                     pg.press(['right'])
-                    karta("555.png")
+                    karta("btn_m5.png")
                     if unit == 1:
                         mana = 5                
             if mana >= 2:
