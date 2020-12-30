@@ -3,14 +3,17 @@ import subprocess #Запуск приложений windows
 import time #работа со временем
 
 
-def startlnk(): #функция запуска приложения
-    subprocess.Popen('C:\Program Files (x86)\Battle.net\Battle.net Launcher.exe') #запуск приложения
-    time.sleep(2) #время ожидания запуска battle.net
+def startlnk():  # функция запуска приложения
+    subprocess.Popen('C:\Program Files (x86)\Battle.net\Battle.net Launcher.exe')  # запуск приложения
+    time.sleep(2)  # время ожидания запуска battle.net
+
 
 def pointclick():  # функция произвольного нажатия в цикле
     pg.doubleClick(1599, 524)
 
+
 def ss(template):  # функция определения и двойного нажатия на координаты кнопки
+    global zero
     try:
         buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 1600, 900), confidence=0.7) 
         pg.moveTo(buttonx, buttony)
@@ -18,13 +21,15 @@ def ss(template):  # функция определения и двойного �
         print(buttonx, buttony)
         time.sleep(2)
     except TypeError:
-        print("двойной клик не будет")
-       
+        return zero
+
+
 def start_game(template):
     global hod
     global Gcikl
     global Ggame
     global cikl
+    global zero
     try:
         buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 1600, 900), confidence=0.7) 
         pg.moveTo(buttonx, buttony)
@@ -40,10 +45,12 @@ def start_game(template):
         print("Старт игры")                  
         time.sleep(15) 
     except TypeError:
-        print("Игра не началась")
+        return zero
+
 
 def vash_hod(template):
     global game #индикатор своего хода
+    global zero
     try:
         buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 1600, 900), confidence=0.7) 
         if game == 0:
@@ -54,20 +61,22 @@ def vash_hod(template):
             return game
         time.sleep(2)
     except TypeError:
-        print("Не мой ход")
+        return zero
+
 
 def chughoj_hod(template):
     global game
     global unit
     global hod 
     global mana
+    global zero
     try:
         buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 1600, 900), confidence=0.7) 
         pg.moveTo(buttonx, buttony)
         print(buttonx, buttony)
         time.sleep(2)
-        if game == 1 :
-            hod +=1
+        if game == 1:
+            hod += 1
             game = 0
             unit = 0                    
         print("Ход противника")                  
@@ -76,48 +85,46 @@ def chughoj_hod(template):
             mana = hod
         elif hod >= 11:
             mana = 10
-        return game
-        return unit
-        return hod
-        return mana
+        return game, unit, hod, mana
     except TypeError:
-        print("Не чужой ход")
+        return zero
+
 
 def karta(template):  # функция покупки юнита
+    global zero
     global unit
     global hod
     global game
     global moneta
+    global mana
     try:
-        buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 500, 1600, 400), confidence=0.7) 
+        buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 700, 1600, 200), confidence=0.7)
         pg.moveTo(buttonx, buttony)
-        print(buttonx, buttony)
+        print('Нашел карту', buttonx, buttony)
         print("unit", unit)
         print("hod", hod)
-        print("game", game)
         pg.press(['right'])
         if hod == 4 and unit == 0:
-            moneta=1
+            moneta = 1
             print("Выложил монету на стол")
-            pg.moveTo(buttonx, buttony, duration=0) #перемещение к кнопке 
-            pg.mouseDown(button='left') #нажать левую клавишу мыши
-            pg.moveTo(969, 614, duration=1) #перемещение
-            pg.mouseUp(button='left') #отпустить левую клавиши мыши
-        if unit == 0 and hod > 3 and game == 1 and mana >=5 :
+            pg.moveTo(buttonx, buttony, duration=0)  # перемещение к кнопке
+            pg.mouseDown(button='left')  # нажать левую клавишу мыши
+            pg.moveTo(969, 614, duration=1)  # перемещение
+            pg.mouseUp(button='left')  # отпустить левую клавиши мыши
+        if unit == 0 and hod > 3 and game == 1 and mana >= 5:
             print("Выложил одну карту на стол")
-            pg.moveTo(buttonx, buttony, duration=0) #перемещение к кнопке 
-            pg.mouseDown(button='left') #нажать левую клавишу мыши
-            pg.moveTo(969, 614, duration=1) #перемещение
-            pg.mouseUp(button='left') #отпустить левую клавиши мыши
-            unit +=1                    
-        return unit
-        return hod
-        return game
-        return moneta
+            pg.moveTo(buttonx, buttony, duration=0)  # перемещение к кнопке
+            pg.mouseDown(button='left')  # нажать левую клавишу мыши
+            pg.moveTo(969, 614, duration=1)  # перемещение
+            pg.mouseUp(button='left')  # отпустить левую клавиши мыши
+            unit += 1
+        return unit, hod, game, moneta, mana
     except TypeError:
-        print("Нет карты в руке")
+        return zero
+
 
 def health(template):  # функция лечения
+    global zero
     try:
         buttonx, buttony = pg.locateCenterOnScreen(template, region=(800, 600, 400, 300), confidence=0.7) 
         pg.moveTo(buttonx, buttony)
@@ -129,9 +136,11 @@ def health(template):  # функция лечения
         pg.moveTo(800, buttony, duration=1) #перемещение
         pg.mouseUp(button='left') #отпустить левую клавиши мыши
     except TypeError:
-        print("Не востановил здоровье")
-        
+        return zero
+
+
 def projgrysh(template):
+    global zero
     global progr
     try:
         buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 1600, 900), confidence=0.7) 
@@ -144,10 +153,12 @@ def projgrysh(template):
         time.sleep(2) #время ожидания запуска HS
         return progr
     except TypeError:
-        print("Не пройгрыш")
+        return zero
+
 
 def vyjgrysh(template):
-    global vygr 
+    global zero
+    global vygr
     try:
         buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 1600, 900), confidence=0.7) 
         pg.moveTo(buttonx, buttony)
@@ -159,9 +170,11 @@ def vyjgrysh(template):
         time.sleep(2) #время ожидания запуска HS
         return vygr
     except TypeError:
-        print("Не выйгрыш")
+        return zero
+
 
 def endGame(template):
+    global zero
     global Ggame
     try:
         buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 1600, 900), confidence=0.7) 
@@ -173,21 +186,22 @@ def endGame(template):
         time.sleep(2) #время ожидания запуска HS
         return Ggame
     except TypeError:
-        print("не конец игры")
+        return zero
         
 
-startlnk()#запуск приложения Battle.net
-game=0 #индикатор игры (вашего хода)
-cikl=1 #подсчет общего числа циклов программы
-hod=0 #учет номера хода !start_game()-->1 !chughoj_hod()-->+1
-progr=0 #подсчет проигранных игр
-unit=0 #количество выложенных юнитов за ход (для того что бы знать сколько выложено)
-Ggame=0 #индикатор начала рейтинговой игры !start_game()-->1, endGame()-->0
-Ngame=0 #подсчет количества игр !(основное тело цикла)
-vygr=0 #подсчет выйгрышей
-Gcikl=0 #счетчик циклов внутри игры
-moneta=0 #индикатор монеты в руке
-mana=0  #счетчик маны во время хода
+startlnk()  # запуск приложения Battle.net
+game = 0  # индикатор игры (вашего хода)
+cikl = 1  # подсчет общего числа циклов программы
+hod = 0  # учет номера хода !start_game()-->1 !chughoj_hod()-->+1
+progr = 0  # подсчет проигранных игр
+unit = 0  # количество выложенных юнитов за ход (для того что бы знать сколько выложено)
+Ggame = 0  # индикатор начала рейтинговой игры !start_game()-->1, endGame()-->0
+Ngame = 0  # подсчет количества игр !(основное тело цикла)
+vygr = 0  # подсчет выйгрышей
+Gcikl = 0  # счетчик циклов внутри игры
+moneta = 0  # индикатор монеты в руке
+mana = 0  # счетчик маны во время хода
+zero = 0  #
 
 while "Бесконечный цикл":  # Цикл анализа
     cikl +=1
@@ -219,158 +233,152 @@ while "Бесконечный цикл":  # Цикл анализа
             pg.press(['right'])
             vash_hod("btn_end.png")
             ss("btn_end.png")
-
-        if hod > 1 and hod < 4 and game == 1 :
+        elif hod > 1 and hod < 4 and game == 1 :
             pg.press(['right'])
             health("btn_health.png")
             vash_hod("btn_end.png")
             ss("btn_end.png")
-
-        if hod == 4 and game == 1 :
+        elif hod == 4 and game == 1:
             pg.press(['right'])
-            karta("000.png")
+            karta("btn_m0.png")
             if moneta == 1 :
                 mana +=1
                 karta("btn_m5.png")
                 pg.press(['right'])
             else:
                 health("btn_health.png")
-            moneta=0
+            moneta = 0
             vash_hod("btn_end.png")
             ss("btn_end.png")
-            
-        if hod ==5 and game == 1:
-            pg.press(['right'])
+        elif hod == 5 and game == 1:
             karta("btn_m5.png")
             if unit == 0:
                 health("btn_health.png")                      
             pg.press(['right'])
             vash_hod("btn_end.png")
             ss("btn_end.png")
-            
-        if hod ==6 and game == 1:
-            pg.press(['right'])
-            karta("666.png")
-            pg.press(['right'])
-            karta("btn_m5.png")
+        elif hod == 6 and game == 1:
+            if unit == 0:
+                karta("btn_m6.png")
+                if unit == 1:
+                    mana = 0
+            if unit == 0:
+                karta("btn_m5.png")
+                if unit == 1:
+                    mana = 1
             if unit == 0:
                 health("btn_health.png")                      
             pg.press(['right'])
             vash_hod("btn_end.png")
             ss("btn_end.png")
-            
-        if hod ==7 and game == 1:
+        elif hod == 7 and game == 1:
+            if unit == 0:
+                karta("btn_m7.png")
+                if unit == 1:
+                    mana = 0
+            if unit == 0:
+                pg.press(['right'])
+                karta("btn_m6.png")
+                if unit == 1:
+                     mana = 1
+            if unit == 0:
+                pg.press(['right'])
+                karta("btn_m5.png")
+                if unit == 1:
+                    mana = 2
+            if mana >= 2:
+                health("btn_health.png")                      
+            pg.press(['right'])
+            vash_hod("btn_end.png")
+            ss("btn_end.png")
+        elif hod == 8 and game == 1:
+            if unit == 0:
+                pg.press(['right'])
+                karta("btn_m8.png")
+                if unit == 1:
+                    mana = 0
             if unit == 0:
                 pg.press(['right'])
                 karta("btn_m7.png")
                 if unit == 1:
-                    mana = 0
-                if unit == 0:
-                    pg.press(['right'])
-                    karta("666.png")
-                    if unit == 1:
-                        mana = 1
-                if unit == 0:
-                    pg.press(['right'])
-                    karta("btn_m5.png")
-                    if unit == 1:
-                        mana = 2
-            if mana >= 2:
-                health("btn_health.png")                      
-            pg.press(['right'])
-            vash_hod("btn_end.png")
-            ss("btn_end.png")
-            
-        if hod ==8 and game == 1:
+                    mana = 1
             if unit == 0:
                 pg.press(['right'])
-                karta("888.png")
+                karta("btn_m6.png")
                 if unit == 1:
-                    mana = 0
-                if unit == 0:
-                    pg.press(['right'])
-                    karta("btn_m7.png")
-                    if unit == 1:
-                        mana = 1
-                if unit == 0:
-                    pg.press(['right'])
-                    karta("666.png")
-                    if unit == 1:
-                        mana = 2
-                if unit == 0:
-                    pg.press(['right'])
-                    karta("btn_m5.png")
-                    if unit == 1:
-                        mana = 3
-            if mana >= 2:
-                health("btn_health.png")                      
-            pg.press(['right'])
-            vash_hod("btn_end.png")
-            ss("btn_end.png")
-            
-        if hod ==9 and game == 1:
+                    mana = 2
             if unit == 0:
                 pg.press(['right'])
-                karta("999.png")
+                karta("btn_m5.png")
                 if unit == 1:
-                    mana = 0
-                if unit == 0:
-                    pg.press(['right'])
-                    karta("888.png")
-                    if unit == 1:
-                        mana = 1
-                if unit == 0:
-                    pg.press(['right'])
-                    karta("btn_m7.png")
-                    if unit == 1:
-                        mana = 2
-                if unit == 0:
-                    pg.press(['right'])
-                    karta("666.png")
-                    if unit == 1:
-                        mana = 3
-                if unit == 0:
-                    pg.press(['right'])
-                    karta("btn_m5.png")
-                    if unit == 1:
-                        mana = 4
+                    mana = 3
             if mana >= 2:
                 health("btn_health.png")                      
             pg.press(['right'])
             vash_hod("btn_end.png")
             ss("btn_end.png")
-            
-        if hod >= 10 and game == 1:
+        elif hod == 9 and game == 1:
+            if unit == 0:
+                pg.press(['right'])
+                karta("btn_m9.png")
+                if unit == 1:
+                    mana = 0
+            if unit == 0:
+                pg.press(['right'])
+                karta("btn_m8.png")
+                if unit == 1:
+                    mana = 1
+            if unit == 0:
+                pg.press(['right'])
+                karta("btn_m7.png")
+                if unit == 1:
+                    mana = 2
+            if unit == 0:
+                pg.press(['right'])
+                karta("btn_m6.png")
+                if unit == 1:
+                    mana = 3
+            if unit == 0:
+                pg.press(['right'])
+                karta("btn_m5.png")
+                if unit == 1:
+                    mana = 4
+            if mana >= 2:
+                health("btn_health.png")                      
+            pg.press(['right'])
+            vash_hod("btn_end.png")
+            ss("btn_end.png")
+        elif hod >= 10 and game == 1:
             if unit == 0:
                 pg.press(['right'])
                 karta("btn_m10.png")
                 if unit == 1:
                     mana = 0
-                if unit == 0:
-                    pg.press(['right'])
-                    karta("999.png")
-                    if unit == 1:
-                        mana = 1
-                if unit == 0:
-                    pg.press(['right'])
-                    karta("888.png")
-                    if unit == 1:
-                        mana = 2
-                if unit == 0:
-                    pg.press(['right'])
-                    karta("btn_m7.png")
-                    if unit == 1:
-                        mana = 3
-                if unit == 0:
-                    pg.press(['right'])
-                    karta("666.png")
-                    if unit == 1:
-                        mana = 4
-                if unit == 0:
-                    pg.press(['right'])
-                    karta("btn_m5.png")
-                    if unit == 1:
-                        mana = 5                
+            if unit == 0:
+                pg.press(['right'])
+                karta("btn_m9.png")
+                if unit == 1:
+                    mana = 1
+            if unit == 0:
+                pg.press(['right'])
+                karta("btn_m8.png")
+                if unit == 1:
+                    mana = 2
+            if unit == 0:
+                pg.press(['right'])
+                karta("btn_m7.png")
+                if unit == 1:
+                    mana = 3
+            if unit == 0:
+                pg.press(['right'])
+                karta("666.png")
+                if unit == 1:
+                    mana = 4
+            if unit == 0:
+                pg.press(['right'])
+                karta("btn_m5.png")
+                if unit == 1:
+                    mana = 5
             if mana >= 2:
                 health("btn_health.png")                      
             pg.press(['right'])
