@@ -1,7 +1,11 @@
+# python3
+import subprocess  # Запуск приложений windows
+import time  # работа со временем
 import pyautogui as pg
-import subprocess #Запуск приложений windows
-import time #работа со временем
-
+import keyboard # работа с нажатиями клавиш
+import sys #  системными библиотеками
+import datetime
+import sqlite3 # Импортируем библиотеку, соответствующую типу нашей базы данных
 
 def startlnk():  # функция запуска приложения
     subprocess.Popen('C:\Program Files (x86)\Battle.net\Battle.net Launcher.exe')  # запуск приложения
@@ -13,7 +17,7 @@ def pointclick():  # функция произвольного нажатия в
 
 
 def ss(template):  # функция определения и двойного нажатия на координаты кнопки
-    global zero
+#    global zero
     try:
         buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 1600, 900), confidence=0.7) 
         pg.moveTo(buttonx, buttony)
@@ -38,12 +42,9 @@ def start_game(template):
         hod = 1
         Ggame = 1
         cikl = 0
-        return hod
-        return Gcikl
-        return Ggame
-        return cikl
-        print("Старт игры")                  
-        time.sleep(15) 
+        print("Старт игры")
+        time.sleep(15)
+        return hod, Gcikl, Ggame, cikl
     except TypeError:
         return zero
 
@@ -57,9 +58,8 @@ def vash_hod(template):
             game = 1
             print("Старт хода")  
             pg.moveTo(buttonx, buttony, duration=0)                     
-            time.sleep(15) 
+            time.sleep(5)
             return game
-        time.sleep(2)
     except TypeError:
         return zero
 
@@ -67,7 +67,7 @@ def vash_hod(template):
 def chughoj_hod(template):
     global game
     global unit
-    global hod 
+    global hod
     global mana
     global zero
     try:
@@ -78,9 +78,9 @@ def chughoj_hod(template):
         if game == 1:
             hod += 1
             game = 0
-            unit = 0                    
+            unit = 0
         print("Ход противника")                  
-        time.sleep(15) 
+        time.sleep(5)
         if hod < 11:
             mana = hod
         elif hod >= 11:
@@ -187,24 +187,107 @@ def endGame(template):
         return Ggame
     except TypeError:
         return zero
-        
 
-startlnk()  # запуск приложения Battle.net
-game = 0  # индикатор игры (вашего хода)
+
+def timer_game():
+    global now
+    global loctime
+    global start_time
+    now = datetime.datetime.now()
+    loctime = format(now - start_time)  # время в игре
+    print(now)
+    return now, loctime
+
+
+def print_oll_table(): #функция вывода всей таблицы
+    c.execute("SELECT * FROM total;")
+    all_results = c.fetchall()
+    for id in all_results:
+        print(id[0], id[1], id[2], id[3], id[4], id[5], id[6], id[7], id[8], id[9], id[10], id[11], id[12])
+        conn.commit()  # применяем изменения
+
+
+def load_table():
+    c.execute("SELECT * FROM total  WHERE   name_id = (SELECT MAX(name_id)  FROM total);")
+    result_old = c.fetchone()
+    print(result_old) # выводит последнюю строку таблицы
+    # for id in result_old: # выводит по одному все значения последней строки
+    #     print(id)
+    b = result_old[1]
+    print(result_old[0])
+    print(b)
+    conn.commit()
+
+
+def fill_table(): # заполняем строку таблицы
+    global now
+    global loctime
+    global tipe
+    global deck
+    global Ngame
+    global vygr
+    global progr
+    localpercent = ( vygr / ( vygr + progr )  ) * 100
+    c.execute("SELECT * FROM total  WHERE   name_id = (SELECT MAX(name_id)  FROM total);")
+    result_old = c.fetchone()
+    globaltime = result_old[3] + loctime
+    globalvictory = result_old[10]
+    globallosing = result_old[11]
+    globalpercent = ( globalvictory / ( globalvictory + globallosing)) * 100
+    c.execute("""INSERT INTO total(date, localtime, globaltime, tipe, deck, localgame, localvictory, locallosing,
+                localpercent, globalvictory, globallosing, globalpercent) 
+                VALUES(?, ?, ?, ?, ?, ? , ?, ?, ?, ?, ?, ?);""",
+              (now, loctime, globaltime, tipe, deck, Ngame, vygr, progr,
+                localpercent, globalvictory, globallosing, globalpercent))
+    conn.commit()
+
+# variables
+Ngame = 0  # подсчет количества игр !(основное тело цикла)
+vygr = 0  # подсчет выйгрышей в данной сессии
+progr = 0  # подсчет проигранных игр в данной сессии
+Ggame = 0  # индикатор начала рейтинговой игры !start_game()-->1, endGame()-->0
+Gcikl = 0  # счетчик циклов внутри игры
 cikl = 1  # подсчет общего числа циклов программы
 hod = 0  # учет номера хода !start_game()-->1 !chughoj_hod()-->+1
-progr = 0  # подсчет проигранных игр
 unit = 0  # количество выложенных юнитов за ход (для того что бы знать сколько выложено)
-Ggame = 0  # индикатор начала рейтинговой игры !start_game()-->1, endGame()-->0
-Ngame = 0  # подсчет количества игр !(основное тело цикла)
-vygr = 0  # подсчет выйгрышей
-Gcikl = 0  # счетчик циклов внутри игры
+game = 0  # индикатор игры (вашего хода)
 moneta = 0  # индикатор монеты в руке
 mana = 0  # счетчик маны во время хода
-zero = 0  #
+zero = 0  # ноль
+start_time = time.time() # учет начального времени работы программы
+now = 0  # текущие дата и время
+loctime = 0  # время в игре сейчас
+globaltime = 0 # общее время в игре в БД
+tipe = 'стандарт'
+deck = 'жрец'
+
+# Работа с БД
+conn = sqlite3.connect('mydatabase.db')  # создаем переменную conn и  соединение с нашей базой данных
+c = conn.cursor()  # Создаем курсор - это специальный объект который делает запросы и получает их результаты
+
+# создаем в БД mydatabase.db таблицу total и создаем стобцы
+c.execute("""CREATE TABLE IF NOT EXISTS total(
+   name_id INTEGER PRIMARY KEY,
+   date DATE NOT NULL,
+   localtime INT NOT NULL,
+   globaltime DATE NOT NULL,
+   tipe TEXT NOT NULL,
+   deck TEXT NOT NULL,
+   localgame INT NOT NULL,
+   localvictory INT NOT NULL,
+   locallosing INT NOT NULL,
+   localpercent REAL NOT NULL,
+   globalvictory INT NOT NULL,
+   globallosing INT NOT NULL,
+   globalpercent REAL NOT NULL);
+""")
+conn.commit()  # применяем изменения
+# conn.close()  # Не забываем закрыть соединение с базой данных
+
+startlnk()  # запуск приложения Battle.net
 
 while "Бесконечный цикл":  # Цикл анализа
-    cikl +=1
+    cikl += 1
     print("Цикл =", cikl)
     print("Колличество игр ", Ngame)
     print("Пройгрыш", progr)
@@ -215,10 +298,14 @@ while "Бесконечный цикл":  # Цикл анализа
     ss("btn_grec.png")
     ss("btn_game_st.png")
     start_game("btn_start.png")
-    if Ggame == 1 :
+    if Ggame == 1:
         Ngame += 1
-    while Ggame == 1 :
-        Gcikl +=1
+    while Ggame == 1:
+        if keyboard.is_pressed('Enter'): # если клавиша Esc
+            timer_game() #подсчет времени
+            fill_table() #заполняем БД
+            sys.exit()  # завершаем программу
+        Gcikl += 1
         print("цикл ИГРЫ", Gcikl)
         ss("00_btn_game.png")
         ss("btn_game.png")
@@ -226,14 +313,14 @@ while "Бесконечный цикл":  # Цикл анализа
         ss("btn_game_st.png")
         ss("btn_start.png")
         ss("btn_ok.png")
-        chughoj_hod("chughoj_hod.png") 
+        chughoj_hod("chughoj_hod.png")
         vash_hod("btn_end.png")
-        print ("hod=", hod)
-        if hod == 1 and game == 1 :
+        print("hod=", hod)
+        if hod == 1 and game == 1:
             pg.press(['right'])
             vash_hod("btn_end.png")
             ss("btn_end.png")
-        elif hod > 1 and hod < 4 and game == 1 :
+        elif hod > 1 and hod < 4 and game == 1:
             pg.press(['right'])
             health("btn_health.png")
             vash_hod("btn_end.png")
@@ -241,8 +328,8 @@ while "Бесконечный цикл":  # Цикл анализа
         elif hod == 4 and game == 1:
             pg.press(['right'])
             karta("btn_m0.png")
-            if moneta == 1 :
-                mana +=1
+            if moneta == 1:
+                mana += 1
                 karta("btn_m5.png")
                 pg.press(['right'])
             else:
@@ -253,7 +340,7 @@ while "Бесконечный цикл":  # Цикл анализа
         elif hod == 5 and game == 1:
             karta("btn_m5.png")
             if unit == 0:
-                health("btn_health.png")                      
+                health("btn_health.png")
             pg.press(['right'])
             vash_hod("btn_end.png")
             ss("btn_end.png")
@@ -267,7 +354,7 @@ while "Бесконечный цикл":  # Цикл анализа
                 if unit == 1:
                     mana = 1
             if unit == 0:
-                health("btn_health.png")                      
+                health("btn_health.png")
             pg.press(['right'])
             vash_hod("btn_end.png")
             ss("btn_end.png")
@@ -280,14 +367,14 @@ while "Бесконечный цикл":  # Цикл анализа
                 pg.press(['right'])
                 karta("btn_m6.png")
                 if unit == 1:
-                     mana = 1
+                    mana = 1
             if unit == 0:
                 pg.press(['right'])
                 karta("btn_m5.png")
                 if unit == 1:
                     mana = 2
             if mana >= 2:
-                health("btn_health.png")                      
+                health("btn_health.png")
             pg.press(['right'])
             vash_hod("btn_end.png")
             ss("btn_end.png")
@@ -313,7 +400,7 @@ while "Бесконечный цикл":  # Цикл анализа
                 if unit == 1:
                     mana = 3
             if mana >= 2:
-                health("btn_health.png")                      
+                health("btn_health.png")
             pg.press(['right'])
             vash_hod("btn_end.png")
             ss("btn_end.png")
@@ -344,7 +431,7 @@ while "Бесконечный цикл":  # Цикл анализа
                 if unit == 1:
                     mana = 4
             if mana >= 2:
-                health("btn_health.png")                      
+                health("btn_health.png")
             pg.press(['right'])
             vash_hod("btn_end.png")
             ss("btn_end.png")
@@ -380,11 +467,11 @@ while "Бесконечный цикл":  # Цикл анализа
                 if unit == 1:
                     mana = 5
             if mana >= 2:
-                health("btn_health.png")                      
+                health("btn_health.png")
             pg.press(['right'])
             vash_hod("btn_end.png")
             ss("btn_end.png")
-            
+
         projgrysh("end_game.png")
         vyjgrysh("victory.png")
         endGame("end_game2.png")
@@ -394,8 +481,8 @@ while "Бесконечный цикл":  # Цикл анализа
             Gcikl = 0
             Ggame = 0
             pointclick()
-    print("полный цикл") 
-#На случай потери соединения
+    print("полный цикл")
+    # На случай потери соединения
     ss("bt.png")
     ss("bt2.png")
     pointclick()
