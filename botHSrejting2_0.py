@@ -80,7 +80,7 @@ def chughoj_hod(template):
             game = 0
             unit = 0
         print("Ход противника")                  
-        time.sleep(5)
+        time.sleep(15)
         if hod < 11:
             mana = hod
         elif hod >= 11:
@@ -190,11 +190,9 @@ def endGame(template):
 
 
 def timer_game():
-    global now
-    global loctime
     global start_time
     now = datetime.datetime.now()
-    loctime = format(now - start_time)  # время в игре
+    loctime = format(time.time() - start_time)  # время в игре
     print(now)
     return now, loctime
 
@@ -218,33 +216,41 @@ def load_table():
     print(b)
     conn.commit()
 
+def fill_table_start(): # заполняем строку таблицы
+    c.execute("""INSERT INTO total(date, localtime, globaltime, tipe, deck, localgame, localvictory, locallosing,
+                localpercent, globalvictory, globallosing, globalpercent)
+                VALUES('2021-01-02 00:52:09.891453', '0.0', '0.0', 'стандарт', 'жрец', '0' , '0', '0', '0', '0', '0', '1');""")
+    conn.commit()
 
 def fill_table(): # заполняем строку таблицы
     global now
-    global loctime
+    global start_time
     global tipe
     global deck
     global Ngame
     global vygr
     global progr
-    localpercent = ( vygr / ( vygr + progr )  ) * 100
+    loctime = int(time.time() - start_time)  # время в игре  сейчас
+    localpercent = (vygr / (vygr + progr)) * 100
     c.execute("SELECT * FROM total  WHERE   name_id = (SELECT MAX(name_id)  FROM total);")
     result_old = c.fetchone()
+    print(result_old)
     globaltime = result_old[3] + loctime
-    globalvictory = result_old[10]
-    globallosing = result_old[11]
-    globalpercent = ( globalvictory / ( globalvictory + globallosing)) * 100
+    globalvictory = result_old[10] + vygr
+    globallosing = result_old[11] + progr
+    globalpercent = (globalvictory / (globalvictory + globallosing)) * 100
     c.execute("""INSERT INTO total(date, localtime, globaltime, tipe, deck, localgame, localvictory, locallosing,
-                localpercent, globalvictory, globallosing, globalpercent) 
-                VALUES(?, ?, ?, ?, ?, ? , ?, ?, ?, ?, ?, ?);""",
+                    localpercent, globalvictory, globallosing, globalpercent) 
+                    VALUES(?, ?, ?, ?, ?, ? , ?, ?, ?, ?, ?, ?);""",
               (now, loctime, globaltime, tipe, deck, Ngame, vygr, progr,
-                localpercent, globalvictory, globallosing, globalpercent))
+               localpercent, globalvictory, globallosing, globalpercent))
     conn.commit()
+
 
 # variables
 Ngame = 0  # подсчет количества игр !(основное тело цикла)
 vygr = 0  # подсчет выйгрышей в данной сессии
-progr = 0  # подсчет проигранных игр в данной сессии
+progr = 1  # подсчет проигранных игр в данной сессии
 Ggame = 0  # индикатор начала рейтинговой игры !start_game()-->1, endGame()-->0
 Gcikl = 0  # счетчик циклов внутри игры
 cikl = 1  # подсчет общего числа циклов программы
@@ -255,8 +261,7 @@ moneta = 0  # индикатор монеты в руке
 mana = 0  # счетчик маны во время хода
 zero = 0  # ноль
 start_time = time.time() # учет начального времени работы программы
-now = 0  # текущие дата и время
-loctime = 0  # время в игре сейчас
+now = datetime.datetime.now() # текущие дата и время
 globaltime = 0 # общее время в игре в БД
 tipe = 'стандарт'
 deck = 'жрец'
@@ -284,9 +289,17 @@ c.execute("""CREATE TABLE IF NOT EXISTS total(
 conn.commit()  # применяем изменения
 # conn.close()  # Не забываем закрыть соединение с базой данных
 
+
 startlnk()  # запуск приложения Battle.net
 
+fill_table_start()
+
 while "Бесконечный цикл":  # Цикл анализа
+    if keyboard.is_pressed('Enter'):  # если клавиша Esc
+        timer_game()  # подсчет времени
+        fill_table()  # заполняем БД
+        print_oll_table()
+        sys.exit()  # завершаем программу
     cikl += 1
     print("Цикл =", cikl)
     print("Колличество игр ", Ngame)
@@ -304,6 +317,7 @@ while "Бесконечный цикл":  # Цикл анализа
         if keyboard.is_pressed('Enter'): # если клавиша Esc
             timer_game() #подсчет времени
             fill_table() #заполняем БД
+            print_oll_table()
             sys.exit()  # завершаем программу
         Gcikl += 1
         print("цикл ИГРЫ", Gcikl)
