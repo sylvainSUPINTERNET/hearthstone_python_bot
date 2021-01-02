@@ -512,9 +512,10 @@ def hant_standart():
                     mana += 1
                     karta("btn_m5.png")
                     pg.press(['right'])
+                    mana = mana - 5
                 if mana >= 2:
                     ss("btn_strela.png")
-                    mana = mana - 2
+                    mana = 0
                 moneta = 0
                 vash_hod("btn_end.png")
                 ss("btn_end.png")
@@ -526,6 +527,7 @@ def hant_standart():
                         mana = 1
                 if mana >= 2:
                     ss("btn_strela.png")
+                    mana = 0
                 pg.press(['right'])
                 vash_hod("btn_end.png")
                 ss("btn_end.png")
@@ -542,6 +544,7 @@ def hant_standart():
                         mana = 1
                 if mana >= 2:
                     ss("btn_strela.png")
+                    mana = 0
                 pg.press(['right'])
                 vash_hod("btn_end.png")
                 ss("btn_end.png")
@@ -562,6 +565,7 @@ def hant_standart():
                         mana = 2
                 if mana >= 2:
                     ss("btn_strela.png")
+                    mana = 0
                 pg.press(['right'])
                 vash_hod("btn_end.png")
                 ss("btn_end.png")
@@ -631,7 +635,7 @@ def voin_standart():
                     pg.press(['right'])
                 if mana >= 2:
                     ss("btn_schit.png")
-                    mana = mana - 2
+                    mana = 0
                 moneta = 0
                 vash_hod("btn_end.png")
                 ss("btn_end.png")
@@ -643,6 +647,7 @@ def voin_standart():
                         mana = 1
                  if mana >= 2:
                     ss("btn_schit.png")
+                    mana = 0
                  pg.press(['right'])
                  vash_hod("btn_end.png")
                  ss("btn_end.png")
@@ -659,6 +664,7 @@ def voin_standart():
                         mana = 1
                 if mana >= 2:
                     ss("btn_schit.png")
+                    mana = 0
                 pg.press(['right'])
                 vash_hod("btn_end.png")
                 ss("btn_end.png")
@@ -679,6 +685,7 @@ def voin_standart():
                         mana = 2
                 if mana >= 2:
                     ss("btn_schit.png")
+                    mana = 0
                 pg.press(['right'])
                 vash_hod("btn_end.png")
                 ss("btn_end.png")
