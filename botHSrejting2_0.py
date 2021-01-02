@@ -1,11 +1,13 @@
 # python3
 import subprocess  # Запуск приложений windows
 import time  # работа со временем
-import pyautogui as pg
+import pyautogui as pg # работа с картинками
 import keyboard # работа с нажатиями клавиш
 import sys #  системными библиотеками
-import datetime
+import datetime # работа с датой и времени
 import sqlite3 # Импортируем библиотеку, соответствующую типу нашей базы данных
+import random # рандомные числа
+
 
 def startlnk():  # функция запуска приложения
     subprocess.Popen('C:\Program Files (x86)\Battle.net\Battle.net Launcher.exe')  # запуск приложения
@@ -74,13 +76,12 @@ def chughoj_hod(template):
         buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 1600, 900), confidence=0.7) 
         pg.moveTo(buttonx, buttony)
         print(buttonx, buttony)
-        time.sleep(2)
         if game == 1:
             hod += 1
             game = 0
             unit = 0
         print("Ход противника")                  
-        time.sleep(15)
+        time.sleep(5)
         if hod < 11:
             mana = hod
         elif hod >= 11:
@@ -146,7 +147,7 @@ def projgrysh(template):
         buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 1600, 900), confidence=0.7) 
         pg.moveTo(buttonx, buttony)
         print(buttonx, buttony)
-        progr +=1
+        progr += 1
         print("Пройгрыш ", progr)  #выводит значение
         pg.moveTo(buttonx, buttony, duration=0) #перемещение
         pg.doubleClick(buttonx, buttony)
@@ -216,35 +217,481 @@ def load_table():
     print(b)
     conn.commit()
 
+
 def fill_table_start(): # заполняем строку таблицы
     c.execute("""INSERT INTO total(date, localtime, globaltime, tipe, deck, localgame, localvictory, locallosing,
                 localpercent, globalvictory, globallosing, globalpercent)
-                VALUES('2021-01-02 00:52:09.891453', '0.0', '0.0', 'стандарт', 'жрец', '0' , '0', '0', '0', '0', '0', '1');""")
+                VALUES('2021-01-02 00:52:09.891453', '0.0', '0.0', 'стандарт', 'жрец', '0' , '0', '0', '0', '0', '1', '1');""")
     conn.commit()
+
 
 def fill_table(): # заполняем строку таблицы
     global now
     global start_time
     global tipe
     global deck
-    global Ngame
     global vygr
     global progr
-    loctime = int(time.time() - start_time)  # время в игре  сейчас
-    localpercent = (vygr / (vygr + progr)) * 100
+    loctime = round(int(time.time() - start_time) / 60, 3)  # время в игре  сейчас, округляем до 3 знаков после запятой
+    localpercent = round((vygr / (vygr + progr)) * 100, 2) #округляем до 3 знаков после запятой
     c.execute("SELECT * FROM total  WHERE   name_id = (SELECT MAX(name_id)  FROM total);")
     result_old = c.fetchone()
     print(result_old)
-    globaltime = result_old[3] + loctime
+    globaltime = round(((result_old[3] + (loctime*60)) / 3600), 3)
+    Ngame = vygr + progr
     globalvictory = result_old[10] + vygr
     globallosing = result_old[11] + progr
-    globalpercent = (globalvictory / (globalvictory + globallosing)) * 100
+    globalpercent = round(((globalvictory / (globalvictory + globallosing)) * 100), 2)
     c.execute("""INSERT INTO total(date, localtime, globaltime, tipe, deck, localgame, localvictory, locallosing,
                     localpercent, globalvictory, globallosing, globalpercent) 
                     VALUES(?, ?, ?, ?, ?, ? , ?, ?, ?, ?, ?, ?);""",
               (now, loctime, globaltime, tipe, deck, Ngame, vygr, progr,
                localpercent, globalvictory, globallosing, globalpercent))
     conn.commit()
+
+
+def grec_standart():
+    global Ggame
+    global Ngame
+    global Gcikl
+    global game
+    global hod
+    global mana
+    global moneta
+    global tipe
+    global deck
+    global vygr
+    global progr
+    global cikl
+    global unit
+    global start_time
+    start_time = time.time()  # учет начального времени работы программы
+    tipe = 'стандарт'
+    deck = 'жрец'
+    ss("btn_grec.png")
+    ss("btn_game_st.png")
+    start_game("btn_start.png")
+    if Ggame == 1:
+        Ngame += 1
+        print("Игра жрецом началась", Gcikl)
+        while Ggame == 1:
+            if keyboard.is_pressed('Enter'): # если клавиша Esc
+                timer_game() #подсчет времени
+                fill_table() #заполняем БД
+                print_oll_table()
+                sys.exit()  # завершаем программу
+            Gcikl += 1
+            ss("btn_start.png")
+            ss("btn_ok.png")
+            chughoj_hod("chughoj_hod.png")
+            vash_hod("btn_end.png")
+            print("hod=", hod)
+            if hod == 1 and game == 1:
+                pg.press(['right'])
+                vash_hod("btn_end.png")
+                ss("btn_end.png")
+            elif hod > 1 and hod < 4 and game == 1:
+                pg.press(['right'])
+                health("btn_health.png")
+                vash_hod("btn_end.png")
+                ss("btn_end.png")
+            elif hod == 4 and game == 1:
+                pg.press(['right'])
+                karta("btn_m0.png")
+                if moneta == 1:
+                    mana += 1
+                    karta("btn_m5.png")
+                    pg.press(['right'])
+                    mana = mana - 5
+                if mana >= 2:
+                    health("btn_health.png")
+                    mana = mana - 2
+                moneta = 0
+                vash_hod("btn_end.png")
+                ss("btn_end.png")
+            elif hod == 5 and game == 1:
+                karta("btn_m5.png")
+                if unit == 0 and mana >= 2:
+                    health("btn_health.png")
+                    mana = 0
+                pg.press(['right'])
+                vash_hod("btn_end.png")
+                ss("btn_end.png")
+            elif hod == 6 and game == 1:
+                if unit == 0:
+                    karta("btn_m6.png")
+                    if unit == 1:
+                        mana = 0
+                if unit == 0:
+                    karta("btn_m5.png")
+                    if unit == 1:
+                        mana = 1
+                if unit == 0 and mana >= 2:
+                    health("btn_health.png")
+                    mana = 0
+                pg.press(['right'])
+                vash_hod("btn_end.png")
+                ss("btn_end.png")
+            elif hod == 7 and game == 1:
+                if unit == 0:
+                    karta("btn_m7.png")
+                    if unit == 1:
+                        mana = 0
+                if unit == 0:
+                    pg.press(['right'])
+                    karta("btn_m6.png")
+                    if unit == 1:
+                        mana = 1
+                if unit == 0:
+                    pg.press(['right'])
+                    karta("btn_m5.png")
+                    if unit == 1:
+                        mana = 2
+                if mana >= 2:
+                    health("btn_health.png")
+                    mana = 0
+                pg.press(['right'])
+                vash_hod("btn_end.png")
+                ss("btn_end.png")
+            elif hod == 8 and game == 1:
+                if unit == 0:
+                    pg.press(['right'])
+                    karta("btn_m8.png")
+                    if unit == 1:
+                        mana = 0
+                if unit == 0:
+                    pg.press(['right'])
+                    karta("btn_m7.png")
+                    if unit == 1:
+                        mana = 1
+                if unit == 0:
+                    pg.press(['right'])
+                    karta("btn_m6.png")
+                    if unit == 1:
+                        mana = 2
+                if unit == 0:
+                    pg.press(['right'])
+                    karta("btn_m5.png")
+                    if unit == 1:
+                        mana = 3
+                if mana >= 2:
+                    health("btn_health.png")
+                    mana = 0
+                pg.press(['right'])
+                vash_hod("btn_end.png")
+                ss("btn_end.png")
+            elif hod == 9 and game == 1:
+                if unit == 0:
+                    pg.press(['right'])
+                    karta("btn_m9.png")
+                    if unit == 1:
+                        mana = 0
+                if unit == 0:
+                    pg.press(['right'])
+                    karta("btn_m8.png")
+                    if unit == 1:
+                        mana = 1
+                if unit == 0:
+                    pg.press(['right'])
+                    karta("btn_m7.png")
+                    if unit == 1:
+                        mana = 2
+                if unit == 0:
+                    pg.press(['right'])
+                    karta("btn_m6.png")
+                    if unit == 1:
+                        mana = 3
+                if unit == 0:
+                    pg.press(['right'])
+                    karta("btn_m5.png")
+                    if unit == 1:
+                        mana = 4
+                if mana >= 2:
+                    health("btn_health.png")
+                    mana = 0
+                pg.press(['right'])
+                vash_hod("btn_end.png")
+                ss("btn_end.png")
+            elif hod >= 10 and game == 1:
+                if unit == 0:
+                    pg.press(['right'])
+                    karta("btn_m10.png")
+                    if unit == 1:
+                        mana = 0
+                if unit == 0:
+                    pg.press(['right'])
+                    karta("btn_m9.png")
+                    if unit == 1:
+                        mana = 1
+                if unit == 0:
+                    pg.press(['right'])
+                    karta("btn_m8.png")
+                    if unit == 1:
+                        mana = 2
+                if unit == 0:
+                    pg.press(['right'])
+                    karta("btn_m7.png")
+                    if unit == 1:
+                        mana = 3
+                if unit == 0:
+                    pg.press(['right'])
+                    karta("666.png")
+                    if unit == 1:
+                        mana = 4
+                if unit == 0:
+                    pg.press(['right'])
+                    karta("btn_m5.png")
+                    if unit == 1:
+                        mana = 5
+                if mana >= 2:
+                    health("btn_health.png")
+                    mana = 0
+                pg.press(['right'])
+                vash_hod("btn_end.png")
+                ss("btn_end.png")
+            projgrysh("end_game.png")
+            vyjgrysh("victory.png")
+            endGame("end_game2.png")
+            if Ggame == 0:
+                fill_table()  # заполняем БД
+                print_oll_table()
+                start_time = time.time()
+            ss("bt.png")
+            ss("bt2.png")
+        return  Ggame, Ngame, Gcikl, vygr, progr, start_time
+
+
+def hant_standart():
+    global Ggame
+    global Ngame
+    global Gcikl
+    global game
+    global hod
+    global mana
+    global moneta
+    global tipe
+    global deck
+    global vygr
+    global progr
+    global cikl
+    global unit
+    global start_time
+    start_time = time.time()  # учет начального времени работы программы
+    tipe = 'стандарт'
+    deck = 'охотник'
+    ss("btn_hant.png")
+    ss("btn_game_st.png")
+    start_game("btn_start.png")
+    if Ggame == 1:
+        Ngame += 1
+        print("игра охотником началась", Gcikl)
+        while Ggame == 1:
+            if keyboard.is_pressed('Enter'): # если клавиша Esc
+                timer_game() #подсчет времени
+                fill_table() #заполняем БД
+                print_oll_table()
+                sys.exit()  # завершаем программу
+            Gcikl += 1
+            ss("btn_ok.png")
+            chughoj_hod("chughoj_hod.png")
+            vash_hod("btn_end.png")
+            print("hod=", hod)
+            if hod == 1 and game == 1:
+                pg.press(['right'])
+                vash_hod("btn_end.png")
+                ss("btn_end.png")
+            elif hod > 1 and hod < 4 and game == 1:
+                pg.press(['right'])
+                ss("btn_strela.png")
+                vash_hod("btn_end.png")
+                ss("btn_end.png")
+            elif hod == 4 and game == 1:
+                pg.press(['right'])
+                karta("btn_m0.png")
+                if moneta == 1:
+                    mana += 1
+                    karta("btn_m5.png")
+                    pg.press(['right'])
+                if mana >= 2:
+                    ss("btn_strela.png")
+                    mana = mana - 2
+                moneta = 0
+                vash_hod("btn_end.png")
+                ss("btn_end.png")
+            elif hod == 5 and game == 1:
+                if unit == 0:
+                    pg.press(['right'])
+                    karta("btn_m5.png")
+                    if unit == 1:
+                        mana = 1
+                if mana >= 2:
+                    ss("btn_strela.png")
+                pg.press(['right'])
+                vash_hod("btn_end.png")
+                ss("btn_end.png")
+            elif hod == 6 and game == 1:
+                if unit == 0:
+                    pg.press(['right'])
+                    karta("btn_m6.png")
+                    if unit == 1:
+                        mana = 0
+                if unit == 0:
+                    pg.press(['right'])
+                    karta("btn_m5.png")
+                    if unit == 1:
+                        mana = 1
+                if mana >= 2:
+                    ss("btn_strela.png")
+                pg.press(['right'])
+                vash_hod("btn_end.png")
+                ss("btn_end.png")
+            elif hod >= 7 and game == 1:
+                if unit == 0:
+                    karta("btn_m7.png")
+                    if unit == 1:
+                        mana = 0
+                if unit == 0:
+                    pg.press(['right'])
+                    karta("btn_m6.png")
+                    if unit == 1:
+                        mana = 1
+                if unit == 0:
+                    pg.press(['right'])
+                    karta("btn_m5.png")
+                    if unit == 1:
+                        mana = 2
+                if mana >= 2:
+                    ss("btn_strela.png")
+                pg.press(['right'])
+                vash_hod("btn_end.png")
+                ss("btn_end.png")
+            projgrysh("end_game.png")
+            vyjgrysh("victory.png")
+            endGame("end_game2.png")
+            if Ggame == 0:
+                fill_table()  # заполняем БД
+                print_oll_table()
+                start_time = time.time()
+            ss("bt.png")
+            ss("bt2.png")
+        return  Ggame, Ngame, Gcikl, vygr, progr, start_time
+
+
+def voin_standart():
+    global Ggame
+    global Ngame
+    global Gcikl
+    global game
+    global hod
+    global mana
+    global moneta
+    global tipe
+    global deck
+    global vygr
+    global progr
+    global cikl
+    global unit
+    global start_time
+    start_time = time.time()  # учет начального времени работы программы
+    tipe = 'стандарт'
+    deck = 'воин'
+    ss("btn_voin.png")
+    ss("btn_game_st.png")
+    start_game("btn_start.png")
+    if Ggame == 1:
+        Ngame += 1
+        print("Игра воином началась", Gcikl)
+        while Ggame == 1:
+            if keyboard.is_pressed('Enter'): # если клавиша Esc
+                timer_game() #подсчет времени
+                fill_table() #заполняем БД
+                print_oll_table()
+                sys.exit()  # завершаем программу
+            Gcikl += 1
+            ss("btn_start.png")
+            ss("btn_ok.png")
+            chughoj_hod("chughoj_hod.png")
+            vash_hod("btn_end.png")
+            print("hod=", hod)
+            if hod == 1 and game == 1:
+                pg.press(['right'])
+                vash_hod("btn_end.png")
+                ss("btn_end.png")
+            elif hod > 1 and hod < 4 and game == 1:
+                pg.press(['right'])
+                ss("btn_schit.png")
+                vash_hod("btn_end.png")
+                ss("btn_end.png")
+            elif hod == 4 and game == 1:
+                pg.press(['right'])
+                karta("btn_m0.png")
+                if moneta == 1:
+                    mana += 1
+                    karta("btn_m5.png")
+                    pg.press(['right'])
+                if mana >= 2:
+                    ss("btn_schit.png")
+                    mana = mana - 2
+                moneta = 0
+                vash_hod("btn_end.png")
+                ss("btn_end.png")
+            elif hod == 5 and game == 1:
+                 if unit == 0:
+                    pg.press(['right'])
+                    karta("btn_m5.png")
+                    if unit == 1:
+                        mana = 1
+                 if mana >= 2:
+                    ss("btn_schit.png")
+                 pg.press(['right'])
+                 vash_hod("btn_end.png")
+                 ss("btn_end.png")
+            elif hod == 6 and game == 1:
+                if unit == 0:
+                    pg.press(['right'])
+                    karta("btn_m6.png")
+                    if unit == 1:
+                        mana = 0
+                if unit == 0:
+                    pg.press(['right'])
+                    karta("btn_m5.png")
+                    if unit == 1:
+                        mana = 1
+                if mana >= 2:
+                    ss("btn_schit.png")
+                pg.press(['right'])
+                vash_hod("btn_end.png")
+                ss("btn_end.png")
+            elif hod >= 7 and game == 1:
+                if unit == 0:
+                    karta("btn_m7.png")
+                    if unit == 1:
+                        mana = 0
+                if unit == 0:
+                    pg.press(['right'])
+                    karta("btn_m6.png")
+                    if unit == 1:
+                        mana = 1
+                if unit == 0:
+                    pg.press(['right'])
+                    karta("btn_m5.png")
+                    if unit == 1:
+                        mana = 2
+                if mana >= 2:
+                    ss("btn_schit.png")
+                pg.press(['right'])
+                vash_hod("btn_end.png")
+                ss("btn_end.png")
+            projgrysh("end_game.png")
+            vyjgrysh("victory.png")
+            endGame("end_game2.png")
+            if Ggame == 0:
+                fill_table()  # заполняем БД
+                print_oll_table()
+                start_time = time.time()
+            ss("bt.png")
+            ss("bt2.png")
+        return  Ggame, Ngame, Gcikl, vygr, progr, start_time
 
 
 # variables
@@ -262,15 +709,10 @@ mana = 0  # счетчик маны во время хода
 zero = 0  # ноль
 start_time = time.time() # учет начального времени работы программы
 now = datetime.datetime.now() # текущие дата и время
-globaltime = 0 # общее время в игре в БД
-tipe = 'стандарт'
-deck = 'жрец'
 
 # Работа с БД
 conn = sqlite3.connect('mydatabase.db')  # создаем переменную conn и  соединение с нашей базой данных
 c = conn.cursor()  # Создаем курсор - это специальный объект который делает запросы и получает их результаты
-
-# создаем в БД mydatabase.db таблицу total и создаем стобцы
 c.execute("""CREATE TABLE IF NOT EXISTS total(
    name_id INTEGER PRIMARY KEY,
    date DATE NOT NULL,
@@ -287,16 +729,13 @@ c.execute("""CREATE TABLE IF NOT EXISTS total(
    globalpercent REAL NOT NULL);
 """)
 conn.commit()  # применяем изменения
-# conn.close()  # Не забываем закрыть соединение с базой данных
-
 
 startlnk()  # запуск приложения Battle.net
 
-fill_table_start()
+#fill_table_start()
 
 while "Бесконечный цикл":  # Цикл анализа
     if keyboard.is_pressed('Enter'):  # если клавиша Esc
-        timer_game()  # подсчет времени
         fill_table()  # заполняем БД
         print_oll_table()
         sys.exit()  # завершаем программу
@@ -308,194 +747,14 @@ while "Бесконечный цикл":  # Цикл анализа
     time.sleep(5)
     ss("00_btn_game.png")
     ss("btn_game.png")
-    ss("btn_grec.png")
-    ss("btn_game_st.png")
-    start_game("btn_start.png")
-    if Ggame == 1:
-        Ngame += 1
-    while Ggame == 1:
-        if keyboard.is_pressed('Enter'): # если клавиша Esc
-            timer_game() #подсчет времени
-            fill_table() #заполняем БД
-            print_oll_table()
-            sys.exit()  # завершаем программу
-        Gcikl += 1
-        print("цикл ИГРЫ", Gcikl)
-        ss("00_btn_game.png")
-        ss("btn_game.png")
-        ss("btn_grec.png")
-        ss("btn_game_st.png")
-        ss("btn_start.png")
-        ss("btn_ok.png")
-        chughoj_hod("chughoj_hod.png")
-        vash_hod("btn_end.png")
-        print("hod=", hod)
-        if hod == 1 and game == 1:
-            pg.press(['right'])
-            vash_hod("btn_end.png")
-            ss("btn_end.png")
-        elif hod > 1 and hod < 4 and game == 1:
-            pg.press(['right'])
-            health("btn_health.png")
-            vash_hod("btn_end.png")
-            ss("btn_end.png")
-        elif hod == 4 and game == 1:
-            pg.press(['right'])
-            karta("btn_m0.png")
-            if moneta == 1:
-                mana += 1
-                karta("btn_m5.png")
-                pg.press(['right'])
-            else:
-                health("btn_health.png")
-            moneta = 0
-            vash_hod("btn_end.png")
-            ss("btn_end.png")
-        elif hod == 5 and game == 1:
-            karta("btn_m5.png")
-            if unit == 0:
-                health("btn_health.png")
-            pg.press(['right'])
-            vash_hod("btn_end.png")
-            ss("btn_end.png")
-        elif hod == 6 and game == 1:
-            if unit == 0:
-                karta("btn_m6.png")
-                if unit == 1:
-                    mana = 0
-            if unit == 0:
-                karta("btn_m5.png")
-                if unit == 1:
-                    mana = 1
-            if unit == 0:
-                health("btn_health.png")
-            pg.press(['right'])
-            vash_hod("btn_end.png")
-            ss("btn_end.png")
-        elif hod == 7 and game == 1:
-            if unit == 0:
-                karta("btn_m7.png")
-                if unit == 1:
-                    mana = 0
-            if unit == 0:
-                pg.press(['right'])
-                karta("btn_m6.png")
-                if unit == 1:
-                    mana = 1
-            if unit == 0:
-                pg.press(['right'])
-                karta("btn_m5.png")
-                if unit == 1:
-                    mana = 2
-            if mana >= 2:
-                health("btn_health.png")
-            pg.press(['right'])
-            vash_hod("btn_end.png")
-            ss("btn_end.png")
-        elif hod == 8 and game == 1:
-            if unit == 0:
-                pg.press(['right'])
-                karta("btn_m8.png")
-                if unit == 1:
-                    mana = 0
-            if unit == 0:
-                pg.press(['right'])
-                karta("btn_m7.png")
-                if unit == 1:
-                    mana = 1
-            if unit == 0:
-                pg.press(['right'])
-                karta("btn_m6.png")
-                if unit == 1:
-                    mana = 2
-            if unit == 0:
-                pg.press(['right'])
-                karta("btn_m5.png")
-                if unit == 1:
-                    mana = 3
-            if mana >= 2:
-                health("btn_health.png")
-            pg.press(['right'])
-            vash_hod("btn_end.png")
-            ss("btn_end.png")
-        elif hod == 9 and game == 1:
-            if unit == 0:
-                pg.press(['right'])
-                karta("btn_m9.png")
-                if unit == 1:
-                    mana = 0
-            if unit == 0:
-                pg.press(['right'])
-                karta("btn_m8.png")
-                if unit == 1:
-                    mana = 1
-            if unit == 0:
-                pg.press(['right'])
-                karta("btn_m7.png")
-                if unit == 1:
-                    mana = 2
-            if unit == 0:
-                pg.press(['right'])
-                karta("btn_m6.png")
-                if unit == 1:
-                    mana = 3
-            if unit == 0:
-                pg.press(['right'])
-                karta("btn_m5.png")
-                if unit == 1:
-                    mana = 4
-            if mana >= 2:
-                health("btn_health.png")
-            pg.press(['right'])
-            vash_hod("btn_end.png")
-            ss("btn_end.png")
-        elif hod >= 10 and game == 1:
-            if unit == 0:
-                pg.press(['right'])
-                karta("btn_m10.png")
-                if unit == 1:
-                    mana = 0
-            if unit == 0:
-                pg.press(['right'])
-                karta("btn_m9.png")
-                if unit == 1:
-                    mana = 1
-            if unit == 0:
-                pg.press(['right'])
-                karta("btn_m8.png")
-                if unit == 1:
-                    mana = 2
-            if unit == 0:
-                pg.press(['right'])
-                karta("btn_m7.png")
-                if unit == 1:
-                    mana = 3
-            if unit == 0:
-                pg.press(['right'])
-                karta("666.png")
-                if unit == 1:
-                    mana = 4
-            if unit == 0:
-                pg.press(['right'])
-                karta("btn_m5.png")
-                if unit == 1:
-                    mana = 5
-            if mana >= 2:
-                health("btn_health.png")
-            pg.press(['right'])
-            vash_hod("btn_end.png")
-            ss("btn_end.png")
+    a = random.randint(1, 3) # рандомное число от 1 до 3
+    if a == 1:
+        grec_standart()
+    elif a == 2:
+        hant_standart()
+    elif a == 3:
+        voin_standart()
 
-        projgrysh("end_game.png")
-        vyjgrysh("victory.png")
-        endGame("end_game2.png")
-        ss("bt.png")
-        ss("bt2.png")
-        if Gcikl >= 200:
-            Gcikl = 0
-            Ggame = 0
-            pointclick()
-    print("полный цикл")
     # На случай потери соединения
     ss("bt.png")
     ss("bt2.png")
