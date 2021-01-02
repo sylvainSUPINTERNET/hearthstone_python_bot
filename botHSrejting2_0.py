@@ -25,7 +25,7 @@ def ss(template):  # функция определения и двойного �
         pg.moveTo(buttonx, buttony)
         pg.doubleClick(buttonx, buttony)
         print(buttonx, buttony)
-        time.sleep(2)
+        time.sleep(1)
     except TypeError:
         return zero
 
@@ -305,7 +305,7 @@ def grec_standart():
                     mana = mana - 5
                 if mana >= 2:
                     health("btn_health.png")
-                    mana = mana - 2
+                    mana = 0
                 moneta = 0
                 vash_hod("btn_end.png")
                 ss("btn_end.png")
@@ -498,13 +498,15 @@ def hant_standart():
             print("hod=", hod)
             if hod == 1 and game == 1:
                 pg.press(['right'])
-                vash_hod("btn_end.png")
+#                vash_hod("btn_end.png")
                 ss("btn_end.png")
+                ss("btn_end2.png")
             elif hod > 1 and hod < 4 and game == 1:
                 pg.press(['right'])
                 ss("btn_strela.png")
-                vash_hod("btn_end.png")
+#                vash_hod("btn_end.png")
                 ss("btn_end.png")
+                ss("btn_end2.png")
             elif hod == 4 and game == 1:
                 pg.press(['right'])
                 karta("btn_m0.png")
@@ -512,13 +514,13 @@ def hant_standart():
                     mana += 1
                     karta("btn_m5.png")
                     pg.press(['right'])
-                    mana = mana - 5
                 if mana >= 2:
                     ss("btn_strela.png")
                     mana = 0
                 moneta = 0
-                vash_hod("btn_end.png")
+#                vash_hod("btn_end.png")
                 ss("btn_end.png")
+                ss("btn_end2.png")
             elif hod == 5 and game == 1:
                 if unit == 0:
                     pg.press(['right'])
@@ -529,8 +531,9 @@ def hant_standart():
                     ss("btn_strela.png")
                     mana = 0
                 pg.press(['right'])
-                vash_hod("btn_end.png")
+#                vash_hod("btn_end.png")
                 ss("btn_end.png")
+                ss("btn_end2.png")
             elif hod == 6 and game == 1:
                 if unit == 0:
                     pg.press(['right'])
@@ -546,29 +549,31 @@ def hant_standart():
                     ss("btn_strela.png")
                     mana = 0
                 pg.press(['right'])
-                vash_hod("btn_end.png")
+#                vash_hod("btn_end.png")
                 ss("btn_end.png")
+                ss("btn_end2.png")
             elif hod >= 7 and game == 1:
                 if unit == 0:
                     karta("btn_m7.png")
                     if unit == 1:
-                        mana = 0
+                        mana = mana - 7
                 if unit == 0:
                     pg.press(['right'])
                     karta("btn_m6.png")
                     if unit == 1:
-                        mana = 1
+                        mana = mana - 6
                 if unit == 0:
                     pg.press(['right'])
                     karta("btn_m5.png")
                     if unit == 1:
-                        mana = 2
+                        mana = mana - 5
                 if mana >= 2:
                     ss("btn_strela.png")
                     mana = 0
                 pg.press(['right'])
-                vash_hod("btn_end.png")
+#                vash_hod("btn_end.png")
                 ss("btn_end.png")
+                ss("btn_end2.png")
             projgrysh("end_game.png")
             vyjgrysh("victory.png")
             endGame("end_game2.png")
@@ -619,13 +624,15 @@ def voin_standart():
             print("hod=", hod)
             if hod == 1 and game == 1:
                 pg.press(['right'])
-                vash_hod("btn_end.png")
+#                vash_hod("btn_end.png")
                 ss("btn_end.png")
+                ss("btn_end2.png")
             elif hod > 1 and hod < 4 and game == 1:
                 pg.press(['right'])
                 ss("btn_schit.png")
-                vash_hod("btn_end.png")
+#                vash_hod("btn_end.png")
                 ss("btn_end.png")
+                ss("btn_end2.png")
             elif hod == 4 and game == 1:
                 pg.press(['right'])
                 karta("btn_m0.png")
@@ -637,8 +644,9 @@ def voin_standart():
                     ss("btn_schit.png")
                     mana = 0
                 moneta = 0
-                vash_hod("btn_end.png")
+#                vash_hod("btn_end.png")
                 ss("btn_end.png")
+                ss("btn_end2.png")
             elif hod == 5 and game == 1:
                  if unit == 0:
                     pg.press(['right'])
@@ -649,8 +657,9 @@ def voin_standart():
                     ss("btn_schit.png")
                     mana = 0
                  pg.press(['right'])
-                 vash_hod("btn_end.png")
+#                 vash_hod("btn_end.png")
                  ss("btn_end.png")
+                 ss("btn_end2.png")
             elif hod == 6 and game == 1:
                 if unit == 0:
                     pg.press(['right'])
@@ -666,29 +675,31 @@ def voin_standart():
                     ss("btn_schit.png")
                     mana = 0
                 pg.press(['right'])
-                vash_hod("btn_end.png")
+#                vash_hod("btn_end.png")
                 ss("btn_end.png")
+                ss("btn_end2.png")
             elif hod >= 7 and game == 1:
                 if unit == 0:
                     karta("btn_m7.png")
                     if unit == 1:
-                        mana = 0
+                        mana = mana - 7
                 if unit == 0:
                     pg.press(['right'])
                     karta("btn_m6.png")
                     if unit == 1:
-                        mana = 1
+                        mana = mana - 6
                 if unit == 0:
                     pg.press(['right'])
                     karta("btn_m5.png")
                     if unit == 1:
-                        mana = 2
+                        mana = mana - 5
                 if mana >= 2:
                     ss("btn_schit.png")
                     mana = 0
                 pg.press(['right'])
-                vash_hod("btn_end.png")
+#                vash_hod("btn_end.png")
                 ss("btn_end.png")
+                ss("btn_end2.png")
             projgrysh("end_game.png")
             vyjgrysh("victory.png")
             endGame("end_game2.png")
@@ -761,7 +772,6 @@ while "Бесконечный цикл":  # Цикл анализа
         hant_standart()
     elif a == 3:
         voin_standart()
-
     # На случай потери соединения
     ss("bt.png")
     ss("bt2.png")
