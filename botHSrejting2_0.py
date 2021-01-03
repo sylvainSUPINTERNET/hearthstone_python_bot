@@ -261,6 +261,17 @@ def fill_table(): # заполняем строку таблицы
     g_hours = result_old[9] + l_hours  # часы
     g_minuts = result_old[10] + l_minuts  # минуты
     g_seconds = result_old[11] + l_seconds  # секунды
+
+    if g_seconds >= 60:
+        g_minuts = g_minuts + int(g_seconds / 60)
+        g_seconds = g_seconds - (int(g_seconds / 60))*60
+    if g_minuts >= 60:
+        g_hours = g_hours  + int(g_minuts / 60)
+        g_minuts = g_minuts - (int(g_minuts / 60))*60
+    if g_hours >= 24:
+        g_days = g_days  + int(g_hours / 24)
+        g_hours = g_hours - (int(g_hours / 24))*24
+
     Ngame = vygr + progr
     localgame = Ngame
     localvictory = vygr
