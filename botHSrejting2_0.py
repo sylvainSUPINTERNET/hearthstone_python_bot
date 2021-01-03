@@ -5,6 +5,8 @@ import pyautogui as pg # работа с картинками
 import keyboard # работа с нажатиями клавиш
 import sys #  системными библиотеками
 import datetime # работа с датой и времени
+from datetime import datetime
+from datetime import timedelta
 import sqlite3 # Импортируем библиотеку, соответствующую типу нашей базы данных
 import random # рандомные числа
 
@@ -202,7 +204,8 @@ def print_oll_table(): #функция вывода всей таблицы
     c.execute("SELECT * FROM total;")
     all_results = c.fetchall()
     for id in all_results:
-        print(id[0], id[1], id[2], id[3], id[4], id[5], id[6], id[7], id[8], id[9], id[10], id[11], id[12])
+        print(id[0], id[1], id[2], id[3], id[4], id[5], id[6], id[7], id[8], id[9], id[10], id[11], id[12], id[13], id[14],
+              id[15], id[16], id[17], id[18], id[19], id[20],)
         conn.commit()  # применяем изменения
 
 
@@ -219,9 +222,11 @@ def load_table():
 
 
 def fill_table_start(): # заполняем строку таблицы
-    c.execute("""INSERT INTO total(date, localtime, globaltime, tipe, deck, localgame, localvictory, locallosing,
+    c.execute("""INSERT INTO total(date, startgame, endgame, l_days, l_hours, l_minuts, l_seconds,
+                g_days, g_hours, g_minuts, g_seconds, tipe, deck, localgame, localvictory, locallosing,
                 localpercent, globalvictory, globallosing, globalpercent)
-                VALUES('2021-01-02 00:52:09.891453', '0.0', '0.0', 'стандарт', 'жрец', '0' , '0', '0', '0', '0', '1', '1');""")
+                VALUES('01.01.2021', '00:00', '00.00', '0', '0', '0', '0',
+                '0', '0', '0', '0', 'стандарт', 'жрец', '0' , '0', '0', '0', '0', '0', '0');""")
     conn.commit()
 
 
@@ -232,20 +237,43 @@ def fill_table(): # заполняем строку таблицы
     global deck
     global vygr
     global progr
-    loctime = round(int(time.time() - start_time) / 60, 3)  # время в игре  сейчас, округляем до 3 знаков после запятой
-    localpercent = round((vygr / (vygr + progr)) * 100, 2) #округляем до 3 знаков после запятой
+    date = start_time.strftime("%d.%m.%Y")
+    startgame = start_time.strftime("%H:%M:%S")
+    end_game = datetime.now()
+    endgame = end_game.strftime("%H:%M:%S")
+
+    loctime = end_game - start_time  # время в игре
+    l_days = loctime.days  # дни
+    l_hours = int(loctime.seconds / 3600)  # часы
+    l_minuts = int((loctime.seconds - l_hours * 3600) / 60)  # минуты
+    l_seconds = loctime.seconds - l_hours * 3600 - l_minuts * 60  # секунды
+    if vygr == 0 and progr == 0:
+        progr = 1
+    if vygr == 1:
+        localpercent = 'выйгрыш'
+    if progr == 1:
+        localpercent = 'пройгрыш'
     c.execute("SELECT * FROM total  WHERE   name_id = (SELECT MAX(name_id)  FROM total);")
     result_old = c.fetchone()
     print(result_old)
-    globaltime = round(((result_old[3] + (loctime*60)) / 3600), 3)
+
+    g_days = result_old[8] + l_days  # дни
+    g_hours = result_old[9] + l_hours  # часы
+    g_minuts = result_old[10] + l_minuts  # минуты
+    g_seconds = result_old[11] + l_seconds  # секунды
     Ngame = vygr + progr
-    globalvictory = result_old[10] + vygr
-    globallosing = result_old[11] + progr
+    localgame = Ngame
+    localvictory = vygr
+    locallosing = progr
+    globalvictory = result_old[18] + vygr
+    globallosing = result_old[19] + progr
     globalpercent = round(((globalvictory / (globalvictory + globallosing)) * 100), 2)
-    c.execute("""INSERT INTO total(date, localtime, globaltime, tipe, deck, localgame, localvictory, locallosing,
+    c.execute("""INSERT INTO total(date, startgame, endgame, l_days, l_hours, l_minuts, l_seconds, 
+                g_days, g_hours, g_minuts, g_seconds, tipe, deck, localgame, localvictory, locallosing,
                     localpercent, globalvictory, globallosing, globalpercent) 
-                    VALUES(?, ?, ?, ?, ?, ? , ?, ?, ?, ?, ?, ?);""",
-              (now, loctime, globaltime, tipe, deck, Ngame, vygr, progr,
+                    VALUES(?, ?, ?, ?, ?, ? , ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? , ?, ?);""",
+              (date, startgame, endgame, l_days, l_hours, l_minuts, l_seconds,
+               g_days, g_hours, g_minuts, g_seconds, tipe, deck, localgame, localvictory, locallosing,
                localpercent, globalvictory, globallosing, globalpercent))
     conn.commit()
 
@@ -265,7 +293,6 @@ def grec_standart():
     global cikl
     global unit
     global start_time
-    start_time = time.time()  # учет начального времени работы программы
     tipe = 'стандарт'
     deck = 'жрец'
     ss("btn_grec.png")
@@ -274,6 +301,7 @@ def grec_standart():
     if Ggame == 1:
         Ngame += 1
         print("Игра жрецом началась", Gcikl)
+        start_time = datetime.now()  # текущие дата и время
         while Ggame == 1:
             if keyboard.is_pressed('Enter'): # если клавиша Esc
                 timer_game() #подсчет времени
@@ -446,10 +474,9 @@ def grec_standart():
             if Ggame == 0:
                 fill_table()  # заполняем БД
                 print_oll_table()
-                start_time = time.time()
             ss("bt.png")
             ss("bt2.png")
-        return  Ggame, Ngame, Gcikl, vygr, progr, start_time
+        return  Ggame, Ngame, Gcikl, vygr, progr, start_time, tipe, deck
 
 
 def hant_standart():
@@ -467,7 +494,6 @@ def hant_standart():
     global cikl
     global unit
     global start_time
-    start_time = time.time()  # учет начального времени работы программы
     tipe = 'стандарт'
     deck = 'охотник'
     ss("btn_hant.png")
@@ -476,6 +502,7 @@ def hant_standart():
     if Ggame == 1:
         Ngame += 1
         print("игра охотником началась", Gcikl)
+        start_time = datetime.now()  # текущие дата и время
         while Ggame == 1:
             if keyboard.is_pressed('Enter'): # если клавиша Esc
                 timer_game() #подсчет времени
@@ -565,7 +592,6 @@ def hant_standart():
             if Ggame == 0:
                 fill_table()  # заполняем БД
                 print_oll_table()
-                start_time = time.time()
             ss("bt.png")
             ss("bt2.png")
         return  Ggame, Ngame, Gcikl, vygr, progr, start_time
@@ -586,7 +612,6 @@ def voin_standart():
     global cikl
     global unit
     global start_time
-    start_time = time.time()  # учет начального времени работы программы
     tipe = 'стандарт'
     deck = 'воин'
     ss("btn_voin.png")
@@ -595,6 +620,7 @@ def voin_standart():
     if Ggame == 1:
         Ngame += 1
         print("Игра воином началась", Gcikl)
+        start_time = datetime.now()  # текущие дата и время
         while Ggame == 1:
             if keyboard.is_pressed('Enter'): # если клавиша Esc
                 timer_game() #подсчет времени
@@ -685,13 +711,12 @@ def voin_standart():
             if Ggame == 0:
                 fill_table()  # заполняем БД
                 print_oll_table()
-                start_time = time.time()
             ss("bt.png")
             ss("bt2.png")
         return  Ggame, Ngame, Gcikl, vygr, progr, start_time
 
 
-# variables
+# variables (переменные)
 Ngame = 0  # подсчет количества игр !(основное тело цикла)
 vygr = 0  # подсчет выйгрышей в данной сессии
 progr = 0  # подсчет проигранных игр в данной сессии
@@ -704,8 +729,8 @@ game = 0  # индикатор игры (вашего хода)
 moneta = 0  # индикатор монеты в руке
 mana = 0  # счетчик маны во время хода
 zero = 0  # ноль
-start_time = time.time() # учет начального времени работы программы
-now = datetime.datetime.now() # текущие дата и время
+
+
 
 # Работа с БД
 conn = sqlite3.connect('mydatabase.db')  # создаем переменную conn и  соединение с нашей базой данных
@@ -713,8 +738,16 @@ c = conn.cursor()  # Создаем курсор - это специальный
 c.execute("""CREATE TABLE IF NOT EXISTS total(
    name_id INTEGER PRIMARY KEY,
    date DATE NOT NULL,
-   localtime INT NOT NULL,
-   globaltime DATE NOT NULL,
+   startgame DATE NOT NULL,
+   endgame DATE NOT NULL,
+   l_days DATE NOT NULL,
+   l_hours DATE NOT NULL,
+   l_minuts DATE NOT NULL,
+   l_seconds DATE NOT NULL,
+   g_days DATE NOT NULL,
+   g_hours DATE NOT NULL,
+   g_minuts DATE NOT NULL,
+   g_seconds DATE NOT NULL,
    tipe TEXT NOT NULL,
    deck TEXT NOT NULL,
    localgame INT NOT NULL,
@@ -727,13 +760,14 @@ c.execute("""CREATE TABLE IF NOT EXISTS total(
 """)
 conn.commit()  # применяем изменения
 
+
+# исполняемый код
 startlnk()  # запуск приложения Battle.net
 
 #fill_table_start()
 
 while "Бесконечный цикл":  # Цикл анализа
     if keyboard.is_pressed('Enter'):  # если клавиша Esc
-        fill_table()  # заполняем БД
         print_oll_table()
         sys.exit()  # завершаем программу
     cikl += 1
