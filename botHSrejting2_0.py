@@ -288,12 +288,10 @@ def grec_standart():
             print("hod=", hod)
             if hod == 1 and game == 1:
                 pg.press(['right'])
-                vash_hod("btn_end.png")
                 ss("btn_end.png")
             elif hod > 1 and hod < 4 and game == 1:
                 pg.press(['right'])
                 health("btn_health.png")
-                vash_hod("btn_end.png")
                 ss("btn_end.png")
             elif hod == 4 and game == 1:
                 pg.press(['right'])
@@ -307,7 +305,6 @@ def grec_standart():
                     health("btn_health.png")
                     mana = 0
                 moneta = 0
-                vash_hod("btn_end.png")
                 ss("btn_end.png")
             elif hod == 5 and game == 1:
                 karta("btn_m5.png")
@@ -315,7 +312,6 @@ def grec_standart():
                     health("btn_health.png")
                     mana = 0
                 pg.press(['right'])
-                vash_hod("btn_end.png")
                 ss("btn_end.png")
             elif hod == 6 and game == 1:
                 if unit == 0:
@@ -330,7 +326,6 @@ def grec_standart():
                     health("btn_health.png")
                     mana = 0
                 pg.press(['right'])
-                vash_hod("btn_end.png")
                 ss("btn_end.png")
             elif hod == 7 and game == 1:
                 if unit == 0:
@@ -351,7 +346,6 @@ def grec_standart():
                     health("btn_health.png")
                     mana = 0
                 pg.press(['right'])
-                vash_hod("btn_end.png")
                 ss("btn_end.png")
             elif hod == 8 and game == 1:
                 if unit == 0:
@@ -378,7 +372,6 @@ def grec_standart():
                     health("btn_health.png")
                     mana = 0
                 pg.press(['right'])
-                vash_hod("btn_end.png")
                 ss("btn_end.png")
             elif hod == 9 and game == 1:
                 if unit == 0:
@@ -410,7 +403,6 @@ def grec_standart():
                     health("btn_health.png")
                     mana = 0
                 pg.press(['right'])
-                vash_hod("btn_end.png")
                 ss("btn_end.png")
             elif hod >= 10 and game == 1:
                 if unit == 0:
@@ -447,7 +439,6 @@ def grec_standart():
                     health("btn_health.png")
                     mana = 0
                 pg.press(['right'])
-                vash_hod("btn_end.png")
                 ss("btn_end.png")
             projgrysh("end_game.png")
             vyjgrysh("victory.png")
@@ -498,13 +489,11 @@ def hant_standart():
             print("hod=", hod)
             if hod == 1 and game == 1:
                 pg.press(['right'])
-#                vash_hod("btn_end.png")
                 ss("btn_end.png")
                 ss("btn_end2.png")
             elif hod > 1 and hod < 4 and game == 1:
                 pg.press(['right'])
                 ss("btn_strela.png")
-#                vash_hod("btn_end.png")
                 ss("btn_end.png")
                 ss("btn_end2.png")
             elif hod == 4 and game == 1:
@@ -518,7 +507,6 @@ def hant_standart():
                     ss("btn_strela.png")
                     mana = 0
                 moneta = 0
-#                vash_hod("btn_end.png")
                 ss("btn_end.png")
                 ss("btn_end2.png")
             elif hod == 5 and game == 1:
@@ -531,7 +519,6 @@ def hant_standart():
                     ss("btn_strela.png")
                     mana = 0
                 pg.press(['right'])
-#                vash_hod("btn_end.png")
                 ss("btn_end.png")
                 ss("btn_end2.png")
             elif hod == 6 and game == 1:
@@ -549,7 +536,6 @@ def hant_standart():
                     ss("btn_strela.png")
                     mana = 0
                 pg.press(['right'])
-#                vash_hod("btn_end.png")
                 ss("btn_end.png")
                 ss("btn_end2.png")
             elif hod >= 7 and game == 1:
@@ -571,7 +557,6 @@ def hant_standart():
                     ss("btn_strela.png")
                     mana = 0
                 pg.press(['right'])
-#                vash_hod("btn_end.png")
                 ss("btn_end.png")
                 ss("btn_end2.png")
             projgrysh("end_game.png")
@@ -624,13 +609,11 @@ def voin_standart():
             print("hod=", hod)
             if hod == 1 and game == 1:
                 pg.press(['right'])
-#                vash_hod("btn_end.png")
                 ss("btn_end.png")
                 ss("btn_end2.png")
             elif hod > 1 and hod < 4 and game == 1:
                 pg.press(['right'])
                 ss("btn_schit.png")
-#                vash_hod("btn_end.png")
                 ss("btn_end.png")
                 ss("btn_end2.png")
             elif hod == 4 and game == 1:
@@ -644,7 +627,6 @@ def voin_standart():
                     ss("btn_schit.png")
                     mana = 0
                 moneta = 0
-#                vash_hod("btn_end.png")
                 ss("btn_end.png")
                 ss("btn_end2.png")
             elif hod == 5 and game == 1:
@@ -657,7 +639,6 @@ def voin_standart():
                     ss("btn_schit.png")
                     mana = 0
                  pg.press(['right'])
-#                 vash_hod("btn_end.png")
                  ss("btn_end.png")
                  ss("btn_end2.png")
             elif hod == 6 and game == 1:
@@ -675,7 +656,6 @@ def voin_standart():
                     ss("btn_schit.png")
                     mana = 0
                 pg.press(['right'])
-#                vash_hod("btn_end.png")
                 ss("btn_end.png")
                 ss("btn_end2.png")
             elif hod >= 7 and game == 1:
@@ -697,7 +677,6 @@ def voin_standart():
                     ss("btn_schit.png")
                     mana = 0
                 pg.press(['right'])
-#                vash_hod("btn_end.png")
                 ss("btn_end.png")
                 ss("btn_end2.png")
             projgrysh("end_game.png")
