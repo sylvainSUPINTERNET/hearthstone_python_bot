@@ -38,6 +38,8 @@ def start_game(template):
     global Ggame
     global cikl
     global zero
+    global vygr
+    global progr
     try:
         buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 1600, 900), confidence=0.7) 
         pg.moveTo(buttonx, buttony)
@@ -46,9 +48,11 @@ def start_game(template):
         hod = 1
         Ggame = 1
         cikl = 0
+        vygr = 0
+        progr = 0
         print("Старт игры")
         time.sleep(15)
-        return hod, Gcikl, Ggame, cikl
+        return hod, Gcikl, Ggame, cikl, vygr, progr
     except TypeError:
         return zero
 
@@ -149,7 +153,7 @@ def projgrysh(template):
         buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 1600, 900), confidence=0.7) 
         pg.moveTo(buttonx, buttony)
         print(buttonx, buttony)
-        progr += 1
+        progr = 1
         print("Пройгрыш ", progr)  #выводит значение
         pg.moveTo(buttonx, buttony, duration=0) #перемещение
         pg.doubleClick(buttonx, buttony)
@@ -166,7 +170,7 @@ def vyjgrysh(template):
         buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 1600, 900), confidence=0.7) 
         pg.moveTo(buttonx, buttony)
         print(buttonx, buttony)
-        vygr +=1
+        vygr = 1
         print("Выйгрыш ", vygr)  #выводит значение
         pg.moveTo(buttonx, buttony, duration=0) #перемещение
         pg.doubleClick(buttonx, buttony)
