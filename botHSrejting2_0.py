@@ -31,6 +31,32 @@ def ss(template):  # функция определения и двойного �
     except TypeError:
         return zero
 
+def simple_press(template):  # функция определения и двойного нажатия на координаты кнопки
+#    global zero
+    try:
+        buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 1600, 900), confidence=0.7)
+        pg.moveTo(buttonx, buttony)
+        pg.click(buttonx, buttony)
+        print(buttonx, buttony)
+        time.sleep(1)
+    except TypeError:
+        return zero
+
+
+def card_selection(template):  # функция определения и двойного нажатия на координаты кнопки
+    #    global zero
+    try:
+        buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 1600, 900), confidence=0.7)
+        pg.moveTo(buttonx, buttony)
+        pg.click(buttonx, buttony)
+        print(buttonx, buttony)
+        time.sleep(30)
+    except TypeError:
+        return zero
+
+
+
+
 
 def start_game(template):
     global hod
@@ -167,7 +193,7 @@ def throw_a_ball(template):
 def punch_in_the_face():
     pg.moveTo(800, 690, duration=0)  # перемещение к своему лицу
     pg.mouseDown(button='left')  # нажать левую клавишу мыши
-    pg.moveTo(800, 770, duration=1)  # перемещение
+    pg.moveTo(800, 170, duration=1)  # перемещение
     pg.mouseUp(button='left')  # отпустить левую клавиши мыши
 
 
@@ -350,17 +376,17 @@ def grec_standart():
                 sys.exit()  # завершаем программу
             Gcikl += 1
             ss("btn_start.png")
-            ss("btn_ok.png")
+            card_selection("btn_ok.png")
             chughoj_hod("chughoj_hod.png")
             vash_hod("btn_end.png")
             print("hod=", hod)
             if hod == 1 and game == 1:
                 pg.press(['right'])
-                ss("btn_end.png")
+                simple_press("btn_end.png")
             elif hod > 1 and hod < 4 and game == 1:
                 pg.press(['right'])
                 health("btn_health.png")
-                ss("btn_end.png")
+                simple_press("btn_end.png")
             elif hod == 4 and game == 1:
                 pg.press(['right'])
                 karta("btn_m0.png")
@@ -373,14 +399,14 @@ def grec_standart():
                     health("btn_health.png")
                     mana = 0
                 moneta = 0
-                ss("btn_end.png")
+                simple_press("btn_end.png")
             elif hod == 5 and game == 1:
                 karta("btn_m5.png")
                 if unit == 0 and mana >= 2:
                     health("btn_health.png")
                     mana = 0
                 pg.press(['right'])
-                ss("btn_end.png")
+                simple_press("btn_end.png")
             elif hod == 6 and game == 1:
                 if unit == 0:
                     karta("btn_m6.png")
@@ -394,7 +420,7 @@ def grec_standart():
                     health("btn_health.png")
                     mana = 0
                 pg.press(['right'])
-                ss("btn_end.png")
+                simple_press("btn_end.png")
             elif hod == 7 and game == 1:
                 if unit == 0:
                     karta("btn_m7.png")
@@ -414,7 +440,7 @@ def grec_standart():
                     health("btn_health.png")
                     mana = 0
                 pg.press(['right'])
-                ss("btn_end.png")
+                simple_press("btn_end.png")
             elif hod == 8 and game == 1:
                 if unit == 0:
                     pg.press(['right'])
@@ -440,7 +466,7 @@ def grec_standart():
                     health("btn_health.png")
                     mana = 0
                 pg.press(['right'])
-                ss("btn_end.png")
+                simple_press("btn_end.png")
             elif hod == 9 and game == 1:
                 if unit == 0:
                     pg.press(['right'])
@@ -471,7 +497,7 @@ def grec_standart():
                     health("btn_health.png")
                     mana = 0
                 pg.press(['right'])
-                ss("btn_end.png")
+                simple_press("btn_end.png")
             elif hod >= 10 and game == 1:
                 if unit == 0:
                     pg.press(['right'])
@@ -507,7 +533,7 @@ def grec_standart():
                     health("btn_health.png")
                     mana = 0
                 pg.press(['right'])
-                ss("btn_end.png")
+                simple_press("btn_end.png")
             projgrysh("end_game.png")
             vyjgrysh("victory.png")
             endGame("end_game2.png")
@@ -550,7 +576,7 @@ def hant_standart():
                 print_oll_table()
                 sys.exit()  # завершаем программу
             Gcikl += 1
-            ss("btn_ok.png")
+            card_selection("btn_ok.png")
             chughoj_hod("chughoj_hod.png")
             vash_hod("btn_end.png")
             print("hod=", hod)
@@ -669,7 +695,7 @@ def voin_standart():
                 sys.exit()  # завершаем программу
             Gcikl += 1
             ss("btn_start.png")
-            ss("btn_ok.png")
+            card_selection("btn_ok.png")
             chughoj_hod("chughoj_hod.png")
             vash_hod("btn_end.png")
             print("hod=", hod)
@@ -788,7 +814,7 @@ def mag_standart():
                 sys.exit()  # завершаем программу
             Gcikl += 1
             ss("btn_start.png")
-            ss("btn_ok.png")
+            card_selection("btn_ok.png")
             chughoj_hod("chughoj_hod.png")
             vash_hod("btn_end.png")
             print("hod=", hod)
@@ -907,7 +933,7 @@ def roga_standart():
                 sys.exit()  # завершаем программу
             Gcikl += 1
             ss("btn_start.png")
-            ss("btn_ok.png")
+            card_selection("btn_ok.png")
             chughoj_hod("chughoj_hod.png")
             vash_hod("btn_end.png")
             print("hod=", hod)
@@ -1031,7 +1057,7 @@ def dh_standart():
                 sys.exit()  # завершаем программу
             Gcikl += 1
             ss("btn_start.png")
-            ss("btn_ok.png")
+            card_selection("btn_ok.png")
             chughoj_hod("chughoj_hod.png")
             vash_hod("btn_end.png")
             print("hod=", hod)
@@ -1139,21 +1165,21 @@ def dh_standart():
                 ss("btn_end.png")
                 ss("btn_end2.png")
             elif hod >= 7 and game == 1:
-                if unit == 0:
+                if unit == 0 and mana >= 7:
                     karta("btn_m7.png")
                     if unit == 1:
                         mana = mana - 7
-                if unit == 0:
+                if unit == 0 and mana >= 6:
                     pg.press(['right'])
                     karta("btn_m6.png")
                     if unit == 1:
                         mana = mana - 6
-                if unit == 0:
+                if unit == 0 and mana >= 5:
                     pg.press(['right'])
                     karta("btn_m5.png")
                     if unit == 1:
                         mana = mana - 5
-                if mana >= 12:
+                if mana >= 1:
                     ss("btn_dh_hand.png")
                     punch_in_the_face()
                     mana = 0
@@ -1203,7 +1229,7 @@ def druid_standart():
                 sys.exit()  # завершаем программу
             Gcikl += 1
             ss("btn_start.png")
-            ss("btn_ok.png")
+            card_selection("btn_ok.png")
             chughoj_hod("chughoj_hod.png")
             vash_hod("btn_end.png")
             print("hod=", hod)
@@ -1326,7 +1352,8 @@ def shaman_standart():
                 print_oll_table()
                 sys.exit()  # завершаем программу
             Gcikl += 1
-            ss("btn_ok.png")
+            ss("btn_start.png")
+            card_selection("btn_ok.png")
             chughoj_hod("chughoj_hod.png")
             vash_hod("btn_end.png")
             print("hod=", hod)
@@ -1444,7 +1471,7 @@ def lock_standart():
                 print_oll_table()
                 sys.exit()  # завершаем программу
             Gcikl += 1
-            ss("btn_ok.png")
+            card_selection("btn_ok.png")
             chughoj_hod("chughoj_hod.png")
             vash_hod("btn_end.png")
             print("hod=", hod)
