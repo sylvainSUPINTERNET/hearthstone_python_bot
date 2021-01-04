@@ -37,6 +37,8 @@ def start_game(template):
     global Gcikl
     global Ggame
     global cikl
+    global vygr
+    global progr
     global zero
     global vygr
     global progr
