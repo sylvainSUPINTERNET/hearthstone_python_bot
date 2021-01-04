@@ -165,9 +165,9 @@ def throw_a_ball(template):
 
 
 def punch_in_the_face():
-    pg.moveTo(1000, 860, duration=0)  # перемещение к кнопке
+    pg.moveTo(800, 690, duration=0)  # перемещение к своему лицу
     pg.mouseDown(button='left')  # нажать левую клавишу мыши
-    pg.moveTo(990, 220, duration=1)  # перемещение
+    pg.moveTo(800, 770, duration=1)  # перемещение
     pg.mouseUp(button='left')  # отпустить левую клавиши мыши
 
 
@@ -1016,7 +1016,7 @@ def dh_standart():
     global start_time
     tipe = 'стандарт'
     deck = ' Д Х '
-    ss("btn_roga.png")
+    ss("btn_dh.png")
     ss("btn_game_st.png")
     start_game("btn_start.png")
     if Ggame == 1:
