@@ -47,7 +47,6 @@ def simple_press(template):  # функция определения и двой
 def card_selection(template):  # функция определения и двойного нажатия на координаты кнопки
     try:
         buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 1600, 900), confidence=0.7)
-        time.sleep(20)
         pg.moveTo(buttonx, buttony)
         pg.click(buttonx, buttony)
         print(buttonx, buttony)
@@ -378,7 +377,7 @@ def grec_standart():
             vash_hod("btn_end.png")
             print("hod=", hod)
             if hod == 1 and game == 1:
-                close_time = time.time() + delay
+                close_time = time.time() + 15
                 while True:
                     ##bla bla
                     if time.time() > close_time:
@@ -631,7 +630,7 @@ def hant_standart():
             vash_hod("btn_end.png")
             print("hod=", hod)
             if hod == 1 and game == 1:
-                close_time = time.time() + delay
+                close_time = time.time() + 15
                 while True:
                     ##bla bla
                     if time.time() > close_time:
@@ -785,7 +784,7 @@ def voin_standart():
             vash_hod("btn_end.png")
             print("hod=", hod)
             if hod == 1 and game == 1:
-                close_time = time.time() + delay
+                close_time = time.time() + 15
                 while True:
                     ##bla bla
                     if time.time() > close_time:
@@ -939,7 +938,7 @@ def mag_standart():
             vash_hod("btn_end.png")
             print("hod=", hod)
             if hod == 1 and game == 1:
-                close_time = time.time() + delay
+                close_time = time.time() + 15
                 while True:
                     ##bla bla
                     if time.time() > close_time:
@@ -1093,7 +1092,7 @@ def roga_standart():
             vash_hod("btn_end.png")
             print("hod=", hod)
             if hod == 1 and game == 1:
-                close_time = time.time() + delay
+                close_time = time.time() + 15
                 while True:
                     ##bla bla
                     if time.time() > close_time:
@@ -1252,7 +1251,7 @@ def dh_standart():
             vash_hod("btn_end.png")
             print("hod=", hod)
             if hod == 1 and game == 1:
-                close_time = time.time() + delay
+                close_time = time.time() + 15
                 while True:
                     ##bla bla
                     if time.time() > close_time:
@@ -1455,7 +1454,7 @@ def druid_standart():
             vash_hod("btn_end.png")
             print("hod=", hod)
             if hod == 1 and game == 1:
-                close_time = time.time() + delay
+                close_time = time.time() + 15
                 while True:
                     ##bla bla
                     if time.time() > close_time:
@@ -1614,7 +1613,7 @@ def shaman_standart():
             vash_hod("btn_end.png")
             print("hod=", hod)
             if hod == 1 and game == 1:
-                close_time = time.time() + delay
+                close_time = time.time() + 15
                 while True:
                     ##bla bla
                     if time.time() > close_time:
@@ -1767,7 +1766,7 @@ def lock_standart():
             vash_hod("btn_end.png")
             print("hod=", hod)
             if hod == 1 and game == 1:
-                close_time = time.time() + delay
+                close_time = time.time() + 15
                 while True:
                     ##bla bla
                     if time.time() > close_time:
