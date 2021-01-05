@@ -52,7 +52,7 @@ def card_selection(template):  # функция определения и дво
         pg.moveTo(buttonx, buttony)
         pg.click(buttonx, buttony)
         print(buttonx, buttony)
-        time.sleep(5)
+        time.sleep(1)
     except TypeError:
         return zero
 
@@ -194,6 +194,7 @@ def punch_in_the_face():
     pg.mouseDown(button='left')  # нажать левую клавишу мыши
     pg.moveTo(800, 170, duration=1)  # перемещение
     pg.mouseUp(button='left')  # отпустить левую клавиши мыши
+    pg.click(button='rigth')  # нажать и отпустить правую клавишу
 
 
 def projgrysh(template):
@@ -277,7 +278,7 @@ def load_table():
 
 def fill_table_start(): # заполняем строку таблицы
     c.execute("""INSERT INTO total(date, startgame, endgame, l_days, l_hours, l_minuts, l_seconds,
-                g_days, g_hours, g_minuts, g_seconds, tipe, deck, localgame, localvictory, locallosing,
+                g_days, g_hours, g_minuts, g_seconds, tipe, deck, hod, localvictory, locallosing,
                 localpercent, globalvictory, globallosing, globalpercent)
                 VALUES('01.01.2021', '00:00', '00.00', '0', '0', '0', '0',
                 '0', '0', '0', '0', 'стандарт', 'жрец', '0' , '0', '0', '0', '0', '0', '0');""")
@@ -291,6 +292,7 @@ def fill_table(): # заполняем строку таблицы
     global deck
     global vygr
     global progr
+    global hod
     date = start_time.strftime("%d.%m.%Y")
     startgame = start_time.strftime("%H:%M:%S")
     end_game = datetime.now()
@@ -326,8 +328,7 @@ def fill_table(): # заполняем строку таблицы
         g_days = g_days  + int(g_hours / 24)
         g_hours = g_hours - (int(g_hours / 24))*24
 
-    Ngame = vygr + progr
-    localgame = Ngame
+    localgame = hod
     localvictory = vygr
     locallosing = progr
     globalvictory = result_old[18] + vygr
@@ -1455,7 +1456,7 @@ def lock_standart():
     global unit
     global start_time
     tipe = 'стандарт'
-    deck = 'шаман'
+    deck = 'лок'
     ss("btn_lock.png")
     ss("btn_game_st.png")
     start_game("btn_start.png")
@@ -1650,7 +1651,7 @@ c.execute("""CREATE TABLE IF NOT EXISTS total(
    g_seconds DATE NOT NULL,
    tipe TEXT NOT NULL,
    deck TEXT NOT NULL,
-   localgame INT NOT NULL,
+   hod INT NOT NULL,
    localvictory INT NOT NULL,
    locallosing INT NOT NULL,
    localpercent REAL NOT NULL,
