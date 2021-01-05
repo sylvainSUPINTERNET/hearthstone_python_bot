@@ -377,7 +377,7 @@ def grec_standart():
             vash_hod("btn_end.png")
             print("hod=", hod)
             if hod == 1 and game == 1:
-                close_time = time.time() + 10
+                close_time = time.time() + 15
                 while True:
                     ##bla bla
                     if time.time() > close_time:
