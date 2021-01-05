@@ -357,6 +357,7 @@ def grec_standart():
     global cikl
     global unit
     global start_time
+    global delay
     tipe = 'стандарт'
     deck = 'жрец'
     ss("btn_grec.png")
@@ -609,6 +610,7 @@ def hant_standart():
     global cikl
     global unit
     global start_time
+    global delay
     tipe = 'стандарт'
     deck = 'охотник'
     ss("btn_hant.png")
@@ -761,6 +763,7 @@ def voin_standart():
     global cikl
     global unit
     global start_time
+    global delay
     tipe = 'стандарт'
     deck = 'воин'
     ss("btn_voin.png")
@@ -914,6 +917,7 @@ def mag_standart():
     global cikl
     global unit
     global start_time
+    global delay
     tipe = 'стандарт'
     deck = 'маг'
     ss("btn_mag.png")
@@ -1067,6 +1071,7 @@ def roga_standart():
     global cikl
     global unit
     global start_time
+    global delay
     tipe = 'стандарт'
     deck = 'рога'
     ss("btn_roga.png")
@@ -1225,6 +1230,7 @@ def dh_standart():
     global cikl
     global unit
     global start_time
+    global delay
     tipe = 'стандарт'
     deck = ' Д Х '
     ss("btn_dh.png")
@@ -1427,6 +1433,7 @@ def druid_standart():
     global cikl
     global unit
     global start_time
+    global delay
     tipe = 'стандарт'
     deck = 'друид'
     ss("btn_druid.png")
@@ -1585,6 +1592,7 @@ def shaman_standart():
     global cikl
     global unit
     global start_time
+    global delay
     tipe = 'стандарт'
     deck = 'шаман'
     ss("btn_shaman.png")
