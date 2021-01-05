@@ -31,6 +31,7 @@ def ss(template):  # функция определения и двойного �
     except TypeError:
         return zero
 
+
 def simple_press(template):  # функция определения и двойного нажатия на координаты кнопки
 #    global zero
     try:
@@ -47,15 +48,13 @@ def card_selection(template):  # функция определения и дво
     #    global zero
     try:
         buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 1600, 900), confidence=0.7)
+        time.sleep(40)
         pg.moveTo(buttonx, buttony)
         pg.click(buttonx, buttony)
         print(buttonx, buttony)
         time.sleep(30)
     except TypeError:
         return zero
-
-
-
 
 
 def start_game(template):
@@ -94,7 +93,7 @@ def vash_hod(template):
             game = 1
             print("Старт хода")  
             pg.moveTo(buttonx, buttony, duration=0)                     
-            time.sleep(5)
+            time.sleep(45)
             return game
     except TypeError:
         return zero
