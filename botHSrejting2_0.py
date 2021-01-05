@@ -184,7 +184,7 @@ def throw_a_ball(template):
         print("метнуть шар")
         pg.moveTo(buttonx, buttony, duration=0)  # перемещение к кнопке
         pg.mouseDown(button='left')  # нажать левую клавишу мыши
-        pg.moveTo(990, 220, duration=1)  # перемещение
+        pg.moveTo(800, 170, duration=1)  # перемещение
         pg.mouseUp(button='left')  # отпустить левую клавиши мыши
     except TypeError:
         return zero
