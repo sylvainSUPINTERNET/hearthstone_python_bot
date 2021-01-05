@@ -326,18 +326,18 @@ def fill_table(): # заполняем строку таблицы
         g_days = g_days  + int(g_hours / 24)
         g_hours = g_hours - (int(g_hours / 24))*24
 
-    localgame = hod
+
     localvictory = vygr
     locallosing = progr
     globalvictory = result_old[18] + vygr
     globallosing = result_old[19] + progr
     globalpercent = round(((globalvictory / (globalvictory + globallosing)) * 100), 2)
     c.execute("""INSERT INTO total(date, startgame, endgame, l_days, l_hours, l_minuts, l_seconds, 
-                g_days, g_hours, g_minuts, g_seconds, tipe, deck, localgame, localvictory, locallosing,
+                g_days, g_hours, g_minuts, g_seconds, tipe, deck, hod, localvictory, locallosing,
                     localpercent, globalvictory, globallosing, globalpercent) 
                     VALUES(?, ?, ?, ?, ?, ? , ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? , ?, ?);""",
               (date, startgame, endgame, l_days, l_hours, l_minuts, l_seconds,
-               g_days, g_hours, g_minuts, g_seconds, tipe, deck, localgame, localvictory, locallosing,
+               g_days, g_hours, g_minuts, g_seconds, tipe, deck, hod, localvictory, locallosing,
                localpercent, globalvictory, globallosing, globalpercent))
     conn.commit()
 
@@ -1109,10 +1109,10 @@ def roga_standart():
                     if time.time() > close_time:
                         break
                 pg.press(['right'])
-                ss("btn_two_swords.png")
+                simple_press("btn_two_swords.png")
                 punch_in_the_face()
-                ss("btn_end.png")
-                ss("btn_end2.png")
+                simple_press("btn_end.png")
+                simple_press("btn_end2.png")
             elif hod == 4 and game == 1:
                 pg.press(['right'])
                 karta("btn_m0.png")
@@ -1130,7 +1130,7 @@ def roga_standart():
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                    ss("btn_two_swords.png")
+                    simple_press("btn_two_swords.png")
                     punch_in_the_face()
                     mana = 0
                 moneta = 0
@@ -1148,35 +1148,35 @@ def roga_standart():
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                     ss("btn_two_swords.png")
+                     simple_press("btn_two_swords.png")
                      punch_in_the_face()
                      mana = 0
                 pg.press(['right'])
-                ss("btn_end.png")
-                ss("btn_end2.png")
+                simple_press("btn_end.png")
+                simple_press("btn_end2.png")
             elif hod == 6 and game == 1:
                 close_time = time.time() + delay
                 while True:
                     ##bla bla
-                    if unit == 0:
+                    if unit == 0 and mana >= 6:
                         pg.press(['right'])
                         karta("btn_m6.png")
                         if unit == 1:
-                            mana = 0
-                    if unit == 0:
+                            mana = mana - 6
+                    if unit == 0 and mana >= 5:
                         pg.press(['right'])
                         karta("btn_m5.png")
                         if unit == 1:
-                            mana = 1
+                            mana = mana - 5
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                    ss("btn_two_swords.png")
+                    simple_press("btn_two_swords.png")
                     punch_in_the_face()
                     mana = 0
                 pg.press(['right'])
-                ss("btn_end.png")
-                ss("btn_end2.png")
+                simple_press("btn_end.png")
+                simple_press("btn_end2.png")
             elif hod >= 7 and game == 1:
                 close_time = time.time() + delay
                 while True:
@@ -1198,12 +1198,12 @@ def roga_standart():
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                    ss("btn_two_swords.png")
+                    simple_press("btn_two_swords.png")
                     punch_in_the_face()
                     mana = 0
                 pg.press(['right'])
-                ss("btn_end.png")
-                ss("btn_end2.png")
+                simple_press("btn_end.png")
+                simple_press("btn_end2.png")
             projgrysh("end_game.png")
             vyjgrysh("victory.png")
             endGame("end_game2.png")
@@ -1974,7 +1974,7 @@ c.execute("""CREATE TABLE IF NOT EXISTS total(
    hod INT NOT NULL,
    localvictory INT NOT NULL,
    locallosing INT NOT NULL,
-   localpercent REAL NOT NULL,
+   localpercent TEXT NOT NULL,
    globalvictory INT NOT NULL,
    globallosing INT NOT NULL,
    globalpercent REAL NOT NULL);
