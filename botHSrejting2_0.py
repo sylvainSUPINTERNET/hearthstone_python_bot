@@ -93,7 +93,7 @@ def vash_hod(template):
             game = 1
             print("Старт хода")  
             pg.moveTo(buttonx, buttony, duration=0)                     
-            time.sleep(45)
+            time.sleep(35)
             return game
     except TypeError:
         return zero
