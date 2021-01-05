@@ -282,7 +282,7 @@ def fill_table_start(): # заполняем строку таблицы
 
 
 def fill_table(): # заполняем строку таблицы
-    global now
+    global now, localpercent
     global start_time
     global tipe
     global deck
@@ -1946,7 +1946,7 @@ game = 0  # индикатор игры (вашего хода)
 moneta = 0  # индикатор монеты в руке
 mana = 0  # счетчик маны во время хода
 zero = 0  # ноль
-delay = 50  # время на свой ход
+delay = 45  # вемя на свой ход
 
 
 
