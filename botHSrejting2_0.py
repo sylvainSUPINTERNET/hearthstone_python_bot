@@ -78,7 +78,7 @@ def start_game(template):
         vygr = 0
         progr = 0
         print("Старт игры")
-        time.sleep(15)
+        time.sleep(1)
         return hod, Gcikl, Ggame, cikl, vygr, progr
     except TypeError:
         return zero
@@ -93,7 +93,7 @@ def vash_hod(template):
             game = 1
             print("Старт хода")  
             pg.moveTo(buttonx, buttony, duration=0)                     
-            time.sleep(35)
+            time.sleep(1)
             return game
     except TypeError:
         return zero
@@ -194,7 +194,7 @@ def punch_in_the_face():
     pg.mouseDown(button='left')  # нажать левую клавишу мыши
     pg.moveTo(800, 170, duration=1)  # перемещение
     pg.mouseUp(button='left')  # отпустить левую клавиши мыши
-    pg.click(button='rigth')  # нажать и отпустить правую клавишу
+    pg.click(button='right')  # нажать и отпустить правую клавишу
 
 
 def projgrysh(template):
@@ -205,10 +205,9 @@ def projgrysh(template):
         pg.moveTo(buttonx, buttony)
         print(buttonx, buttony)
         progr = 1
-        print("Пройгрыш ", progr)  #выводит значение
-        pg.moveTo(buttonx, buttony, duration=0) #перемещение
+        pg.moveTo(buttonx, buttony, duration=0)
         pg.doubleClick(buttonx, buttony)
-        time.sleep(2) #время ожидания запуска HS
+        time.sleep(2)
         return progr
     except TypeError:
         return zero
@@ -222,10 +221,9 @@ def vyjgrysh(template):
         pg.moveTo(buttonx, buttony)
         print(buttonx, buttony)
         vygr = 1
-        print("Выйгрыш ", vygr)  #выводит значение
-        pg.moveTo(buttonx, buttony, duration=0) #перемещение
+        pg.moveTo(buttonx, buttony, duration=0)
         pg.doubleClick(buttonx, buttony)
-        time.sleep(2) #время ожидания запуска HS
+        time.sleep(1)
         return vygr
     except TypeError:
         return zero
@@ -239,9 +237,9 @@ def endGame(template):
         pg.moveTo(buttonx, buttony)
         print(buttonx, buttony)
         Ggame = 0
-        print("Конец игры")  #выводит значение 
+        print("Конец игры")
         pg.doubleClick(buttonx, buttony)
-        time.sleep(2) #время ожидания запуска HS
+        time.sleep(1)
         return Ggame
     except TypeError:
         return zero
@@ -370,7 +368,6 @@ def grec_standart():
         start_time = datetime.now()  # текущие дата и время
         while Ggame == 1:
             if keyboard.is_pressed('Enter'): # если клавиша Esc
-                timer_game() #подсчет времени
                 fill_table() #заполняем БД
                 print_oll_table()
                 sys.exit()  # завершаем программу
