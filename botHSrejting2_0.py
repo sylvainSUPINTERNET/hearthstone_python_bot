@@ -48,7 +48,7 @@ def card_selection(template):  # функция определения и дво
     #    global zero
     try:
         buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 1600, 900), confidence=0.7)
-        time.sleep(35)
+        time.sleep(30)
         pg.moveTo(buttonx, buttony)
         pg.click(buttonx, buttony)
         print(buttonx, buttony)
