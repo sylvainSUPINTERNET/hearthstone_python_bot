@@ -45,7 +45,6 @@ def simple_press(template):  # функция определения и двой
 
 
 def card_selection(template):  # функция определения и двойного нажатия на координаты кнопки
-    #    global zero
     try:
         buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 1600, 900), confidence=0.7)
         time.sleep(30)
