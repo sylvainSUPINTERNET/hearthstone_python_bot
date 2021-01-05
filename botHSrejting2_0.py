@@ -1934,7 +1934,6 @@ def lock_standart():
         return  Ggame, Ngame, Gcikl, vygr, progr, start_time
 
 
-
 # variables (переменные)
 Ngame = 0  # подсчет количества игр !(основное тело цикла)
 vygr = 0  # подсчет выйгрышей в данной сессии
@@ -1949,6 +1948,7 @@ moneta = 0  # индикатор монеты в руке
 mana = 0  # счетчик маны во время хода
 zero = 0  # ноль
 delay = 50  # время на свой ход
+
 
 
 
