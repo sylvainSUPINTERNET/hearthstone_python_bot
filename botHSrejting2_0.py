@@ -587,7 +587,7 @@ def grec_standart():
             endGame("end_game2.png")
             if Ggame == 0:
                 fill_table()  # заполняем БД
-                print_oll_table()
+ #               print_oll_table()
             ss("bt.png")
             ss("bt2.png")
         return  Ggame, Ngame, Gcikl, vygr, progr, start_time, tipe, deck
@@ -740,7 +740,7 @@ def hant_standart():
             endGame("end_game2.png")
             if Ggame == 0:
                 fill_table()  # заполняем БД
-                print_oll_table()
+ #               print_oll_table()
             ss("bt.png")
             ss("bt2.png")
         return  Ggame, Ngame, Gcikl, vygr, progr, start_time
@@ -894,7 +894,7 @@ def voin_standart():
             endGame("end_game2.png")
             if Ggame == 0:
                 fill_table()  # заполняем БД
-                print_oll_table()
+#                print_oll_table()
             ss("bt.png")
             ss("bt2.png")
         return Ggame, Ngame, Gcikl, vygr, progr, start_time
@@ -1048,7 +1048,7 @@ def mag_standart():
             endGame("end_game2.png")
             if Ggame == 0:
                 fill_table()  # заполняем БД
-                print_oll_table()
+#                print_oll_table()
             ss("bt.png")
             ss("bt2.png")
         return Ggame, Ngame, Gcikl, vygr, progr, start_time
@@ -1207,7 +1207,7 @@ def roga_standart():
             endGame("end_game2.png")
             if Ggame == 0:
                 fill_table()  # заполняем БД
-                print_oll_table()
+ #               print_oll_table()
             ss("bt.png")
             ss("bt2.png")
         return Ggame, Ngame, Gcikl, vygr, progr, start_time
@@ -1410,7 +1410,7 @@ def dh_standart():
             endGame("end_game2.png")
             if Ggame == 0:
                 fill_table()  # заполняем БД
-                print_oll_table()
+#                print_oll_table()
             ss("bt.png")
             ss("bt2.png")
         return Ggame, Ngame, Gcikl, vygr, progr, start_time
@@ -1569,7 +1569,7 @@ def druid_standart():
             endGame("end_game2.png")
             if Ggame == 0:
                 fill_table()  # заполняем БД
-                print_oll_table()
+ #               print_oll_table()
             ss("bt.png")
             ss("bt2.png")
         return Ggame, Ngame, Gcikl, vygr, progr, start_time
@@ -1723,7 +1723,7 @@ def shaman_standart():
             endGame("end_game2.png")
             if Ggame == 0:
                 fill_table()  # заполняем БД
-                print_oll_table()
+ #               print_oll_table()
             ss("bt.png")
             ss("bt2.png")
         return  Ggame, Ngame, Gcikl, vygr, progr, start_time
@@ -1927,7 +1927,7 @@ def lock_standart():
             endGame("end_game2.png")
             if Ggame == 0:
                 fill_table()  # заполняем БД
-                print_oll_table()
+ #               print_oll_table()
             ss("bt.png")
             ss("bt2.png")
         return  Ggame, Ngame, Gcikl, vygr, progr, start_time
@@ -1947,7 +1947,6 @@ moneta = 0  # индикатор монеты в руке
 mana = 0  # счетчик маны во время хода
 zero = 0  # ноль
 delay = 25  # вемя на свой ход
-
 
 
 
@@ -1982,13 +1981,6 @@ conn.commit()  # применяем изменения
 
 # исполняемый код
 startlnk()  # запуск приложения Battle.net
-
-
-
-
-
-
-
 
 #fill_table_start()
 
