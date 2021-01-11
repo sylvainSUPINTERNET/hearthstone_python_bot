@@ -1,14 +1,14 @@
 # python3
+
 import subprocess  # Запуск приложений windows
 import time  # работа со временем
-import pyautogui as pg # работа с картинками
-import keyboard # работа с нажатиями клавиш
-import sys #  системными библиотеками
-import datetime # работа с датой и времени
+import pyautogui as pg  # работа с картинками
+import keyboard  # работа с нажатиями клавиш
+import sys  # системными библиотеками
+import datetime  # работа с датой и времени
 from datetime import datetime
-from datetime import timedelta
-import sqlite3 # Импортируем библиотеку, соответствующую типу нашей базы данных
-import random # рандомные числа
+import sqlite3  # Импортируем библиотеку, соответствующую типу нашей базы данных
+import random  # рандомные числа
 
 
 def startlnk():  # функция запуска приложения
@@ -21,36 +21,43 @@ def pointclick():  # функция произвольного нажатия в
 
 
 def ss(template):  # функция определения и двойного нажатия на координаты кнопки
-#    global zero
+    global zero, activity
     try:
-        buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 1600, 900), confidence=0.7) 
+        buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 1600, 900), confidence=0.7)
+        activity = time.time()
         pg.moveTo(buttonx, buttony)
         pg.doubleClick(buttonx, buttony)
         print(buttonx, buttony)
         time.sleep(1)
+        return activity
     except TypeError:
         return zero
 
 
 def simple_press(template):  # функция определения и двойного нажатия на координаты кнопки
-#    global zero
+    global activity, zero
     try:
         buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 1600, 900), confidence=0.7)
+        activity = time.time()
         pg.moveTo(buttonx, buttony)
         pg.click(buttonx, buttony)
         print(buttonx, buttony)
         time.sleep(1)
+        return activity
     except TypeError:
         return zero
 
 
 def card_selection(template):  # функция определения и двойного нажатия на координаты кнопки
+    global activity
     try:
         buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 1600, 900), confidence=0.7)
         pg.moveTo(buttonx, buttony)
         pg.click(buttonx, buttony)
         print(buttonx, buttony)
+        activity = time.time()
         time.sleep(1)
+        return  activity
     except TypeError:
         return zero
 
@@ -65,6 +72,7 @@ def start_game(template):
     global zero
     global vygr
     global progr
+    global activity
     try:
         buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 1600, 900), confidence=0.7) 
         pg.moveTo(buttonx, buttony)
@@ -76,8 +84,9 @@ def start_game(template):
         vygr = 0
         progr = 0
         print("Старт игры")
+        activity = time.time()
         time.sleep(1)
-        return hod, Gcikl, Ggame, cikl, vygr, progr
+        return hod, Gcikl, Ggame, cikl, vygr, progr, activity
     except TypeError:
         return zero
 
@@ -85,14 +94,16 @@ def start_game(template):
 def vash_hod(template):
     global game #индикатор своего хода
     global zero
+    global activity
     try:
         buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 1600, 900), confidence=0.7) 
         if game == 0:
             game = 1
             print("Старт хода")  
-            pg.moveTo(buttonx, buttony, duration=0)                     
+            pg.moveTo(buttonx, buttony, duration=0)
+            activity = time.time()
             time.sleep(1)
-            return game
+            return game, activity
     except TypeError:
         return zero
 
@@ -103,6 +114,7 @@ def chughoj_hod(template):
     global hod
     global mana
     global zero
+    global activity
     try:
         buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 1600, 900), confidence=0.7) 
         pg.moveTo(buttonx, buttony)
@@ -111,13 +123,14 @@ def chughoj_hod(template):
             hod += 1
             game = 0
             unit = 0
-        print("Ход противника")                  
+        print("Ход противника")
+        activity = time.time()
         time.sleep(5)
         if hod < 11:
             mana = hod
         elif hod >= 11:
             mana = 10
-        return game, unit, hod, mana
+        return game, unit, hod, mana, activity
     except TypeError:
         return zero
 
@@ -129,9 +142,11 @@ def karta(template):  # функция покупки юнита
     global game
     global moneta
     global mana
+    global activity
     try:
         buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 700, 1600, 200), confidence=0.7)
         pg.moveTo(buttonx, buttony)
+        activity = time.time()
         print('Нашел карту', buttonx, buttony)
         print("unit", unit)
         print("hod", hod)
@@ -150,15 +165,16 @@ def karta(template):  # функция покупки юнита
             pg.moveTo(969, 614, duration=1)  # перемещение
             pg.mouseUp(button='left')  # отпустить левую клавиши мыши
             unit += 1
-        return unit, hod, game, moneta, mana
+        return unit, hod, game, moneta, mana, activity
     except TypeError:
         return zero
 
 
 def health(template):  # функция лечения
-    global zero
+    global zero, activity
     try:
-        buttonx, buttony = pg.locateCenterOnScreen(template, region=(800, 600, 400, 300), confidence=0.7) 
+        buttonx, buttony = pg.locateCenterOnScreen(template, region=(800, 600, 400, 300), confidence=0.7)
+        activity = time.time()
         pg.moveTo(buttonx, buttony)
         print(buttonx, buttony)
         pg.press(['right'])
@@ -167,14 +183,16 @@ def health(template):  # функция лечения
         pg.mouseDown(button='left') #нажать левую клавишу мыши
         pg.moveTo(800, buttony, duration=1) #перемещение
         pg.mouseUp(button='left') #отпустить левую клавиши мыши
+        return activity
     except TypeError:
         return zero
 
 
 def throw_a_ball(template):
-    global zero
+    global zero, activity
     try:
         buttonx, buttony = pg.locateCenterOnScreen(template, region=(800, 600, 400, 300), confidence=0.7)
+        activity = time.time()
         pg.moveTo(buttonx, buttony)
         print(buttonx, buttony)
         pg.press(['right'])
@@ -183,21 +201,26 @@ def throw_a_ball(template):
         pg.mouseDown(button='left')  # нажать левую клавишу мыши
         pg.moveTo(800, 170, duration=1)  # перемещение
         pg.mouseUp(button='left')  # отпустить левую клавиши мыши
+        return activity
     except TypeError:
         return zero
 
 
 def punch_in_the_face():
+    global activity
+    activity = time.time()
     pg.moveTo(800, 690, duration=0)  # перемещение к своему лицу
     pg.mouseDown(button='left')  # нажать левую клавишу мыши
     pg.moveTo(800, 170, duration=1)  # перемещение
     pg.mouseUp(button='left')  # отпустить левую клавиши мыши
     pg.click(button='right')  # нажать и отпустить правую клавишу
+    return activity
 
 
 def projgrysh(template):
     global zero
     global progr
+    global activity
     try:
         buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 1600, 900), confidence=0.7) 
         pg.moveTo(buttonx, buttony)
@@ -205,8 +228,9 @@ def projgrysh(template):
         progr = 1
         pg.moveTo(buttonx, buttony, duration=0)
         pg.doubleClick(buttonx, buttony)
+        activity = time.time()
         time.sleep(2)
-        return progr
+        return progr, activity
     except TypeError:
         return zero
 
@@ -214,15 +238,17 @@ def projgrysh(template):
 def vyjgrysh(template):
     global zero
     global vygr
+    global activity
     try:
         buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 1600, 900), confidence=0.7) 
         pg.moveTo(buttonx, buttony)
         print(buttonx, buttony)
+        activity = time.time()
         vygr = 1
         pg.moveTo(buttonx, buttony, duration=0)
         pg.doubleClick(buttonx, buttony)
         time.sleep(1)
-        return vygr
+        return vygr, activity
     except TypeError:
         return zero
 
@@ -230,15 +256,17 @@ def vyjgrysh(template):
 def endGame(template):
     global zero
     global Ggame
+    global activity
     try:
-        buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 1600, 900), confidence=0.7) 
+        buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 1600, 900), confidence=0.7)
+        activity = time.time()
         pg.moveTo(buttonx, buttony)
         print(buttonx, buttony)
         Ggame = 0
         print("Конец игры")
         pg.doubleClick(buttonx, buttony)
         time.sleep(1)
-        return Ggame
+        return Ggame, activity
     except TypeError:
         return zero
 
@@ -289,6 +317,7 @@ def fill_table(): # заполняем строку таблицы
     global vygr
     global progr
     global hod
+    global activity
     date = start_time.strftime("%d.%m.%Y")
     startgame = start_time.strftime("%H:%M:%S")
     end_game = datetime.now()
@@ -305,6 +334,8 @@ def fill_table(): # заполняем строку таблицы
         localpercent = 'выйгрыш'
     if progr == 1:
         localpercent = 'пройгрыш'
+    if (time.time() - activity) >= 300:
+        localpercent = 'offline'
     c.execute("SELECT * FROM total  WHERE   name_id = (SELECT MAX(name_id)  FROM total);")
     result_old = c.fetchone()
     print(result_old)
@@ -356,6 +387,7 @@ def grec_standart():
     global unit
     global start_time
     global delay
+    global activity
     tipe = 'стандарт'
     deck = 'жрец'
     ss("btn_grec.png")
@@ -370,6 +402,10 @@ def grec_standart():
                 fill_table() #заполняем БД
                 print_oll_table()
                 sys.exit()  # завершаем программу
+            if (time.time() - activity) >= 280:
+                pointclick()
+            if (time.time() - activity) >= 300:
+                Ggame = 0
             Gcikl += 1
             ss("btn_start.png")
             card_selection("btn_ok.png")
@@ -590,7 +626,7 @@ def grec_standart():
  #               print_oll_table()
             ss("bt.png")
             ss("bt2.png")
-        return  Ggame, Ngame, Gcikl, vygr, progr, start_time, tipe, deck
+        return  Ggame, Ngame, Gcikl, vygr, progr, start_time, tipe, deck, activity
 
 
 def hant_standart():
@@ -609,6 +645,7 @@ def hant_standart():
     global unit
     global start_time
     global delay
+    global activity
     tipe = 'стандарт'
     deck = 'охотник'
     ss("btn_hant.png")
@@ -624,6 +661,10 @@ def hant_standart():
                 fill_table() #заполняем БД
                 print_oll_table()
                 sys.exit()  # завершаем программу
+            if (time.time() - activity) >= 280:
+                pointclick()
+            if (time.time() - activity) >= 300:
+                Ggame = 0
             Gcikl += 1
             card_selection("btn_ok.png")
             chughoj_hod("chughoj_hod.png")
@@ -743,7 +784,7 @@ def hant_standart():
  #               print_oll_table()
             ss("bt.png")
             ss("bt2.png")
-        return  Ggame, Ngame, Gcikl, vygr, progr, start_time
+        return  Ggame, Ngame, Gcikl, vygr, progr, start_time, activity
 
 
 def voin_standart():
@@ -762,6 +803,7 @@ def voin_standart():
     global unit
     global start_time
     global delay
+    global activity
     tipe = 'стандарт'
     deck = 'воин'
     ss("btn_voin.png")
@@ -777,6 +819,10 @@ def voin_standart():
                 fill_table() #заполняем БД
                 print_oll_table()
                 sys.exit()  # завершаем программу
+            if (time.time() - activity) >= 280:
+                pointclick()
+            if (time.time() - activity) >= 300:
+                Ggame = 0
             Gcikl += 1
             ss("btn_start.png")
             card_selection("btn_ok.png")
@@ -897,7 +943,7 @@ def voin_standart():
 #                print_oll_table()
             ss("bt.png")
             ss("bt2.png")
-        return Ggame, Ngame, Gcikl, vygr, progr, start_time
+        return Ggame, Ngame, Gcikl, vygr, progr, start_time, activity
 
 
 def mag_standart():
@@ -916,6 +962,7 @@ def mag_standart():
     global unit
     global start_time
     global delay
+    global activity
     tipe = 'стандарт'
     deck = 'маг'
     ss("btn_mag.png")
@@ -931,6 +978,10 @@ def mag_standart():
                 fill_table() #заполняем БД
                 print_oll_table()
                 sys.exit()  # завершаем программу
+            if (time.time() - activity) >= 280:
+                pointclick()
+            if (time.time() - activity) >= 300:
+                Ggame = 0
             Gcikl += 1
             ss("btn_start.png")
             card_selection("btn_ok.png")
@@ -1051,7 +1102,7 @@ def mag_standart():
 #                print_oll_table()
             ss("bt.png")
             ss("bt2.png")
-        return Ggame, Ngame, Gcikl, vygr, progr, start_time
+        return Ggame, Ngame, Gcikl, vygr, progr, start_time, activity
 
 
 def roga_standart():
@@ -1070,6 +1121,7 @@ def roga_standart():
     global unit
     global start_time
     global delay
+    global activity
     tipe = 'стандарт'
     deck = 'рога'
     ss("btn_roga.png")
@@ -1085,6 +1137,10 @@ def roga_standart():
                 fill_table() #заполняем БД
                 print_oll_table()
                 sys.exit()  # завершаем программу
+            if (time.time() - activity) >= 280:
+                pointclick()
+            if (time.time() - activity) >= 300:
+                Ggame = 0
             Gcikl += 1
             ss("btn_start.png")
             card_selection("btn_ok.png")
@@ -1210,7 +1266,7 @@ def roga_standart():
  #               print_oll_table()
             ss("bt.png")
             ss("bt2.png")
-        return Ggame, Ngame, Gcikl, vygr, progr, start_time
+        return Ggame, Ngame, Gcikl, vygr, progr, start_time, activity
 
 
 def dh_standart():
@@ -1229,6 +1285,7 @@ def dh_standart():
     global unit
     global start_time
     global delay
+    global activity
     tipe = 'стандарт'
     deck = ' Д Х '
     ss("btn_dh.png")
@@ -1244,6 +1301,10 @@ def dh_standart():
                 fill_table() #заполняем БД
                 print_oll_table()
                 sys.exit()  # завершаем программу
+            if (time.time() - activity) >= 280:
+                pointclick()
+            if (time.time() - activity) >= 300:
+                Ggame = 0
             Gcikl += 1
             ss("btn_start.png")
             card_selection("btn_ok.png")
@@ -1413,7 +1474,7 @@ def dh_standart():
 #                print_oll_table()
             ss("bt.png")
             ss("bt2.png")
-        return Ggame, Ngame, Gcikl, vygr, progr, start_time
+        return Ggame, Ngame, Gcikl, vygr, progr, start_time, activity
 
 
 def druid_standart():
@@ -1432,6 +1493,7 @@ def druid_standart():
     global unit
     global start_time
     global delay
+    global activity
     tipe = 'стандарт'
     deck = 'друид'
     ss("btn_druid.png")
@@ -1447,6 +1509,10 @@ def druid_standart():
                 fill_table() #заполняем БД
                 print_oll_table()
                 sys.exit()  # завершаем программу
+            if (time.time() - activity) >= 280:
+                pointclick()
+            if (time.time() - activity) >= 300:
+                Ggame = 0
             Gcikl += 1
             ss("btn_start.png")
             card_selection("btn_ok.png")
@@ -1572,7 +1638,7 @@ def druid_standart():
  #               print_oll_table()
             ss("bt.png")
             ss("bt2.png")
-        return Ggame, Ngame, Gcikl, vygr, progr, start_time
+        return Ggame, Ngame, Gcikl, vygr, progr, start_time, activity
 
 
 def shaman_standart():
@@ -1591,6 +1657,7 @@ def shaman_standart():
     global unit
     global start_time
     global delay
+    global activity
     tipe = 'стандарт'
     deck = 'шаман'
     ss("btn_shaman.png")
@@ -1606,6 +1673,10 @@ def shaman_standart():
                 fill_table() #заполняем БД
                 print_oll_table()
                 sys.exit()  # завершаем программу
+            if (time.time() - activity) >= 280:
+                pointclick()
+            if (time.time() - activity) >= 300:
+                Ggame = 0
             Gcikl += 1
             ss("btn_start.png")
             card_selection("btn_ok.png")
@@ -1726,7 +1797,7 @@ def shaman_standart():
  #               print_oll_table()
             ss("bt.png")
             ss("bt2.png")
-        return  Ggame, Ngame, Gcikl, vygr, progr, start_time
+        return  Ggame, Ngame, Gcikl, vygr, progr, start_time, activity
 
 
 def lock_standart():
@@ -1745,6 +1816,7 @@ def lock_standart():
     global unit
     global start_time
     global delay
+    global activity
     tipe = 'стандарт'
     deck = 'лок'
     ss("btn_lock.png")
@@ -1760,6 +1832,10 @@ def lock_standart():
                 fill_table() #заполняем БД
                 print_oll_table()
                 sys.exit()  # завершаем программу
+            if (time.time() - activity) >= 280:
+                pointclick()
+            if (time.time() - activity) >= 300:
+                Ggame = 0
             Gcikl += 1
             card_selection("btn_ok.png")
             chughoj_hod("chughoj_hod.png")
@@ -1930,7 +2006,18 @@ def lock_standart():
  #               print_oll_table()
             ss("bt.png")
             ss("bt2.png")
-        return  Ggame, Ngame, Gcikl, vygr, progr, start_time
+        return  Ggame, Ngame, Gcikl, vygr, progr, start_time, activity
+
+
+def activity_analysis():
+    global activity
+    if (time.time() - activity) >= 420:
+        simple_press("btn_gear.png")
+        simple_press("btn_exit.png")
+        simple_press("btn_connect_again.png")
+        time.sleep(600)
+    return activity
+
 
 
 # variables (переменные)
@@ -1947,6 +2034,7 @@ moneta = 0  # индикатор монеты в руке
 mana = 0  # счетчик маны во время хода
 zero = 0  # ноль
 delay = 25  # вемя на свой ход
+activity = o  # анализ активности игрового процесса
 
 
 
@@ -2019,3 +2107,4 @@ while "Бесконечный цикл":  # Цикл анализа
     ss("bt.png")
     ss("bt2.png")
     pointclick()
+    activity_analysis()
