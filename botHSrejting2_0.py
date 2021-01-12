@@ -603,7 +603,7 @@ def grec_standart():
                             mana = 3
                     if unit == 0:
                         pg.press(['right'])
-                        karta("666.png")
+                        karta("btn_m6.png")
                         if unit == 1:
                             mana = 4
                     if unit == 0:
