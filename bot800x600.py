@@ -2012,9 +2012,9 @@ def lock_standart():
 def activity_analysis():
     global activity
     if (time.time() - activity) >= 420:
-        simple_press("btn_gear.png")
-        simple_press("btn_exit.png")
-        simple_press("btn_connect_again.png")
+        simple_press("btn/800x600/btn_gear.png")
+        simple_press("btn/800x600/btn_exit.png")
+        simple_press("btn/800x600/btn_connect_again.png")
         time.sleep(600)
     return activity
 
@@ -2104,5 +2104,5 @@ while "Бесконечный цикл":  # Цикл анализа
     # На случай потери соединения
 #    ss("btn/800x600/bt.png")
 #    ss("btn/800x600/bt2.png")
-    pointclick()
+#     pointclick()
     activity_analysis()
