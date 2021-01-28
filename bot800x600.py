@@ -34,6 +34,20 @@ def ss(template):  # функция определения и двойного �
         return zero
 
 
+def hero_strength(template):  # функция силы героя
+    global zero, activity
+    try:
+        buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 400, 800, 200), confidence=0.7)
+        activity = time.time()
+        pg.moveTo(buttonx, buttony)
+        pg.doubleClick(buttonx, buttony)
+        print(buttonx, buttony)
+        time.sleep(1)
+        return activity
+    except TypeError:
+        return zero
+
+
 def simple_press(template):  # функция одинарного нажатия
     global activity, zero
     try:
@@ -43,6 +57,7 @@ def simple_press(template):  # функция одинарного нажати�
         pg.click(buttonx, buttony)
         print(buttonx, buttony)
         time.sleep(1)
+        pg.moveTo(800, 600)
         return activity
     except TypeError:
         return zero
@@ -103,6 +118,7 @@ def vash_hod(template):
             pg.moveTo(buttonx, buttony, duration=0)
             activity = time.time()
             time.sleep(1)
+            pg.moveTo(800, 600)
             return game, activity
     except TypeError:
         return zero
@@ -126,6 +142,7 @@ def chughoj_hod(template):
         print("Ход противника")
         activity = time.time()
         time.sleep(5)
+        pg.moveTo(800, 600)
         if hod < 11:
             mana = hod
         elif hod >= 11:
@@ -1148,7 +1165,7 @@ def roga_standart():
             vash_hod("btn/800x600/btn_end.png")
             print("hod=", hod)
             if hod == 1 and game == 1:
-                close_time = time.time() + 15
+                close_time = time.time() + 10
                 while True:
                     ##bla bla
                     if time.time() > close_time:
@@ -1163,13 +1180,13 @@ def roga_standart():
                     if time.time() > close_time:
                         break
                 pg.press(['right'])
-                simple_press("btn/800x600/btn_two_swords.png")
+                hero_strength("btn/800x600/btn_two_swords.png")
                 punch_in_the_face()
                 simple_press("btn/800x600/btn_end.png")
                 simple_press("btn/800x600/btn_end2.png")
             elif hod == 4 and game == 1:
                 pg.press(['right'])
-                karta("btn_m0.png")
+                karta("btn/800x600/btn_m0.png")
                 if moneta == 1:
                     mana += 1
                     moneta = 0
@@ -1184,7 +1201,7 @@ def roga_standart():
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                    simple_press("btn/800x600/btn_two_swords.png")
+                    hero_strength("btn/800x600/btn_two_swords.png")
                     punch_in_the_face()
                     mana = 0
                 moneta = 0
@@ -1196,13 +1213,13 @@ def roga_standart():
                     ##bla bla
                     if unit == 0:
                         pg.press(['right'])
-                        karta("btn_m5.png")
+                        karta("btn/800x600/btn_m5.png")
                         if unit == 1:
                             mana = 1
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                     simple_press("btn/800x600/btn_two_swords.png")
+                     hero_strength("btn/800x600/btn_two_swords.png")
                      punch_in_the_face()
                      mana = 0
                 pg.press(['right'])
@@ -1225,7 +1242,7 @@ def roga_standart():
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                    simple_press("btn/800x600/btn_two_swords.png")
+                    hero_strength("btn/800x600/btn_two_swords.png")
                     punch_in_the_face()
                     mana = 0
                 pg.press(['right'])
@@ -1236,23 +1253,23 @@ def roga_standart():
                 while True:
                     ##bla bla
                     if unit == 0:
-                        karta("btn_m7.png")
+                        karta("btn/800x600/btn_m7.png")
                         if unit == 1:
                             mana = mana - 7
                     if unit == 0:
                         pg.press(['right'])
-                        karta("btn_m6.png")
+                        karta("btn/800x600/btn_m6.png")
                         if unit == 1:
                             mana = mana - 6
                     if unit == 0:
                         pg.press(['right'])
-                        karta("btn_m5.png")
+                        karta("btn/800x600/btn_m5.png")
                         if unit == 1:
                             mana = mana - 5
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                    simple_press("btn_two_swords.png")
+                    hero_strength("btn_two_swords.png")
                     punch_in_the_face()
                     mana = 0
                 pg.press(['right'])
@@ -2033,7 +2050,7 @@ game = 0  # индикатор игры (вашего хода)
 moneta = 0  # индикатор монеты в руке
 mana = 0  # счетчик маны во время хода
 zero = 0  # ноль
-delay = 25  # вемя на свой ход
+delay = 5  # вемя на свой ход
 activity = time.time()  # анализ активности игрового процесса
 
 
