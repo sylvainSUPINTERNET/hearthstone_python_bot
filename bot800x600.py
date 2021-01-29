@@ -9,6 +9,8 @@ import datetime  # работа с датой и времени
 from datetime import datetime
 import sqlite3  # Импортируем библиотеку, соответствующую типу нашей базы данных
 import random  # рандомные числа
+import sys
+import os
 
 
 def startlnk():  # функция запуска приложения
@@ -27,7 +29,6 @@ def ss(template):  # функция определения и двойного �
         activity = time.time()
         pg.moveTo(buttonx, buttony)
         pg.doubleClick(buttonx, buttony)
-        print(buttonx, buttony)
         time.sleep(1)
         return activity
     except TypeError:
@@ -41,7 +42,6 @@ def hero_strength(template):  # функция силы героя
         activity = time.time()
         pg.moveTo(buttonx, buttony)
         pg.doubleClick(buttonx, buttony)
-        print(buttonx, buttony)
         time.sleep(1)
         return activity
     except TypeError:
@@ -55,7 +55,6 @@ def simple_press(template):  # функция одинарного нажати�
         activity = time.time()
         pg.moveTo(buttonx, buttony)
         pg.click(buttonx, buttony)
-        print(buttonx, buttony)
         time.sleep(1)
         pg.moveTo(800, 600)
         return activity
@@ -69,7 +68,6 @@ def card_selection(template):  # функция выбора карт
         buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 800, 600), confidence=0.7)
         pg.moveTo(buttonx, buttony)
         pg.click(buttonx, buttony)
-        print(buttonx, buttony)
         activity = time.time()
         time.sleep(1)
         return  activity
@@ -91,14 +89,13 @@ def start_game(template):
     try:
         buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 800, 600), confidence=0.7)
         pg.moveTo(buttonx, buttony)
-        print(buttonx, buttony)
+        # print(buttonx, buttony)
         Gcikl += 1
         hod = 1
         Ggame = 1
         cikl = 0
         vygr = 0
         progr = 0
-        print("Старт игры")
         activity = time.time()
         time.sleep(1)
         return hod, Gcikl, Ggame, cikl, vygr, progr, activity
@@ -114,7 +111,7 @@ def vash_hod(template):
         buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 800, 600), confidence=0.7)
         if game == 0:
             game = 1
-            print("Старт хода")
+            # print("Старт хода")
             pg.moveTo(buttonx, buttony, duration=0)
             activity = time.time()
             time.sleep(1)
@@ -139,7 +136,7 @@ def chughoj_hod(template):
             hod += 1
             game = 0
             unit = 0
-        print("Ход противника")
+        # print("Ход противника")
         activity = time.time()
         time.sleep(5)
         pg.moveTo(800, 600)
@@ -164,19 +161,19 @@ def karta(template):  # функция покупки юнита
         buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 300, 800, 300), confidence=0.7)
         pg.moveTo(buttonx, buttony)
         activity = time.time()
-        print('Нашел карту', buttonx, buttony)
-        print("unit", unit)
-        print("hod", hod)
+        # print('Нашел карту', buttonx, buttony)
+        # print("unit", unit)
+        # print("hod", hod)
         pg.press(['right'])
         if hod == 4 and unit == 0:
             moneta = 1
-            print("Выложил монету на стол")
+            # print("Выложил монету на стол")
             pg.moveTo(buttonx, buttony, duration=0)  # перемещение к кнопке
             pg.mouseDown(button='left')  # нажать левую клавишу мыши
             pg.moveTo(400, 310, duration=1)  # перемещение
             pg.mouseUp(button='left')  # отпустить левую клавиши мыши
         if unit == 0 and hod > 3 and game == 1 and mana >= 5:
-            print("Выложил одну карту на стол")
+            # print("Выложил одну карту на стол")
             pg.moveTo(buttonx, buttony, duration=0)  # перемещение к кнопке
             pg.mouseDown(button='left')  # нажать левую клавишу мыши
             pg.moveTo(400, 310, duration=1)  # перемещение
@@ -193,9 +190,9 @@ def health(template):  # функция лечения
         buttonx, buttony = pg.locateCenterOnScreen(template, region=(512, 576, 200, 192), confidence=0.7)
         activity = time.time()
         pg.moveTo(buttonx, buttony)
-        print(buttonx, buttony)
+        # print(buttonx, buttony)
         pg.press(['right'])
-        print("лечение")
+        # print("лечение")
         pg.moveTo(buttonx, buttony, duration=0) #перемещение к кнопке
         pg.mouseDown(button='left') #нажать левую клавишу мыши
         pg.moveTo(512, buttony, duration=1) #перемещение
@@ -241,7 +238,7 @@ def projgrysh(template):
     try:
         buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 1024, 768), confidence=0.7)
         pg.moveTo(buttonx, buttony)
-        print(buttonx, buttony)
+        # print(buttonx, buttony)
         progr = 1
         pg.moveTo(buttonx, buttony, duration=0)
         pg.doubleClick(buttonx, buttony)
@@ -259,7 +256,7 @@ def vyjgrysh(template):
     try:
         buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 1024, 768), confidence=0.7)
         pg.moveTo(buttonx, buttony)
-        print(buttonx, buttony)
+        # print(buttonx, buttony)
         activity = time.time()
         vygr = 1
         pg.moveTo(buttonx, buttony, duration=0)
@@ -292,7 +289,7 @@ def timer_game():
     global start_time
     now = datetime.datetime.now()
     loctime = format(time.time() - start_time)  # время в игре
-    print(now)
+    # print(now)
     return now, loctime
 
 
@@ -308,12 +305,12 @@ def print_oll_table(): #функция вывода всей таблицы
 def load_table():
     c.execute("SELECT * FROM total  WHERE   name_id = (SELECT MAX(name_id)  FROM total);")
     result_old = c.fetchone()
-    print(result_old) # выводит последнюю строку таблицы
+    # print(result_old) # выводит последнюю строку таблицы
     # for id in result_old: # выводит по одному все значения последней строки
     #     print(id)
     b = result_old[1]
-    print(result_old[0])
-    print(b)
+    # print(result_old[0])
+    # print(b)
     conn.commit()
 
 
@@ -355,8 +352,7 @@ def fill_table(): # заполняем строку таблицы
         localpercent = 'offline'
     c.execute("SELECT * FROM total  WHERE   name_id = (SELECT MAX(name_id)  FROM total);")
     result_old = c.fetchone()
-    print(result_old)
-
+    # print(result_old)
     g_days = result_old[8] + l_days  # дни
     g_hours = result_old[9] + l_hours  # часы
     g_minuts = result_old[10] + l_minuts  # минуты
@@ -1163,9 +1159,9 @@ def roga_standart():
             card_selection("btn/800x600/btn_ok.png")
             chughoj_hod("btn/800x600/chughoj_hod.png")
             vash_hod("btn/800x600/btn_end.png")
-            print("hod=", hod)
+            # print("hod=", hod)
             if hod == 1 and game == 1:
-                close_time = time.time() + 10
+                close_time = time.time() + 20
                 while True:
                     ##bla bla
                     if time.time() > close_time:
@@ -1269,12 +1265,12 @@ def roga_standart():
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                    hero_strength("btn_two_swords.png")
+                    hero_strength("btn/800x600/btn_two_swords.png")
                     punch_in_the_face()
                     mana = 0
                 pg.press(['right'])
-                simple_press("btn_end.png")
-                simple_press("btn_end2.png")
+                simple_press("btn/800x600/btn_end.png")
+                simple_press("btn/800x600/btn_end2.png")
             projgrysh("btn/800x600/end_game.png")
             vyjgrysh("btn/800x600/victory.png")
             endGame("btn/800x600/end_game2.png")
@@ -1857,7 +1853,7 @@ def lock_standart():
             card_selection("btn_ok.png")
             chughoj_hod("chughoj_hod.png")
             vash_hod("btn_end.png")
-            print("hod=", hod)
+            # print("hod=", hod)
             if hod == 1 and game == 1:
                 close_time = time.time() + 15
                 while True:
@@ -2050,8 +2046,14 @@ game = 0  # индикатор игры (вашего хода)
 moneta = 0  # индикатор монеты в руке
 mana = 0  # счетчик маны во время хода
 zero = 0  # ноль
-delay = 5  # вемя на свой ход
+delay = 25  # вемя на свой ход
 activity = time.time()  # анализ активности игрового процесса
+
+
+# sys.path.append(r'D:\00. Обучение\05. Git\00. project\00.botHS\btn\800x600')
+#sys.path.append(os.path.join(sys.path[0], '/btn/800x600'))
+#print(os.listdir(os.getcwd()))
+# print(sys.path)
 
 
 # Работа с БД
@@ -2093,8 +2095,8 @@ while "Бесконечный цикл":  # Цикл анализа
         print_oll_table()
         sys.exit()  # завершаем программу
     cikl += 1
-    print("Цикл =", cikl)
-    print("Колличество игр ", Ngame)
+#    print("Цикл =", cikl)
+#    print("Колличество игр ", Ngame)
     time.sleep(5)
     ss('btn/800x600/00_btn_game_.png')
     ss("btn/800x600/btn_game.png")
@@ -2121,5 +2123,5 @@ while "Бесконечный цикл":  # Цикл анализа
     # На случай потери соединения
 #    ss("btn/800x600/bt.png")
 #    ss("btn/800x600/bt2.png")
-#     pointclick()
+    pointclick()
     activity_analysis()
