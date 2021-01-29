@@ -131,7 +131,7 @@ def chughoj_hod(template):
     try:
         buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 800, 600), confidence=0.7)
         pg.moveTo(buttonx, buttony)
-        print(buttonx, buttony)
+        # print(buttonx, buttony)
         if game == 1:
             hod += 1
             game = 0
@@ -1142,7 +1142,7 @@ def roga_standart():
     start_game("btn/800x600/btn_start.png")
     if Ggame == 1:
         Ngame += 1
-        print("Игра рогой началась", Gcikl)
+        # print("Игра рогой началась", Gcikl)
         start_time = datetime.now()  # текущие дата и время
         while Ggame == 1:
             if keyboard.is_pressed('Enter'): # если клавиша Esc
