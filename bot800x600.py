@@ -1,20 +1,19 @@
 # python3
 
-import subprocess  # Запуск приложений windows
-import time  # работа со временем
-import pyautogui as pg  # работа с картинками
-import keyboard  # работа с нажатиями клавиш
-import sys  # системными библиотеками
 import datetime  # работа с датой и времени
-from datetime import datetime
 import sqlite3  # Импортируем библиотеку, соответствующую типу нашей базы данных
-import random  # рандомные числа
+import subprocess  # Запуск приложений windows
 import sys
-import os
+import time  # работа со временем
+from datetime import datetime
+
+import keyboard  # работа с нажатиями клавиш
+import pyautogui as pg  # работа с картинками
 
 
 def startlnk():  # функция запуска приложения
-    subprocess.Popen('C:\Program Files (x86)\Battle.net\Battle.net Launcher.exe -w 800 -h 600')  # запуск приложения
+    subprocess.Popen("D:\soft\\battlenet\Battle.net\Battle.net Launcher.exe")
+    # subprocess.Popen('C:\Program Files (x86)\Battle.net\Battle.net Launcher.exe -w 800 -h 600')  # запуск приложения
     time.sleep(2)  # время ожидания запуска battle.net
 
 
@@ -70,7 +69,7 @@ def card_selection(template):  # функция выбора карт
         pg.click(buttonx, buttony)
         activity = time.time()
         time.sleep(1)
-        return  activity
+        return activity
     except TypeError:
         return zero
 
@@ -104,7 +103,7 @@ def start_game(template):
 
 
 def vash_hod(template):
-    global game #индикатор своего хода
+    global game  # индикатор своего хода
     global zero
     global activity
     try:
@@ -193,10 +192,10 @@ def health(template):  # функция лечения
         # print(buttonx, buttony)
         pg.press(['right'])
         # print("лечение")
-        pg.moveTo(buttonx, buttony, duration=0) #перемещение к кнопке
-        pg.mouseDown(button='left') #нажать левую клавишу мыши
-        pg.moveTo(512, buttony, duration=1) #перемещение
-        pg.mouseUp(button='left') #отпустить левую клавиши мыши
+        pg.moveTo(buttonx, buttony, duration=0)  # перемещение к кнопке
+        pg.mouseDown(button='left')  # нажать левую клавишу мыши
+        pg.moveTo(512, buttony, duration=1)  # перемещение
+        pg.mouseUp(button='left')  # отпустить левую клавиши мыши
         return activity
     except TypeError:
         return zero
@@ -293,12 +292,13 @@ def timer_game():
     return now, loctime
 
 
-def print_oll_table(): #функция вывода всей таблицы
+def print_oll_table():  # функция вывода всей таблицы
     c.execute("SELECT * FROM total;")
     all_results = c.fetchall()
     for id in all_results:
-        print(id[0], id[1], id[2], id[3], id[4], id[5], id[6], id[7], id[8], id[9], id[10], id[11], id[12], id[13], id[14],
-              id[15], id[16], id[17], id[18], id[19], id[20],)
+        print(id[0], id[1], id[2], id[3], id[4], id[5], id[6], id[7], id[8], id[9], id[10], id[11], id[12], id[13],
+              id[14],
+              id[15], id[16], id[17], id[18], id[19], id[20], )
         conn.commit()  # применяем изменения
 
 
@@ -314,7 +314,7 @@ def load_table():
     conn.commit()
 
 
-def fill_table_start(): # заполняем строку таблицы
+def fill_table_start():  # заполняем строку таблицы
     c.execute("""INSERT INTO total(date, startgame, endgame, l_days, l_hours, l_minuts, l_seconds,
                 g_days, g_hours, g_minuts, g_seconds, tipe, deck, hod, localvictory, locallosing,
                 localpercent, globalvictory, globallosing, globalpercent)
@@ -323,7 +323,7 @@ def fill_table_start(): # заполняем строку таблицы
     conn.commit()
 
 
-def fill_table(): # заполняем строку таблицы
+def fill_table():  # заполняем строку таблицы
     global now, localpercent
     global start_time
     global tipe
@@ -360,14 +360,13 @@ def fill_table(): # заполняем строку таблицы
 
     if g_seconds >= 60:
         g_minuts = g_minuts + int(g_seconds / 60)
-        g_seconds = g_seconds - (int(g_seconds / 60))*60
+        g_seconds = g_seconds - (int(g_seconds / 60)) * 60
     if g_minuts >= 60:
-        g_hours = g_hours  + int(g_minuts / 60)
-        g_minuts = g_minuts - (int(g_minuts / 60))*60
+        g_hours = g_hours + int(g_minuts / 60)
+        g_minuts = g_minuts - (int(g_minuts / 60)) * 60
     if g_hours >= 24:
-        g_days = g_days  + int(g_hours / 24)
-        g_hours = g_hours - (int(g_hours / 24))*24
-
+        g_days = g_days + int(g_hours / 24)
+        g_hours = g_hours - (int(g_hours / 24)) * 24
 
     localvictory = vygr
     locallosing = progr
@@ -411,8 +410,8 @@ def grec_standart():
         print("Игра жрецом началась", Gcikl)
         start_time = datetime.now()  # текущие дата и время
         while Ggame == 1:
-            if keyboard.is_pressed('Enter'): # если клавиша Esc
-                fill_table() #заполняем БД
+            if keyboard.is_pressed('Enter'):  # если клавиша Esc
+                fill_table()  # заполняем БД
                 print_oll_table()
                 sys.exit()  # завершаем программу
             if (time.time() - activity) >= 280:
@@ -636,7 +635,7 @@ def grec_standart():
             endGame("btn/800x600/end_game2.png")
             if Ggame == 0:
                 fill_table()  # заполняем БД
- #               print_oll_table()
+            #               print_oll_table()
             ss("btn/800x600/bt.png")
             ss("btn/800x600/bt2.png")
         return Ggame, Ngame, Gcikl, vygr, progr, start_time, tipe, deck, activity
@@ -669,9 +668,9 @@ def hant_standart():
         print("игра охотником началась", Gcikl)
         start_time = datetime.now()  # текущие дата и время
         while Ggame == 1:
-            if keyboard.is_pressed('Enter'): # если клавиша Esc
-                timer_game() #подсчет времени
-                fill_table() #заполняем БД
+            if keyboard.is_pressed('Enter'):  # если клавиша Esc
+                timer_game()  # подсчет времени
+                fill_table()  # заполняем БД
                 print_oll_table()
                 sys.exit()  # завершаем программу
             if (time.time() - activity) >= 280:
@@ -794,10 +793,10 @@ def hant_standart():
             endGame("btn/800x600/end_game2.png")
             if Ggame == 0:
                 fill_table()  # заполняем БД
- #               print_oll_table()
+            #               print_oll_table()
             ss("btn/800x600/bt.png")
             ss("btn/800x600/bt2.png")
-        return  Ggame, Ngame, Gcikl, vygr, progr, start_time, activity
+        return Ggame, Ngame, Gcikl, vygr, progr, start_time, activity
 
 
 def voin_standart():
@@ -827,9 +826,9 @@ def voin_standart():
         print("Игра воином началась", Gcikl)
         start_time = datetime.now()  # текущие дата и время
         while Ggame == 1:
-            if keyboard.is_pressed('Enter'): # если клавиша Esc
-                timer_game() #подсчет времени
-                fill_table() #заполняем БД
+            if keyboard.is_pressed('Enter'):  # если клавиша Esc
+                timer_game()  # подсчет времени
+                fill_table()  # заполняем БД
                 print_oll_table()
                 sys.exit()  # завершаем программу
             if (time.time() - activity) >= 280:
@@ -953,7 +952,7 @@ def voin_standart():
             endGame("btn/800x600/end_game2.png")
             if Ggame == 0:
                 fill_table()  # заполняем БД
-#                print_oll_table()
+            #                print_oll_table()
             ss("btn/800x600/bt.png")
             ss("btn/800x600/bt2.png")
         return Ggame, Ngame, Gcikl, vygr, progr, start_time, activity
@@ -986,9 +985,9 @@ def mag_standart():
         print("Игра магом началась", Gcikl)
         start_time = datetime.now()  # текущие дата и время
         while Ggame == 1:
-            if keyboard.is_pressed('Enter'): # если клавиша Esc
-                timer_game() #подсчет времени
-                fill_table() #заполняем БД
+            if keyboard.is_pressed('Enter'):  # если клавиша Esc
+                timer_game()  # подсчет времени
+                fill_table()  # заполняем БД
                 print_oll_table()
                 sys.exit()  # завершаем программу
             if (time.time() - activity) >= 280:
@@ -1112,7 +1111,7 @@ def mag_standart():
             endGame("btn/800x600/end_game2.png")
             if Ggame == 0:
                 fill_table()  # заполняем БД
-#                print_oll_table()
+            #                print_oll_table()
             ss("btn/800x600/bt.png")
             ss("btn/800x600/bt2.png")
         return Ggame, Ngame, Gcikl, vygr, progr, start_time, activity
@@ -1145,9 +1144,9 @@ def roga_standart():
         # print("Игра рогой началась", Gcikl)
         start_time = datetime.now()  # текущие дата и время
         while Ggame == 1:
-            if keyboard.is_pressed('Enter'): # если клавиша Esc
-                timer_game() #подсчет времени
-                fill_table() #заполняем БД
+            if keyboard.is_pressed('Enter'):  # если клавиша Esc
+                timer_game()  # подсчет времени
+                fill_table()  # заполняем БД
                 print_oll_table()
                 sys.exit()  # завершаем программу
             if (time.time() - activity) >= 280:
@@ -1215,9 +1214,9 @@ def roga_standart():
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                     hero_strength("btn/800x600/btn_two_swords.png")
-                     punch_in_the_face()
-                     mana = 0
+                    hero_strength("btn/800x600/btn_two_swords.png")
+                    punch_in_the_face()
+                    mana = 0
                 pg.press(['right'])
                 simple_press("btn/800x600/btn_end.png")
                 simple_press("btn/800x600/btn_end2.png")
@@ -1276,9 +1275,9 @@ def roga_standart():
             endGame("btn/800x600/end_game2.png")
             if Ggame == 0:
                 fill_table()  # заполняем БД
- #               print_oll_table()
- #            ss("btn/800x600/bt.png")
- #            ss("btn/800x600/bt2.png")
+        #               print_oll_table()
+        #            ss("btn/800x600/bt.png")
+        #            ss("btn/800x600/bt2.png")
         return Ggame, Ngame, Gcikl, vygr, progr, start_time, activity
 
 
@@ -1309,9 +1308,9 @@ def dh_standart():
         print("Игра ДХ началась", Gcikl)
         start_time = datetime.now()  # текущие дата и время
         while Ggame == 1:
-            if keyboard.is_pressed('Enter'): # если клавиша Esc
-                timer_game() #подсчет времени
-                fill_table() #заполняем БД
+            if keyboard.is_pressed('Enter'):  # если клавиша Esc
+                timer_game()  # подсчет времени
+                fill_table()  # заполняем БД
                 print_oll_table()
                 sys.exit()  # завершаем программу
             if (time.time() - activity) >= 280:
@@ -1484,7 +1483,7 @@ def dh_standart():
             endGame("end_game2.png")
             if Ggame == 0:
                 fill_table()  # заполняем БД
-#                print_oll_table()
+            #                print_oll_table()
             ss("bt.png")
             ss("bt2.png")
         return Ggame, Ngame, Gcikl, vygr, progr, start_time, activity
@@ -1517,9 +1516,9 @@ def druid_standart():
         print("Игра друидом началась", Gcikl)
         start_time = datetime.now()  # текущие дата и время
         while Ggame == 1:
-            if keyboard.is_pressed('Enter'): # если клавиша Esc
-                timer_game() #подсчет времени
-                fill_table() #заполняем БД
+            if keyboard.is_pressed('Enter'):  # если клавиша Esc
+                timer_game()  # подсчет времени
+                fill_table()  # заполняем БД
                 print_oll_table()
                 sys.exit()  # завершаем программу
             if (time.time() - activity) >= 280:
@@ -1587,9 +1586,9 @@ def druid_standart():
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                     ss("btn_leo.png")
-                     punch_in_the_face()
-                     mana = 0
+                    ss("btn_leo.png")
+                    punch_in_the_face()
+                    mana = 0
                 pg.press(['right'])
                 ss("btn_end.png")
                 ss("btn_end2.png")
@@ -1648,7 +1647,7 @@ def druid_standart():
             endGame("end_game2.png")
             if Ggame == 0:
                 fill_table()  # заполняем БД
- #               print_oll_table()
+            #               print_oll_table()
             ss("bt.png")
             ss("bt2.png")
         return Ggame, Ngame, Gcikl, vygr, progr, start_time, activity
@@ -1681,9 +1680,9 @@ def shaman_standart():
         print("игра шаманов началась", Gcikl)
         start_time = datetime.now()  # текущие дата и время
         while Ggame == 1:
-            if keyboard.is_pressed('Enter'): # если клавиша Esc
-                timer_game() #подсчет времени
-                fill_table() #заполняем БД
+            if keyboard.is_pressed('Enter'):  # если клавиша Esc
+                timer_game()  # подсчет времени
+                fill_table()  # заполняем БД
                 print_oll_table()
                 sys.exit()  # завершаем программу
             if (time.time() - activity) >= 280:
@@ -1807,10 +1806,10 @@ def shaman_standart():
             endGame("end_game2.png")
             if Ggame == 0:
                 fill_table()  # заполняем БД
- #               print_oll_table()
+            #               print_oll_table()
             ss("bt.png")
             ss("bt2.png")
-        return  Ggame, Ngame, Gcikl, vygr, progr, start_time, activity
+        return Ggame, Ngame, Gcikl, vygr, progr, start_time, activity
 
 
 def lock_standart():
@@ -1840,9 +1839,9 @@ def lock_standart():
         print("игра локом началась", Gcikl)
         start_time = datetime.now()  # текущие дата и время
         while Ggame == 1:
-            if keyboard.is_pressed('Enter'): # если клавиша Esc
-                timer_game() #подсчет времени
-                fill_table() #заполняем БД
+            if keyboard.is_pressed('Enter'):  # если клавиша Esc
+                timer_game()  # подсчет времени
+                fill_table()  # заполняем БД
                 print_oll_table()
                 sys.exit()  # завершаем программу
             if (time.time() - activity) >= 280:
@@ -2016,10 +2015,10 @@ def lock_standart():
             endGame("end_game2.png")
             if Ggame == 0:
                 fill_table()  # заполняем БД
- #               print_oll_table()
+            #               print_oll_table()
             ss("bt.png")
             ss("bt2.png")
-        return  Ggame, Ngame, Gcikl, vygr, progr, start_time, activity
+        return Ggame, Ngame, Gcikl, vygr, progr, start_time, activity
 
 
 def activity_analysis():
@@ -2030,7 +2029,6 @@ def activity_analysis():
         simple_press("btn/800x600/btn_connect_again.png")
         time.sleep(600)
     return activity
-
 
 
 # variables (переменные)
@@ -2049,10 +2047,9 @@ zero = 0  # ноль
 delay = 25  # вемя на свой ход
 activity = time.time()  # анализ активности игрового процесса
 
-
 # sys.path.append(r'D:\00. Обучение\05. Git\00. project\00.botHS\btn\800x600')
-#sys.path.append(os.path.join(sys.path[0], '/btn/800x600'))
-#print(os.listdir(os.getcwd()))
+# sys.path.append(os.path.join(sys.path[0], '/btn/800x600'))
+# print(os.listdir(os.getcwd()))
 # print(sys.path)
 
 
@@ -2084,19 +2081,18 @@ c.execute("""CREATE TABLE IF NOT EXISTS total(
 """)
 conn.commit()  # применяем изменения
 
-
 # исполняемый код
 startlnk()  # запуск приложения Battle.net
 
-#fill_table_start()
+# fill_table_start()
 
 while "Бесконечный цикл":  # Цикл анализа
     if keyboard.is_pressed('Enter'):  # если клавиша Esc
         print_oll_table()
         sys.exit()  # завершаем программу
     cikl += 1
-#    print("Цикл =", cikl)
-#    print("Колличество игр ", Ngame)
+    print("Цикл =", cikl)
+    print("Колличество игр ", Ngame)
     time.sleep(5)
     ss('btn/800x600/00_btn_game_.png')
     ss("btn/800x600/btn_game.png")
@@ -2121,7 +2117,7 @@ while "Бесконечный цикл":  # Цикл анализа
     # elif a == 9:
     #     lock_standart()
     # На случай потери соединения
-#    ss("btn/800x600/bt.png")
-#    ss("btn/800x600/bt2.png")
-    pointclick()
+    #    ss("btn/800x600/bt.png")
+    #    ss("btn/800x600/bt2.png")
+    # pointclick()
     activity_analysis()
