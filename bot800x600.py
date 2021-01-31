@@ -13,7 +13,7 @@ import pyautogui as pg  # работа с картинками
 
 def startlnk():  # функция запуска приложения
     # subprocess.Popen("D:\soft\\battlenet\Battle.net\Battle.net Launcher.exe")
-    subprocess.Popen('C:\Program Files (x86)\Battle.net\Battle.net Launcher.exe -w 800 -h 600')  # запуск приложения
+    # subprocess.Popen('C:\Program Files (x86)\Battle.net\Battle.net Launcher.exe -w 800 -h 600')  # запуск приложения
     time.sleep(2)  # время ожидания запуска battle.net
 
 
@@ -2094,7 +2094,7 @@ while "Бесконечный цикл":  # Цикл анализа
     # print("Цикл =", cikl)
     # print("Колличество игр ", Ngame)
     time.sleep(5)
-    ss('btn/1920x1080/00_btn_game.png')
+    #ss('btn/1920x1080/00_btn_game.png')
     ss("btn/800x600/btn_game.png")
     a = random.randint(1, 9)  # рандомное число от 1 до 9
     if a == 1:
