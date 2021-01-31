@@ -6,7 +6,7 @@ import subprocess  # Запуск приложений windows
 import sys
 import time  # работа со временем
 from datetime import datetime
-
+import random
 import keyboard  # работа с нажатиями клавиш
 import pyautogui as pg  # работа с картинками
 
@@ -2094,30 +2094,29 @@ while "Бесконечный цикл":  # Цикл анализа
     # print("Цикл =", cikl)
     # print("Колличество игр ", Ngame)
     time.sleep(5)
-    ss('btn/800x600/00_btn_game_.png')
+    ss('btn/1920x1080/00_btn_game.png')
     ss("btn/800x600/btn_game.png")
-    roga_standart()
-    # a = random.randint(1, 9)  # рандомное число от 1 до 3
-    # if a == 1:
-    #     grec_standart()
-    # elif a == 2:
-    #     hant_standart()
-    # elif a == 3:
-    #     voin_standart()
-    # elif a == 4:
-    #     mag_standart()
-    # elif a == 5:
-    #     roga_standart()
-    # elif a == 6:
-    #     dh_standart()
-    # elif a == 7:
-    #     druid_standart()
-    # elif a == 8:
-    #     shaman_standart()
-    # elif a == 9:
-    #     lock_standart()
+    a = random.randint(1, 9)  # рандомное число от 1 до 9
+    if a == 1:
+        grec_standart()
+    elif a == 2:
+        hant_standart()
+    elif a == 3:
+        voin_standart()
+    elif a == 4:
+        mag_standart()
+    elif a == 5:
+        roga_standart()
+    elif a == 6:
+        dh_standart()
+    elif a == 7:
+        druid_standart()
+    elif a == 8:
+        shaman_standart()
+    elif a == 9:
+        lock_standart()
     # На случай потери соединения
-    #    ss("btn/800x600/bt.png")
-    #    ss("btn/800x600/bt2.png")
-    pointclick()
+    ss("btn/800x600/bt.png")
+    ss("btn/800x600/bt2.png")
+    # pointclick()
     activity_analysis()
