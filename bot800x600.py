@@ -18,7 +18,7 @@ def startlnk():  # функция запуска приложения
 
 
 def pointclick():  # функция произвольного нажатия в цикле
-    pg.doubleClick(30, 350)
+    pg.doubleClick(750, 50)
 
 
 def ss(template):  # функция определения и двойного нажатия на координаты кнопки
@@ -698,7 +698,7 @@ def hant_standart():
                     if time.time() > close_time:
                         break
                 pg.press(['right'])
-                ss("btn/800x600/btn_strela.png")
+                hero_strength("btn/800x600/btn_strela.png")
                 ss("btn/800x600/btn_end.png")
                 ss("btn/800x600/btn_end2.png")
             elif hod == 4 and game == 1:
@@ -718,7 +718,7 @@ def hant_standart():
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                    ss("btn/800x600/btn_strela.png")
+                    hero_strength("btn/800x600/btn_strela.png")
                     mana = 0
                 moneta = 0
                 ss("btn/800x600/btn_end.png")
@@ -735,7 +735,7 @@ def hant_standart():
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                    ss("btn/800x600/btn_strela.png")
+                    hero_strength("btn/800x600/btn_strela.png")
                     mana = 0
                 pg.press(['right'])
                 ss("btn/800x600/btn_end.png")
@@ -757,7 +757,7 @@ def hant_standart():
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                    ss("btn/800x600/btn_strela.png")
+                    hero_strength("btn/800x600/btn_strela.png")
                     mana = 0
                 pg.press(['right'])
                 ss("btn/800x600/btn_end.png")
@@ -783,7 +783,7 @@ def hant_standart():
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                    ss("btn/800x600/btn_strela.png")
+                    hero_strength("btn/800x600/btn_strela.png")
                     mana = 0
                 pg.press(['right'])
                 ss("btn/800x600/btn_end.png")
@@ -857,7 +857,7 @@ def voin_standart():
                     if time.time() > close_time:
                         break
                 pg.press(['right'])
-                ss("btn/800x600/btn_schit.png")
+                hero_strength("btn/800x600/btn_schit.png")
                 ss("btn/800x600/btn_end.png")
                 ss("btn/800x600/btn_end2.png")
             elif hod == 4 and game == 1:
@@ -877,7 +877,7 @@ def voin_standart():
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                    ss("btn/800x600/btn_schit.png")
+                    hero_strength("btn/800x600/btn_schit.png")
                     mana = 0
                 moneta = 0
                 ss("btn/800x600/btn_end.png")
@@ -894,7 +894,7 @@ def voin_standart():
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                    ss("btn/800x600/btn_schit.png")
+                    hero_strength("btn/800x600/btn_schit.png")
                     mana = 0
                 pg.press(['right'])
                 ss("btn/800x600/btn_end.png")
@@ -916,7 +916,7 @@ def voin_standart():
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                    ss("btn/800x600/btn_schit.png")
+                    hero_strength("btn/800x600/btn_schit.png")
                     mana = 0
                 pg.press(['right'])
                 ss("btn/800x600/btn_end.png")
@@ -942,7 +942,7 @@ def voin_standart():
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                    ss("btn/800x600/btn_schit.png")
+                    hero_strength("btn/800x600/btn_schit.png")
                     mana = 0
                 pg.press(['right'])
                 ss("btn/800x600/btn_end.png")
@@ -999,7 +999,7 @@ def mag_standart():
             card_selection("btn/800x600/btn_ok.png")
             chughoj_hod("btn/800x600/chughoj_hod.png")
             vash_hod("btn/800x600/btn_end.png")
-            print("btn/800x600/hod=", hod)
+            print("hod=", hod)
             if hod == 1 and game == 1:
                 close_time = time.time() + 15
                 while True:
@@ -1350,8 +1350,8 @@ def dh_standart():
                             mana = mana - 4
                     if time.time() > close_time:
                         break
-                if mana >= 1:
-                    ss("btn/800x600/btn_dh_hand.png")
+                
+                    hero_strength("btn/800x600/btn_dh_hand.png")
                     punch_in_the_face()
                     mana = 0
                 pg.press(['right'])
@@ -1383,8 +1383,8 @@ def dh_standart():
                             mana = mana - 5
                     if time.time() > close_time:
                         break
-                if mana >= 1:
-                    ss("btn/800x600/btn_dh_hand.png")
+                
+                    hero_strength("btn/800x600/btn_dh_hand.png")
                     punch_in_the_face()
                     mana = 0
                 moneta = 0
@@ -1411,8 +1411,8 @@ def dh_standart():
                             mana = mana - 5
                     if time.time() > close_time:
                         break
-                if mana >= 1:
-                    ss("btn/800x600/btn_dh_hand.png")
+                
+                    hero_strength("btn/800x600/btn_dh_hand.png")
                     punch_in_the_face()
                     mana = 0
                 pg.press(['right'])
@@ -1444,8 +1444,8 @@ def dh_standart():
                             mana = mana - 6
                     if time.time() > close_time:
                         break
-                if mana >= 1:
-                    ss("btn/800x600/btn_dh_hand.png")
+                
+                    hero_strength("btn/800x600/btn_dh_hand.png")
                     punch_in_the_face()
                     mana = 0
                 pg.press(['right'])
@@ -1471,8 +1471,8 @@ def dh_standart():
                             mana = mana - 5
                     if time.time() > close_time:
                         break
-                if mana >= 1:
-                    ss("btn/800x600/btn_dh_hand.png")
+                
+                    hero_strength("btn/800x600/btn_dh_hand.png")
                     punch_in_the_face()
                     mana = 0
                 pg.press(['right'])
@@ -1711,7 +1711,7 @@ def shaman_standart():
                     if time.time() > close_time:
                         break
                 pg.press(['right'])
-                ss("btn/800x600/btn_totem.png")
+                hero_strength("btn/800x600/btn_totem.png")
                 ss("btn/800x600/btn_end.png")
                 ss("btn/800x600/btn_end2.png")
             elif hod == 4 and game == 1:
@@ -1731,7 +1731,7 @@ def shaman_standart():
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                    ss("btn/800x600/btn_totem.png")
+                    hero_strength("btn/800x600/btn_totem.png")
                     mana = 0
                 moneta = 0
                 ss("btn/800x600/btn_end.png")
@@ -1742,13 +1742,13 @@ def shaman_standart():
                     ##bla bla
                     if unit == 0:
                         pg.press(['right'])
-                        karta("btn_m5.png")
+                        karta("btn/800x600/btn_m5.png")
                         if unit == 1:
                             mana = 1
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                    ss("btn/800x600/btn_totem.png")
+                    hero_strength("btn/800x600/btn_totem.png")
                     mana = 0
                 pg.press(['right'])
                 ss("btn/800x600/btn_end.png")
@@ -1770,7 +1770,7 @@ def shaman_standart():
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                    ss("btn/800x600/btn_totem.png")
+                    hero_strength("btn/800x600/btn_totem.png")
                     mana = 0
                 pg.press(['right'])
                 ss("btn/800x600/btn_end.png")
@@ -1796,7 +1796,7 @@ def shaman_standart():
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                    ss("btn/800x600/btn_totem.png")
+                    hero_strength("btn/800x600/btn_totem.png")
                     mana = 0
                 pg.press(['right'])
                 ss("btn/800x600/btn_end.png")
@@ -2118,5 +2118,5 @@ while "Бесконечный цикл":  # Цикл анализа
     # На случай потери соединения
     ss("btn/800x600/bt.png")
     ss("btn/800x600/bt2.png")
-    # pointclick()
+    pointclick()
     activity_analysis()
