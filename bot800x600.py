@@ -186,7 +186,7 @@ def karta(template):  # функция покупки юнита
 def health(template):  # функция лечения
     global zero, activity
     try:
-        buttonx, buttony = pg.locateCenterOnScreen(template, region=(512, 576, 200, 192), confidence=0.7)
+        buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 400, 800, 200), confidence=0.7)
         activity = time.time()
         pg.moveTo(buttonx, buttony)
         # print(buttonx, buttony)
@@ -204,7 +204,7 @@ def health(template):  # функция лечения
 def throw_a_ball(template):
     global zero, activity
     try:
-        buttonx, buttony = pg.locateCenterOnScreen(template, region=(512, 576, 200, 192), confidence=0.7)
+        buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 400, 800, 200), confidence=0.7)
         activity = time.time()
         pg.moveTo(buttonx, buttony)
         print(buttonx, buttony)
