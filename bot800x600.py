@@ -212,8 +212,9 @@ def throw_a_ball(template):
         print("метнуть шар")
         pg.moveTo(buttonx, buttony, duration=0)  # перемещение к кнопке
         pg.mouseDown(button='left')  # нажать левую клавишу мыши
-        pg.moveTo(490, 145, duration=1)  # перемещение
+        pg.moveTo(400, 113, duration=1)  # перемещение
         pg.mouseUp(button='left')  # отпустить левую клавиши мыши
+        pg.click(button='right')
         return activity
     except TypeError:
         return zero
@@ -518,7 +519,7 @@ def grec_standart():
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                    health("btn_health.png")
+                    health("btn/800x600/btn_health.png")
                     mana = 0
                 pg.press(['right'])
                 simple_press("btn/800x600/btn_end.png")
@@ -1350,10 +1351,10 @@ def dh_standart():
                             mana = mana - 4
                     if time.time() > close_time:
                         break
-                
-                    hero_strength("btn/800x600/btn_dh_hand.png")
-                    punch_in_the_face()
-                    mana = 0
+                    if mana >=1:
+                        hero_strength("btn/800x600/btn_dh_hand.png")
+                        punch_in_the_face()
+                        mana = 0
                 pg.press(['right'])
                 ss("btn/800x600/btn_end.png")
                 ss("btn/800x600/btn_end2.png")
@@ -1383,10 +1384,10 @@ def dh_standart():
                             mana = mana - 5
                     if time.time() > close_time:
                         break
-                
-                    hero_strength("btn/800x600/btn_dh_hand.png")
-                    punch_in_the_face()
-                    mana = 0
+                    if mana >= 1:
+                        hero_strength("btn/800x600/btn_dh_hand.png")
+                        punch_in_the_face()
+                        mana = 0
                 moneta = 0
                 ss("btn/800x600/btn_end.png")
                 ss("btn/800x600/btn_end2.png")
@@ -1411,10 +1412,11 @@ def dh_standart():
                             mana = mana - 5
                     if time.time() > close_time:
                         break
-                
-                    hero_strength("btn/800x600/btn_dh_hand.png")
-                    punch_in_the_face()
-                    mana = 0
+
+                    if mana >= 1:
+                        hero_strength("btn/800x600/btn_dh_hand.png")
+                        punch_in_the_face()
+                        mana = 0
                 pg.press(['right'])
                 ss("btn/800x600/btn_end.png")
                 ss("btn/800x600/btn_end2.png")
@@ -1444,10 +1446,11 @@ def dh_standart():
                             mana = mana - 6
                     if time.time() > close_time:
                         break
-                
-                    hero_strength("btn/800x600/btn_dh_hand.png")
-                    punch_in_the_face()
-                    mana = 0
+
+                    if mana >= 1:
+                        hero_strength("btn/800x600/btn_dh_hand.png")
+                        punch_in_the_face()
+                        mana = 0
                 pg.press(['right'])
                 ss("btn/800x600/btn_end.png")
                 ss("btn/800x600/btn_end2.png")
@@ -1471,10 +1474,11 @@ def dh_standart():
                             mana = mana - 5
                     if time.time() > close_time:
                         break
-                
-                    hero_strength("btn/800x600/btn_dh_hand.png")
-                    punch_in_the_face()
-                    mana = 0
+
+                    if mana >= 1:
+                        hero_strength("btn/800x600/btn_dh_hand.png")
+                        punch_in_the_face()
+                        mana = 0
                 pg.press(['right'])
                 ss("btn/800x600/btn_end.png")
                 ss("btn/800x600/btn_end2.png")
