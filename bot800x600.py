@@ -177,6 +177,7 @@ def karta(template):  # функция покупки юнита
             pg.mouseDown(button='left')  # нажать левую клавишу мыши
             pg.moveTo(400, 310, duration=1)  # перемещение
             pg.mouseUp(button='left')  # отпустить левую клавиши мыши
+            pg.moveTo(buttonx, buttony, duration=0)
             unit += 1
         return unit, hod, game, moneta, mana, activity
     except TypeError:
@@ -194,7 +195,7 @@ def health(template):  # функция лечения
         # print("лечение")
         pg.moveTo(buttonx, buttony, duration=0)  # перемещение к кнопке
         pg.mouseDown(button='left')  # нажать левую клавишу мыши
-        pg.moveTo(512, buttony, duration=1)  # перемещение
+        pg.moveTo(400, buttony, duration=1)  # перемещение
         pg.mouseUp(button='left')  # отпустить левую клавиши мыши
         return activity
     except TypeError:
@@ -494,7 +495,7 @@ def grec_standart():
                     if time.time() > close_time:
                         break
                 if unit == 0 and mana >= 2:
-                    health("btn_health.png")
+                    health("btn/800x600/btn_health.png")
                     mana = 0
                 pg.press(['right'])
                 simple_press("btn/800x600/btn_end.png")
