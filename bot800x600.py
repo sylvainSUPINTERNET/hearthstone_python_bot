@@ -55,7 +55,7 @@ def simple_press(template):  # функция одинарного нажати�
         pg.moveTo(buttonx, buttony)
         pg.click(buttonx, buttony)
         time.sleep(1)
-        pg.moveTo(800, 600)
+        pg.moveTo(750, 500)
         return activity
     except TypeError:
         return zero
@@ -114,7 +114,7 @@ def vash_hod(template):
             pg.moveTo(buttonx, buttony, duration=0)
             activity = time.time()
             time.sleep(1)
-            pg.moveTo(800, 600)
+            pg.moveTo(750, 500)
             return game, activity
     except TypeError:
         return zero
@@ -138,7 +138,7 @@ def chughoj_hod(template):
         # print("Ход противника")
         activity = time.time()
         time.sleep(5)
-        pg.moveTo(800, 600)
+        pg.moveTo(750, 500)
         if hod < 11:
             mana = hod
         elif hod >= 11:
