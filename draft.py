@@ -320,7 +320,9 @@ moneta = 0  # индикатор монеты в руке
 mana = 0  # счетчик маны во время хода
 zero = 0  # ноль
 delay = 25  # вемя на свой ход
+cart_recognize = None
 activity = time.time()  # анализ активности игрового процесса
+card_hand = {a: None for a in range(10)}
 
 # sys.path.append(r'D:\00. Обучение\05. Git\00. project\00.botHS\btn\800x600')
 # sys.path.append(os.path.join(sys.path[0], '/btn/800x600'))
@@ -358,25 +360,19 @@ conn.commit()  # применяем изменения
 
 # fill_table_start()
 
-def start_carts(template, x, y, h, w):  # функция определения и двойного нажатия на координаты кнопки
+def recognize(template, x, y, h, w):  # функция распознования карты
     global zero, activity, cart_recognize
-    time.sleep(1)
-    pg.moveTo(x, y)
-    time.sleep(1)
-    pg.moveTo(x+h, y+w)
     try:
         buttonx, buttony = pg.locateCenterOnScreen(template, region=(x, y, h, w), confidence=0.7)
         activity = time.time()
-        time.sleep(1)
         pg.moveTo(buttonx, buttony)
-        # pg.doubleClick(buttonx, buttony)
-        time.sleep(1)
-        cart_recognize = 'bony'
+        cart_recognize = 'rec'
         return activity, cart_recognize
     except TypeError:
+        cart_recognize = 'dontrec'
         return zero, cart_recognize
 
-cart_recognize = None
+
 # исполняемый код
 # startlnk()  # запуск приложения Battle.net
 while "Бесконечный цикл":  # Цикл анализа
@@ -389,19 +385,55 @@ while "Бесконечный цикл":  # Цикл анализа
     # pointclick()
     # activity_analysis()
 
-    card_hand = {a: None for a in range(10)}
-    # x = 120
-    # y = 190
-    x = 680
-    y = 430
-    h = 140
-    w = 200
-
-    for a in range(4):
+    recognize("btn/800x600/btn_start_hand.png", 250, 50, 350, 100)
+    if cart_recognize == 'rec':  # на экране стартовая рука
         cart_recognize = None
-        start_carts("btn/800x600/v_pryg.png", x, y, h, w)
-        card_hand[a] = cart_recognize
-        x += 140
+
+        recognize("btn/800x600/4_karty.png", 380, 190, 50, 200)
+        if cart_recognize == 'rec': # на экране 4 карты для выбора
+            cart_recognize = None
+            # x = 120 # координата первой карты
+            # y = 190
+            x = 680  # координаты первой карты при 1920 на 1080
+            y = 430
+            h = 140
+            w = 200
+            for a in range(4):  # распознаем все 4 карты по очереди
+                cart_recognize = None
+                recognize("btn/800x600/v_pryg.png", x, y, h, w)
+                card_hand[a] = cart_recognize
+                x += 140
+
+        else:  # на экране 3 карты
+
+            for a in range(3):  # распознаем все 3 карты по очереди
+                cart_recognize = None
+                # x = 140 # координата первой карты
+                # y = 190
+                x = 710  # координаты первой карты при 1920 на 1080
+                y = 430
+                h = 140
+                w = 200
+                if a == 0:  # 1 карта
+                    recognize("btn/800x600/v_pryg.png", x, y, h, w)
+                    card_hand[a] = cart_recognize
+                    cart_recognize = None
+                if a == 1:
+                    recognize("btn/800x600/v_pryg.png", 330, y, h, w)
+                    card_hand[a] = cart_recognize
+                    cart_recognize = None
+                if a == 2:
+                    recognize("btn/800x600/v_pryg.png", 520, y, h, w)
+                    card_hand[a] = cart_recognize
+                    cart_recognize = None
+
+
+
+
+
+
+
+
     time.sleep(2)
     print(card_hand)
 
