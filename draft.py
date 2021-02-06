@@ -245,57 +245,6 @@ def fill_table():  # заполняем строку таблицы
     conn.commit()
 
 
-def roga_potasovka():
-    global Ggame
-    global Ngame
-    global Gcikl
-    global game
-    global hod
-    global mana
-    global moneta
-    global tipe
-    global deck
-    global vygr
-    global progr
-    global cikl
-    global unit
-    global start_time
-    global activity
-    tipe = 'потасовка'
-    deck = 'рога'
-    ss("btn/800x600/btn_potasovka.png")
-    start_game("btn/800x600/btn_potasovka_play.png")
-    if Ggame == 1:
-        Ngame += 1
-        start_time = datetime.now()  # текущие дата и время
-        while Ggame == 1:
-            if (time.time() - activity) >= 280:
-                pointclick()
-            if (time.time() - activity) >= 300:
-                Ggame = 0
-            Gcikl += 1
-            ss("btn/800x600/btn_start.png")
-            card_selection("btn/800x600/btn_ok.png")
-            chughoj_hod("btn/800x600/chughoj_hod.png")
-            vash_hod("btn/800x600/btn_end.png")
-            print("hod=", hod)
-            if game == 1:
-                close_time = time.time() + 20
-
-                bony_go("btn/800x600/btn_end2.png", hod)
-                pg.press(['right'])
-                simple_press("btn/800x600/btn_end.png")
-                simple_press("btn/800x600/btn_end2.png")
-
-            projgrysh("btn/800x600/end_game.png")
-            vyjgrysh("btn/800x600/victory.png")
-            endGame("btn/800x600/end_game2.png")
-            if Ggame == 0:
-                fill_table()  # заполняем БД
-
-        return Ggame, Ngame, Gcikl, vygr, progr, start_time, activity
-
-
 def activity_analysis():
     global activity
     if (time.time() - activity) >= 420:
@@ -373,68 +322,140 @@ def recognize(template, x, y, h, w):  # функция распозновани�
         return zero, cart_recognize
 
 
-# исполняемый код
-# startlnk()  # запуск приложения Battle.net
-while "Бесконечный цикл":  # Цикл анализа
-    # time.sleep(5)
-    # ss('btn/800x600/00_btn_game.png')
-    # ss("btn/800x600/btn_game.png")
-    # roga_potasovka()
-    # ss("btn/800x600/bt.png")
-    # ss("btn/800x600/bt2.png")
-    # pointclick()
-    # activity_analysis()
-
+def start_hand():
+    global cart_recognize
     recognize("btn/800x600/btn_start_hand.png", 250, 50, 350, 100)
+    time.sleep(2)
     if cart_recognize == 'rec':  # на экране стартовая рука
         cart_recognize = None
-
         recognize("btn/800x600/4_karty.png", 380, 190, 50, 200)
-        if cart_recognize == 'rec': # на экране 4 карты для выбора
+        if cart_recognize == 'rec':  # на экране 4 карты для выбора
             cart_recognize = None
-            # x = 120 # координата первой карты
-            # y = 190
-            x = 680  # координаты первой карты при 1920 на 1080
-            y = 430
+            x = 120  # координата первой карты 800 600
+            y = 190
+            # x = 680  # координаты первой карты при 1920 на 1080
+            # y = 430
             h = 140
             w = 200
             for a in range(4):  # распознаем все 4 карты по очереди
                 cart_recognize = None
                 recognize("btn/800x600/v_pryg.png", x, y, h, w)
                 card_hand[a] = cart_recognize
+                if cart_recognize == 'dontrec':
+                    pg.moveTo(x + h / 2, y + w / 2)
+                    pg.press(['left'])
                 x += 140
-
+            card_hand[5] = "moneta"
         else:  # на экране 3 карты
-
             for a in range(3):  # распознаем все 3 карты по очереди
                 cart_recognize = None
-                # x = 140 # координата первой карты
-                # y = 190
-                x = 710  # координаты первой карты при 1920 на 1080
-                y = 430
+                x = 140  # координата первой карты 800 600
+                y = 190
+                # x = 710  # координаты первой карты при 1920 на 1080
+                # y = 430
                 h = 140
                 w = 200
                 if a == 0:  # 1 карта
                     recognize("btn/800x600/v_pryg.png", x, y, h, w)
                     card_hand[a] = cart_recognize
+                    if cart_recognize == 'dontrec':
+                        pg.moveTo(x + h / 2, y + w / 2)
+                        pg.press(['left'])
                     cart_recognize = None
                 if a == 1:
                     recognize("btn/800x600/v_pryg.png", 330, y, h, w)
                     card_hand[a] = cart_recognize
+                    if cart_recognize == 'dontrec':
+                        pg.moveTo(x + h / 2, y + w / 2)
+                        pg.press(['left'])
                     cart_recognize = None
                 if a == 2:
                     recognize("btn/800x600/v_pryg.png", 520, y, h, w)
                     card_hand[a] = cart_recognize
+                    if cart_recognize == 'dontrec':
+                        pg.moveTo(x + h / 2, y + w / 2)
+                        pg.press(['left'])
                     cart_recognize = None
+    ss("btn/800x600/btn_ok.png")
+    return card_hand
+
+
+def roga_potasovka():
+    global Ggame
+    global Ngame
+    global Gcikl
+    global game
+    global hod
+    global mana
+    global moneta
+    global tipe
+    global deck
+    global vygr
+    global progr
+    global cikl
+    global unit
+    global start_time
+    global activity
+    tipe = 'потасовка'
+    deck = 'рога'
+    ss("btn/800x600/btn_potasovka.png")
+    start_game("btn/800x600/btn_potasovka_play.png")
+
+    if Ggame == 1:
+        Ngame += 1
+        start_time = datetime.now()  # текущие дата и время
+        while Ggame == 1:
+            if (time.time() - activity) >= 280:
+                pointclick()
+            if (time.time() - activity) >= 300:
+                Ggame = 0
+            Gcikl += 1
+            ss("btn/800x600/btn_start.png")
+            start_hand()
+            chughoj_hod("btn/800x600/chughoj_hod.png")
+            vash_hod("btn/800x600/btn_end.png")
+            print("hod=", hod)
+            if game == 1:
+                if hod == 1:
+                    close_time = time.time() + 15
+                    while True:
+                        if time.time() > close_time:
+                            break
+                    if card_hand[5] == "moneta": # в руке 6 карт с монетой
+
+
+
+                    pg.press(['right'])
+                    simple_press("btn/800x600/btn_end.png")
+                    simple_press("btn/800x600/btn_end2.png")
 
 
 
 
+                pg.press(['right'])
+                simple_press("btn/800x600/btn_end.png")
+                simple_press("btn/800x600/btn_end2.png")
+
+            projgrysh("btn/800x600/end_game.png")
+            vyjgrysh("btn/800x600/victory.png")
+            endGame("btn/800x600/end_game2.png")
+            if Ggame == 0:
+                fill_table()  # заполняем БД
+
+        return Ggame, Ngame, Gcikl, vygr, progr, start_time, activity
 
 
+# исполняемый код
+startlnk()  # запуск приложения Battle.net
+while "Бесконечный цикл":  # Цикл анализа
+    time.sleep(5)
+    ss('btn/800x600/00_btn_game.png')
+    ss("btn/800x600/btn_game.png")
+    roga_potasovka()
+    ss("btn/800x600/bt.png")
+    ss("btn/800x600/bt2.png")
+    pointclick()
+    activity_analysis()
 
-
-    time.sleep(2)
-    print(card_hand)
 
 
