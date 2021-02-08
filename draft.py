@@ -13,8 +13,8 @@ import pyautogui as pg  # работа с картинками
 
 
 def startlnk():  # функция запуска приложения
-    subprocess.Popen("E:\soft\\battle.net\Battle.net\Battle.net Launcher.exe")
-    # subprocess.Popen('C:\Program Files (x86)\Battle.net\Battle.net Launcher.exe -w 800 -h 600')  # запуск приложения
+    # subprocess.Popen("E:\soft\\battle.net\Battle.net\Battle.net Launcher.exe")
+    subprocess.Popen('C:\Program Files (x86)\Battle.net\Battle.net Launcher.exe -w 800 -h 600')  # запуск приложения
     time.sleep(2)  # время ожидания запуска battle.net
 
 
@@ -35,12 +35,25 @@ def ss(template):  # функция определения и двойного �
         return zero
 
 
+def simple_press(template):  # функция одинарного нажатия
+    global activity, zero
+    try:
+        buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 800, 600), confidence=0.7)
+        activity = time.time()
+        pg.moveTo(buttonx, buttony)
+        pg.click(buttonx, buttony)
+        time.sleep(1)
+        pg.moveTo(750, 500)
+        return activity
+    except TypeError:
+        return zero
+
+
 def karta(template):  # функция покупки юнита
     global zero
     global activity
     try:
         buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 300, 800, 300), confidence=0.7)
-        pg.moveTo(buttonx, buttony)
         activity = time.time()
         pg.moveTo(buttonx, buttony, duration=0)  # перемещение к кнопке
         pg.mouseDown(button='left')  # нажать левую клавишу мыши
@@ -145,6 +158,43 @@ def chughoj_hod(template):
         return game, unit, hod, mana, activity
     except TypeError:
         return zero
+
+
+def projgrysh(template):
+    global zero
+    global progr
+    global activity
+    try:
+        buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 1024, 768), confidence=0.7)
+        pg.moveTo(buttonx, buttony)
+        # print(buttonx, buttony)
+        progr = 1
+        pg.moveTo(buttonx, buttony, duration=0)
+        pg.doubleClick(buttonx, buttony)
+        activity = time.time()
+        time.sleep(2)
+        return progr, activity
+    except TypeError:
+        return zero
+
+
+def vyjgrysh(template):
+    global zero
+    global vygr
+    global activity
+    try:
+        buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 1024, 768), confidence=0.7)
+        pg.moveTo(buttonx, buttony)
+        # print(buttonx, buttony)
+        activity = time.time()
+        vygr = 1
+        pg.moveTo(buttonx, buttony, duration=0)
+        pg.doubleClick(buttonx, buttony)
+        time.sleep(1)
+        return vygr, activity
+    except TypeError:
+        return zero
+
 
 
 def endGame(template):
@@ -271,7 +321,29 @@ zero = 0  # ноль
 delay = 25  # вемя на свой ход
 cart_recognize = None
 activity = time.time()  # анализ активности игрового процесса
-card_hand = {a: None for a in range(10)}
+card_hand = [None, None, None, None, None, None, None, None, None, None]
+# 1 карта в руке
+x_one = (400, 0)
+# 2 карты в руке
+x_two = (380, 420)
+# 3 карты в руке
+x_free = (300, 380, 450)
+# 4 карты в руке (1-й ход без монеты)
+x_fore = (270, 330, 390, 460)
+# 5 карт в руке
+x_five = (270, 320, 370, 420, 490)
+# 6 карт в руке (1-й ход с монетой)
+x_six = (250, 290, 330, 370, 410, 470)
+# 7 карт в руке
+x_seven = (240, 280, 315, 345, 380, 420, 480)
+# 8 карт в руке
+x_eight = (235, 265, 295, 335, 365, 395, 430, 480)
+# 9 карт в руке
+x_nine = (230, 260, 290, 320, 350, 380, 410, 440, 490)
+# 10 карт в руке
+x_ten = (235, 255, 285, 310, 330, 360, 380, 405, 435, 490)
+
+
 
 # sys.path.append(r'D:\00. Обучение\05. Git\00. project\00.botHS\btn\800x600')
 # sys.path.append(os.path.join(sys.path[0], '/btn/800x600'))
@@ -323,7 +395,7 @@ def recognize(template, x, y, h, w):  # функция распозновани�
 
 
 def start_hand():
-    global cart_recognize
+    global cart_recognize, card_hand
     recognize("btn/800x600/btn_start_hand.png", 250, 50, 350, 100)
     time.sleep(2)
     if cart_recognize == 'rec':  # на экране стартовая рука
@@ -342,8 +414,8 @@ def start_hand():
                 recognize("btn/800x600/v_pryg.png", x, y, h, w)
                 card_hand[a] = cart_recognize
                 if cart_recognize == 'dontrec':
-                    pg.moveTo(x + h / 2, y + w / 2)
-                    pg.press(['left'])
+                    #pg.moveTo(x + h / 2, y + w / 2)
+                    pg.click(x + h / 2, y + w / 2)
                 x += 140
             card_hand[5] = "moneta"
         else:  # на экране 3 карты
@@ -381,26 +453,13 @@ def start_hand():
 
 
 def roga_potasovka():
-    global Ggame
-    global Ngame
-    global Gcikl
-    global game
-    global hod
-    global mana
-    global moneta
-    global tipe
-    global deck
-    global vygr
-    global progr
-    global cikl
-    global unit
-    global start_time
-    global activity
+    global Ggame, Ngame, Gcikl, game, hod, mana, moneta, tipe, deck, vygr
+    global progr, cikl, unit, start_time, activity, card_hand
     tipe = 'потасовка'
     deck = 'рога'
     ss("btn/800x600/btn_potasovka.png")
     start_game("btn/800x600/btn_potasovka_play.png")
-
+    ss("btn/800x600/btn_potasovka_play.png")
     if Ggame == 1:
         Ngame += 1
         start_time = datetime.now()  # текущие дата и время
@@ -421,21 +480,45 @@ def roga_potasovka():
                     while True:
                         if time.time() > close_time:
                             break
-                    if card_hand[5] == "moneta": # в руке 6 карт с монетой
-
-
-
+                    if card_hand[5] == "moneta":  # в руке 6 карт с монетой
+                        pg.press(['right'])
+                        x = x_six[4]
+                        pg.moveTo(x, 600)
+                        karta("btn/800x600/moneta.png") # выложил монету осталось 5 карт
+                        mana = 2
+                        for a in range(0, 10):
+                            if card_hand[a] == 'rec' and mana > 1:
+                                x = x_five[a]
+                                pg.moveTo(x, 600)
+                                karta("btn/800x600/pryg_skoker.png")
+                            elif card_hand[a] == 'rec' and mana == 1:
+                                x = x_fore[a]
+                                pg.moveTo(x, 600)
+                                karta("btn/800x600/pryg_skoker.png")
+                    else:
+                        mana = 1
+                        for a in range(0, 10):
+                            if card_hand[a] == 'rec' and mana == 1:
+                                x = x_fore[a]
+                                pg.moveTo(x, 600)
+                                karta("btn/800x600/pryg_skoker.png")
+                                mana = 0
                     pg.press(['right'])
                     simple_press("btn/800x600/btn_end.png")
                     simple_press("btn/800x600/btn_end2.png")
-
-
-
-
-                pg.press(['right'])
-                simple_press("btn/800x600/btn_end.png")
-                simple_press("btn/800x600/btn_end2.png")
-
+                if hod > 1:
+                    close_time = time.time() + 15
+                    while True:
+                        if time.time() > close_time:
+                            break
+                        pg.press(['right'])
+                        for a in range(0, 10):
+                            pg.moveTo(x_ten[a], 600)
+                            time.sleep(1)
+                            karta("btn/800x600/pryg_skoker.png")
+                    pg.press(['right'])
+                    simple_press("btn/800x600/btn_end.png")
+                    simple_press("btn/800x600/btn_end2.png")
             projgrysh("btn/800x600/end_game.png")
             vyjgrysh("btn/800x600/victory.png")
             endGame("btn/800x600/end_game2.png")
@@ -450,7 +533,6 @@ startlnk()  # запуск приложения Battle.net
 while "Бесконечный цикл":  # Цикл анализа
     time.sleep(5)
     ss('btn/800x600/00_btn_game.png')
-    ss("btn/800x600/btn_game.png")
     roga_potasovka()
     ss("btn/800x600/bt.png")
     ss("btn/800x600/bt2.png")
