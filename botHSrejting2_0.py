@@ -16,7 +16,7 @@ def startlnk():  # функция запуска приложения
     time.sleep(2)  # время ожидания запуска battle.net
 
 
-def pointclick():  # функция произвольного нажатия в цикле
+def pointclick():  # функция нажатия в цикле по координатам
     pg.doubleClick(1900, 1000)
 
 
@@ -46,7 +46,7 @@ def start_game(template):
     global hod, Gcikl, Ggame, cikl, vygr, progr, zero, vygr, progr, activity
     try:
         buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 1920, 1080), confidence=0.7)
-        pg.moveTo(buttonx, buttony)
+        pg.click(buttonx, buttony)
         Gcikl += 1
         hod = 1
         Ggame = 1
@@ -60,7 +60,7 @@ def start_game(template):
 
 
 def vash_hod(template):
-    global game #индикатор своего хода
+    global game  # индикатор своего хода
     global zero
     global activity
     try:
@@ -256,6 +256,17 @@ zero = 0  # ноль
 delay = 25  # вемя на свой ход
 activity = time.time()  # анализ активности игрового процесса
 
+card_hand = None
+carts_bd = ['btn/1920x1080/carts/1_demon_bezdny.png', 'btn/1920x1080/carts/1_nestabilnaja_skverna.png',
+'btn/1920x1080/carts/1_temnyj_pakt.png', 'btn/1920x1080/carts/2_oskvernenie.png',
+'btn/1920x1080/carts/3_obratnaja_vspyshka.png', 'btn/1920x1080/carts/3_pohischenie_gizni.png',
+'btn/1920x1080/carts/4_kataklizm.png', 'btn/1920x1080/carts/6_ohotnik_heming.png',
+'btn/1920x1080/carts/1_kobold_bibliotekar.png', 'btn/1920x1080/carts/2_ingener_novichok.png',
+'btn/1920x1080/carts/3_bezrassudnyj_trol.png', 'btn/1920x1080/carts/2_neogidannyj_povorot.png',
+'btn/1920x1080/carts/3_strela_tmy.png', 'btn/1920x1080/carts/10_meha_ktun.png',
+'btn/1920x1080/carts/3_chute_na_demonov.png', 'btn/1920x1080/carts/7_princ_keltas.png',
+'btn/1920x1080/carts/1_kara_ognennaja.png', 'btn/1920x1080/carts/5_kuklovod_dorian.png',
+'btn/1920x1080/carts/4_adskoe_plamja.png']
 
 # Работа с БД
 conn = sqlite3.connect('mydatabase.db')  # создаем переменную conn и  соединение с нашей базой данных
@@ -300,69 +311,55 @@ def recognize(template, x, y, h, w):  # функция распозновани�
 
 
 def start_hand():
-    global cart_recognize, card_hand
-    recognize("btn/1920x1080/btn_start_hand.png", 250, 50, 350, 100)
+    global cart_recognize, card_hand, carts_bd
+    recognize("btn/1920x1080/btn_start_hand.png", 720, 110, 450, 150)
     time.sleep(2)
     if cart_recognize == 'rec':  # на экране стартовая рука
         cart_recognize = None
-        recognize("btn/1920x1080/4_karty.png", 380, 190, 50, 200)
+        recognize("btn/1920x1080/karty_4.png", 930, 400, 70, 270)
         if cart_recognize == 'rec':  # на экране 4 карты для выбора
+            time.sleep(3)
             cart_recognize = None
-            x = 120  # координата первой карты 1920 1080
-            y = 190
-            h = 140
-            w = 200
+            x = 450  # координата первой карты 1920 1080
+            y = 350
+            h = 250
+            w = 350
             for a in range(4):  # распознаем все 4 карты по очереди
-                cart_recognize = None
-                recognize("btn/800x600/v_pryg.png", x, y, h, w)
-                card_hand[a] = cart_recognize
-                if cart_recognize == 'dontrec':
-                    #pg.moveTo(x + h / 2, y + w / 2)
-                    pg.click(x + h / 2, y + w / 2)
-                x += 140
-            card_hand[5] = "moneta"
+                for cart in range(18):
+                    cart_recognize = None
+                    recognize(carts_bd[cart], x, y, h, w)
+                    if cart_recognize == 'rec':
+                        print(a, "-я карта", carts_bd[cart])
+                    # else:
+                    #     print('dont rec')
+                x += 250
+            # card_hand[5] = "moneta"
         else:  # на экране 3 карты
+            x = 500  # координата первой карты 800 600
+            y = 350
+            h = 250
+            w = 350
             for a in range(3):  # распознаем все 3 карты по очереди
-                cart_recognize = None
-                x = 140  # координата первой карты 800 600
-                y = 190
-                # x = 710  # координаты первой карты при 1920 на 1080
-                # y = 430
-                h = 140
-                w = 200
-                if a == 0:  # 1 карта
-                    recognize("btn/800x600/v_pryg.png", x, y, h, w)
-                    card_hand[a] = cart_recognize
-                    if cart_recognize == 'dontrec':
-                        pg.moveTo(x + h / 2, y + w / 2)
-                        pg.press(['left'])
+                for cart in range(18):
                     cart_recognize = None
-                if a == 1:
-                    recognize("btn/800x600/v_pryg.png", 330, y, h, w)
-                    card_hand[a] = cart_recognize
-                    if cart_recognize == 'dontrec':
-                        pg.moveTo(x + h / 2, y + w / 2)
-                        pg.press(['left'])
-                    cart_recognize = None
-                if a == 2:
-                    recognize("btn/800x600/v_pryg.png", 520, y, h, w)
-                    card_hand[a] = cart_recognize
-                    if cart_recognize == 'dontrec':
-                        pg.moveTo(x + h / 2, y + w / 2)
-                        pg.press(['left'])
-                    cart_recognize = None
-    ss("btn/800x600/btn_ok.png")
+                    recognize(carts_bd[cart], x, y, h, w)
+                    if cart_recognize == 'rec':
+                        print(a, "-я карта", carts_bd[cart])
+                    # else:
+                    #     print('dont rec')
+                x += 350
+    simple_press("btn/1920x1080/btn_ok.png", 1300, 800, 230, 230)
     return card_hand
 
 
-def roga_potasovka():
+def lock_wild():
     global Ggame, Ngame, Gcikl, game, hod, mana, moneta, tipe, deck, vygr
     global progr, cikl, unit, start_time, activity, card_hand
-    tipe = 'потасовка'
-    deck = 'рога'
-    ss("btn/1920x1080/btn_potasovka.png")
-    start_game("btn/800x600/btn_potasovka_play.png")
-    ss("btn/800x600/btn_potasovka_play.png")
+    tipe = 'вольный'
+    deck = 'лок'
+    simple_press("btn/1920x1080/btn_game.png", 840, 300, 300, 80)
+    simple_press("btn/1920x1080/lock.png", 350, 230, 270, 125)
+    start_game("btn/1920x1080/btn_play.png")
     if Ggame == 1:
         Ngame += 1
         start_time = datetime.now()  # текущие дата и время
@@ -372,56 +369,56 @@ def roga_potasovka():
             if (time.time() - activity) >= 300:
                 Ggame = 0
             Gcikl += 1
-            ss("btn/800x600/btn_start.png")
+            simple_press("btn/1920x1080/btn_start.png", 760, 160, 400, 70)
             start_hand()
-            chughoj_hod("btn/800x600/chughoj_hod.png")
-            vash_hod("btn/800x600/btn_end.png")
-            print("hod=", hod)
+            chughoj_hod("btn/1920x1080/chughoj_hod.png")
+            vash_hod("btn/1920x1080/btn_end.png")
+
             if game == 1:
                 if hod == 1:
                     close_time = time.time() + 15
                     while True:
                         if time.time() > close_time:
                             break
-                    if card_hand[5] == "moneta":  # в руке 6 карт с монетой
-                        pg.press(['right'])
-                        x = x_six[4]
-                        pg.moveTo(x, 600)
-                        karta("btn/800x600/moneta.png") # выложил монету осталось 5 карт
-                        mana = 2
-                        for a in range(0, 10):
-                            if card_hand[a] == 'rec' and mana > 1:
-                                x = x_five[a]
-                                pg.moveTo(x, 600)
-                                karta("btn/800x600/pryg_skoker.png")
-                            elif card_hand[a] == 'rec' and mana == 1:
-                                x = x_fore[a]
-                                pg.moveTo(x, 600)
-                                karta("btn/800x600/pryg_skoker.png")
-                    else:
-                        mana = 1
-                        for a in range(0, 10):
-                            if card_hand[a] == 'rec' and mana == 1:
-                                x = x_fore[a]
-                                pg.moveTo(x, 600)
-                                karta("btn/800x600/pryg_skoker.png")
-                                mana = 0
-                    pg.press(['right'])
-                    simple_press("btn/800x600/btn_end.png")
-                    simple_press("btn/800x600/btn_end2.png")
-                if hod > 1:
-                    close_time = time.time() + 15
-                    while True:
-                        if time.time() > close_time:
-                            break
-                        pg.press(['right'])
-                        for a in range(0, 10):
-                            pg.moveTo(x_ten[a], 600)
-                            time.sleep(1)
-                            karta("btn/800x600/pryg_skoker.png")
-                    pg.press(['right'])
-                    simple_press("btn/800x600/btn_end.png")
-                    simple_press("btn/800x600/btn_end2.png")
+                #     if card_hand[5] == "moneta":  # в руке 6 карт с монетой
+                #         pg.press(['right'])
+                #         x = x_six[4]
+                #         pg.moveTo(x, 600)
+                #         karta("btn/800x600/moneta.png") # выложил монету осталось 5 карт
+                #         mana = 2
+                #         for a in range(0, 10):
+                #             if card_hand[a] == 'rec' and mana > 1:
+                #                 x = x_five[a]
+                #                 pg.moveTo(x, 600)
+                #                 karta("btn/800x600/pryg_skoker.png")
+                #             elif card_hand[a] == 'rec' and mana == 1:
+                #                 x = x_fore[a]
+                #                 pg.moveTo(x, 600)
+                #                 karta("btn/800x600/pryg_skoker.png")
+                #     else:
+                #         mana = 1
+                #         for a in range(0, 10):
+                #             if card_hand[a] == 'rec' and mana == 1:
+                #                 x = x_fore[a]
+                #                 pg.moveTo(x, 600)
+                #                 karta("btn/800x600/pryg_skoker.png")
+                #                 mana = 0
+                #     pg.press(['right'])
+                #     simple_press("btn/800x600/btn_end.png")
+                #     simple_press("btn/800x600/btn_end2.png")
+                # if hod > 1:
+                #     close_time = time.time() + 15
+                #     while True:
+                #         if time.time() > close_time:
+                #             break
+                #         pg.press(['right'])
+                #         for a in range(0, 10):
+                #             pg.moveTo(x_ten[a], 600)
+                #             time.sleep(1)
+                #             karta("btn/800x600/pryg_skoker.png")
+                #     pg.press(['right'])
+                #     simple_press("btn/800x600/btn_end.png")
+                #     simple_press("btn/800x600/btn_end2.png")
             projgrysh("btn/800x600/end_game.png")
             vyjgrysh("btn/800x600/victory.png")
             endGame("btn/800x600/end_game2.png")
@@ -437,6 +434,6 @@ while "Бесконечный цикл":  # Цикл анализа
     time.sleep(5)
     simple_press('btn/1920x1080/00_btn_game.png', 300, 800, 400, 300)
     simple_press("btn/1920x1080/btn_game.png", 800, 290, 300, 100)
-    # roga_potasovka()
+    lock_wild()
     pointclick()
     activity_analysis()
