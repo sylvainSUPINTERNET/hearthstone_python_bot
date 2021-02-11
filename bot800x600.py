@@ -638,6 +638,7 @@ def grec_standart():
             if Ggame == 0:
                 fill_table()  # заполняем БД
             #               print_oll_table()
+            ss("btn/800x600/ok_2.png")
             ss("btn/800x600/bt.png")
             ss("btn/800x600/bt2.png")
         return Ggame, Ngame, Gcikl, vygr, progr, start_time, tipe, deck, activity
@@ -796,6 +797,7 @@ def hant_standart():
             if Ggame == 0:
                 fill_table()  # заполняем БД
             #               print_oll_table()
+            ss("btn/800x600/ok_2.png")
             ss("btn/800x600/bt.png")
             ss("btn/800x600/bt2.png")
         return Ggame, Ngame, Gcikl, vygr, progr, start_time, activity
@@ -955,6 +957,7 @@ def voin_standart():
             if Ggame == 0:
                 fill_table()  # заполняем БД
             #                print_oll_table()
+            ss("btn/800x600/ok_2.png")
             ss("btn/800x600/bt.png")
             ss("btn/800x600/bt2.png")
         return Ggame, Ngame, Gcikl, vygr, progr, start_time, activity
@@ -1114,6 +1117,7 @@ def mag_standart():
             if Ggame == 0:
                 fill_table()  # заполняем БД
             #                print_oll_table()
+            ss("btn/800x600/ok_2.png")
             ss("btn/800x600/bt.png")
             ss("btn/800x600/bt2.png")
         return Ggame, Ngame, Gcikl, vygr, progr, start_time, activity
@@ -1278,8 +1282,9 @@ def roga_standart():
             if Ggame == 0:
                 fill_table()  # заполняем БД
         #               print_oll_table()
-        #            ss("btn/800x600/bt.png")
-        #            ss("btn/800x600/bt2.png")
+            ss("btn/800x600/ok_2.png")
+            ss("btn/800x600/bt.png")
+            ss("btn/800x600/bt2.png")
         return Ggame, Ngame, Gcikl, vygr, progr, start_time, activity
 
 
@@ -1489,6 +1494,7 @@ def dh_standart():
             if Ggame == 0:
                 fill_table()  # заполняем БД
             #                print_oll_table()
+            ss("btn/800x600/ok_2.png")
             ss("btn/800x600/bt.png")
             ss("btn/800x600/bt2.png")
         return Ggame, Ngame, Gcikl, vygr, progr, start_time, activity
@@ -1653,6 +1659,7 @@ def druid_standart():
             if Ggame == 0:
                 fill_table()  # заполняем БД
             #               print_oll_table()
+            ss("btn/800x600/ok_2.png")
             ss("btn/800x600/bt.png")
             ss("btn/800x600/bt2.png")
         return Ggame, Ngame, Gcikl, vygr, progr, start_time, activity
@@ -1812,6 +1819,7 @@ def shaman_standart():
             if Ggame == 0:
                 fill_table()  # заполняем БД
             #               print_oll_table()
+            ss("btn/800x600/ok_2.png")
             ss("btn/800x600/bt.png")
             ss("btn/800x600/bt2.png")
         return Ggame, Ngame, Gcikl, vygr, progr, start_time, activity
@@ -2021,6 +2029,7 @@ def lock_standart():
             if Ggame == 0:
                 fill_table()  # заполняем БД
             #               print_oll_table()
+            ss("btn/800x600/ok_2.png")
             ss("btn/800x600/bt.png")
             ss("btn/800x600/bt2.png")
         return Ggame, Ngame, Gcikl, vygr, progr, start_time, activity
@@ -2122,6 +2131,7 @@ while "Бесконечный цикл":  # Цикл анализа
     elif a == 9:
         lock_standart()
     # На случай потери соединения
+    ss("btn/800x600/ok_2.png")
     ss("btn/800x600/bt.png")
     ss("btn/800x600/bt2.png")
     pointclick()

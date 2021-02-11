@@ -422,6 +422,8 @@ def roga_potasovka():
                         if time.time() > close_time:
                             break
                     if card_hand[5] == "moneta": # в руке 6 карт с монетой
+                        pg.press(['right'])
+
 
 
 
