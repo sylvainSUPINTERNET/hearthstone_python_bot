@@ -12,6 +12,7 @@ import keyboard  # работа с нажатиями клавиш
 import pyautogui as pg  # работа с картинками
 
 
+
 def startlnk():  # функция запуска приложения
     subprocess.Popen("E:\soft\\battle.net\Battle.net\Battle.net Launcher.exe")
     # subprocess.Popen('C:\Program Files (x86)\Battle.net\Battle.net Launcher.exe -w 800 -h 600')  # запуск приложения
