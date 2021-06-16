@@ -171,6 +171,7 @@ def karta(template):  # функция покупки юнита
             pg.mouseDown(button='left')  # нажать левую клавишу мыши
             pg.moveTo(400, 310, duration=1)  # перемещение
             pg.mouseUp(button='left')  # отпустить левую клавиши мыши
+            unit = 1
         if unit == 0 and hod > 3 and game == 1 and mana >= 5:
             # print("Выложил одну карту на стол")
             pg.moveTo(buttonx, buttony, duration=0)  # перемещение к кнопке
@@ -2107,7 +2108,7 @@ while "Бесконечный цикл":  # Цикл анализа
     cikl += 1
     # print("Цикл =", cikl)
     # print("Колличество игр ", Ngame)
-    time.sleep(5)
+    time.sleep(40)
     # ss('btn/1920x1080/00_btn_game.png')
     ss('btn/800x600/00_btn_game.png')
     ss("btn/800x600/btn_game.png")
@@ -2130,6 +2131,7 @@ while "Бесконечный цикл":  # Цикл анализа
         shaman_standart()
     elif a == 9:
         lock_standart()
+    time.sleep(40)
     # На случай потери соединения
     ss("btn/800x600/ok_2.png")
     ss("btn/800x600/bt.png")
