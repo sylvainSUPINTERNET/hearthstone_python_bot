@@ -12,8 +12,8 @@ import pyautogui as pg  # работа с картинками
 
 
 def startlnk():  # функция запуска приложения
-    subprocess.Popen("E:\soft\\battle.net\Battle.net\Battle.net Launcher.exe")
-    # subprocess.Popen('C:\Program Files (x86)\Battle.net\Battle.net Launcher.exe -w 800 -h 600')  # запуск приложения
+    #subprocess.Popen("E:\soft\\battle.net\Battle.net\Battle.net Launcher.exe")
+    subprocess.Popen('C:\Program Files (x86)\Battle.net\Battle.net Launcher.exe -w 800 -h 600')  # запуск приложения
     time.sleep(2)  # время ожидания запуска battle.net
 
 
@@ -2108,7 +2108,7 @@ while "Бесконечный цикл":  # Цикл анализа
     cikl += 1
     # print("Цикл =", cikl)
     # print("Колличество игр ", Ngame)
-    time.sleep(40)
+    time.sleep(10)
     # ss('btn/1920x1080/00_btn_game.png')
     ss('btn/800x600/00_btn_game.png')
     ss("btn/800x600/btn_game.png")
@@ -2131,7 +2131,7 @@ while "Бесконечный цикл":  # Цикл анализа
         shaman_standart()
     elif a == 9:
         lock_standart()
-    time.sleep(40)
+    time.sleep(5)
     # На случай потери соединения
     ss("btn/800x600/ok_2.png")
     ss("btn/800x600/bt.png")
