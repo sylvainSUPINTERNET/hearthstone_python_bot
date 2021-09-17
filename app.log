@@ -1,0 +1,4 @@
+root - WARNING - This will get logged to a file
+root - WARNING - This is a warning message
+root - ERROR - This is an error message
+root - CRITICAL - This is a critical message
