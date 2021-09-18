@@ -21,6 +21,7 @@ def startlnk():  # функция запуска приложения
     keyboard.send("windows+up")  # разворачивает приложение на все окно
 
 def screen_resolution():  # функция определения разрешения экрана
+    global screen_width_x, screen_height_y
     cmd = 'wmic path Win32_VideoController get CurrentHorizontalResolution,CurrentVerticalResolution'
     size_tuple = tuple(map(int, os.popen(cmd).read().split()[-2::]))
     screen_width_x = size_tuple[0]
@@ -43,7 +44,7 @@ def ss(template):  # функция определения и двойного �
 
 def pointclick():  # функция произвольного нажатия в цикле
     global screen_width_x, screen_height_y
-    pg.doubleClick(screen_width_x - 50, screen_height_y - 50)
+    pg.doubleClick(screen_width_x - 10, screen_height_y - 10)
 
 
 def hero_strength(template):  # функция силы героя
@@ -2059,6 +2060,10 @@ def activity_analysis():
 
 
 # variables (переменные)
+screen_width_x = 0  # ширина экрана, координата х - максимальная
+screen_height_y = 0 # высота экрана, координата у - максимальная
+
+
 Ngame = 0  # подсчет количества игр !(основное тело цикла)
 vygr = 0  # подсчет выйгрышей в данной сессии
 progr = 0  # подсчет проигранных игр в данной сессии
@@ -2121,6 +2126,9 @@ logging.info('Start game and logged in')
 
 # исполняемый код
 screen_resolution()  # определяем разрешение экрана
+active_dir = 'btn/' + str(screen_width_x) + 'x' + str(screen_height_y) + '/'
+print(active_dir)
+
 startlnk()  # запуск приложения Battle.net
 
 # fill_table_start()
@@ -2134,8 +2142,8 @@ while "Бесконечный цикл":  # Цикл анализа
     # print("Колличество игр ", Ngame)
     time.sleep(10)
     # ss('btn/1920x1080/00_btn_game.png')
-    ss('btn/800x600/00_btn_game.png')
-    ss("btn/800x600/btn_game.png")
+    ss(active_dir + '00_btn_game.png')  #
+    ss(active_dir + "btn_game.png")
     a = random.randint(1, 9)  # рандомное число от 1 до 9
     if a == 1:
         grec_standart()
@@ -2157,9 +2165,9 @@ while "Бесконечный цикл":  # Цикл анализа
         lock_standart()
     time.sleep(5)
     # На случай потери соединения
-    ss("btn/800x600/ok_2.png")
-    ss("btn/800x600/bt.png")
-    ss("btn/800x600/bt2.png")
+    ss(active_dir + "ok_2.png")
+    ss(active_dir + "bt.png")
+    ss(active_dir + "bt2.png")
     pointclick()
     activity_analysis()
 
