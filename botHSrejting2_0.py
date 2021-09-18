@@ -13,7 +13,7 @@ import random  # рандомные числа
 
 def startlnk():  # функция запуска приложения
     subprocess.Popen('C:\Program Files (x86)\Battle.net\Battle.net Launcher.exe')  # запуск приложения
-    time.sleep(2)  # время ожидания запуска battle.net
+    time.sleep(10)  # время ожидания запуска battle.net
 
 
 def pointclick():  # функция нажатия в цикле по координатам
@@ -452,6 +452,7 @@ def lock_wild():
 
 # исполняемый код
 startlnk()  # запуск приложения Battle.net
+
 while "Бесконечный цикл":  # Цикл анализа
     time.sleep(5)
     simple_press('btn/1920x1080/00_btn_game.png', 300, 800, 400, 300)

@@ -24,7 +24,7 @@ def pointclick():  # функция произвольного нажатия в
 def ss(template):  # функция определения и двойного нажатия на координаты кнопки
     global zero, activity
     try:
-        buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 1920, 1080), confidence=0.7)
+        buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 800, 600), confidence=0.7)
         activity = time.time()
         pg.moveTo(buttonx, buttony)
         pg.doubleClick(buttonx, buttony)
