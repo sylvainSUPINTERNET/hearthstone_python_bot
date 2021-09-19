@@ -14,7 +14,8 @@ import pyautogui as pg  # работа с картинками
 def startlnk():  # функция запуска приложения
     #subprocess.Popen("E:\soft\\battle.net\Battle.net\Battle.net Launcher.exe")
     subprocess.Popen('C:\Program Files (x86)\Battle.net\Battle.net Launcher.exe -w 800 -h 600')  # запуск приложения
-    time.sleep(2)  # время ожидания запуска battle.net
+    time.sleep(10)  # время ожидания запуска battle.net
+    keyboard.send("windows+up")  # разворачивает приложение на все окно
 
 
 def pointclick():  # функция произвольного нажатия в цикле

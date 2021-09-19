@@ -44,13 +44,12 @@ def ss(template):  # функция определения и двойного �
 
 def pointclick():  # функция произвольного нажатия в цикле
     global screen_width_x, screen_height_y
-    pg.doubleClick(screen_width_x - 10, screen_height_y - 10)
-
+    pg.doubleClick(screen_width_x * 0.95, screen_height_y * 0.1)
 
 def hero_strength(template):  # функция силы героя
-    global zero, activity
+    global zero, activity, screen_width_x, screen_height_y
     try:
-        buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 400, 800, 200), confidence=0.7)
+        buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, screen_height_y * 0.8, screen_width_x, screen_height_y * 0.2), confidence=0.7)
         activity = time.time()
         pg.moveTo(buttonx, buttony)
         pg.doubleClick(buttonx, buttony)
@@ -59,33 +58,30 @@ def hero_strength(template):  # функция силы героя
     except TypeError:
         return zero
 
-
 def simple_press(template):  # функция одинарного нажатия
-    global activity, zero
+    global activity, zero, screen_width_x, screen_height_y
     try:
-        buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 800, 600), confidence=0.7)
+        buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, screen_width_x, screen_height_y), confidence=0.7)
         activity = time.time()
         pg.moveTo(buttonx, buttony)
         pg.click(buttonx, buttony)
         time.sleep(1)
-        pg.moveTo(750, 500)
+        pg.moveTo(screen_width_x * 0.95, screen_height_y * 0.1)
         return activity
     except TypeError:
         return zero
 
-
-def card_selection(template):  # функция выбора карт
-    global activity
+def card_selection(template):  # функция выбора стартовой руки
+    global activity, screen_width_x, screen_height_y
     try:
-        buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 800, 600), confidence=0.7)
+        buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, screen_height_y * 0.6, screen_width_x * 0.7, screen_height_y * 0.4), confidence=0.7)
         pg.moveTo(buttonx, buttony)
+        time.sleep(13)
         pg.click(buttonx, buttony)
         activity = time.time()
-        time.sleep(1)
         return activity
     except TypeError:
         return zero
-
 
 def start_game(template):
     global hod
@@ -97,11 +93,10 @@ def start_game(template):
     global zero
     global vygr
     global progr
-    global activity
+    global activity, screen_width_x, screen_height_y
     try:
-        buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 800, 600), confidence=0.7)
+        buttonx, buttony = pg.locateCenterOnScreen(template, region=(screen_width_x * 0.7, screen_height_y * 0.6, screen_width_x * 0.3, screen_height_y * 0.4), confidence=0.7)
         pg.moveTo(buttonx, buttony)
-        # print(buttonx, buttony)
         Gcikl += 1
         hod = 1
         Ggame = 1
@@ -114,24 +109,22 @@ def start_game(template):
     except TypeError:
         return zero
 
-
 def vash_hod(template):
     global game  # индикатор своего хода
     global zero
-    global activity
+    global activity, screen_width_x, screen_height_y
     try:
-        buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 800, 600), confidence=0.7)
+        buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, screen_width_x, screen_height_y), confidence=0.7)
         if game == 0:
             game = 1
             # print("Старт хода")
             pg.moveTo(buttonx, buttony, duration=0)
             activity = time.time()
             time.sleep(1)
-            pg.moveTo(750, 500)
+            pg.moveTo(screen_width_x * 0.95, screen_height_y * 0.1)
             return game, activity
     except TypeError:
         return zero
-
 
 def chughoj_hod(template):
     global game
@@ -139,9 +132,9 @@ def chughoj_hod(template):
     global hod
     global mana
     global zero
-    global activity
+    global activity, screen_width_x, screen_height_y
     try:
-        buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 800, 600), confidence=0.7)
+        buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, screen_width_x, screen_height_y), confidence=0.7)
         pg.moveTo(buttonx, buttony)
         # print(buttonx, buttony)
         if game == 1:
@@ -151,7 +144,7 @@ def chughoj_hod(template):
         # print("Ход противника")
         activity = time.time()
         time.sleep(5)
-        pg.moveTo(750, 500)
+        pg.moveTo(screen_width_x * 0.95, screen_height_y * 0.1)
         if hod < 11:
             mana = hod
         elif hod >= 11:
@@ -168,9 +161,9 @@ def karta(template):  # функция покупки юнита
     global game
     global moneta
     global mana
-    global activity
+    global activity, screen_width_x, screen_height_y
     try:
-        buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 300, 800, 300), confidence=0.7)
+        buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, screen_height_y * 0.6, screen_width_x * 0.9, screen_height_y * 0.4), confidence=0.7)
         pg.moveTo(buttonx, buttony)
         activity = time.time()
         # print('Нашел карту', buttonx, buttony)
@@ -182,14 +175,14 @@ def karta(template):  # функция покупки юнита
             # print("Выложил монету на стол")
             pg.moveTo(buttonx, buttony, duration=0)  # перемещение к кнопке
             pg.mouseDown(button='left')  # нажать левую клавишу мыши
-            pg.moveTo(400, 310, duration=1)  # перемещение
+            pg.moveTo(screen_width_x / 2, screen_height_y / 2, duration=1)  # перемещение
             pg.mouseUp(button='left')  # отпустить левую клавиши мыши
             unit = 1
         if unit == 0 and hod > 3 and game == 1 and mana >= 5:
             # print("Выложил одну карту на стол")
             pg.moveTo(buttonx, buttony, duration=0)  # перемещение к кнопке
             pg.mouseDown(button='left')  # нажать левую клавишу мыши
-            pg.moveTo(400, 310, duration=1)  # перемещение
+            pg.moveTo(screen_width_x / 2, screen_height_y / 2, duration=1)  # перемещение
             pg.mouseUp(button='left')  # отпустить левую клавиши мыши
             pg.moveTo(buttonx, buttony, duration=0)
             unit += 1
@@ -199,9 +192,9 @@ def karta(template):  # функция покупки юнита
 
 
 def health(template):  # функция лечения
-    global zero, activity
+    global zero, activity, screen_width_x, screen_height_y
     try:
-        buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 400, 800, 200), confidence=0.7)
+        buttonx, buttony = pg.locateCenterOnScreen(template, region=(screen_width_x * 0.5, screen_height_y * 0.8, screen_width_x * 0.5, screen_height_y * 0.2), confidence=0.7)
         activity = time.time()
         pg.moveTo(buttonx, buttony)
         # print(buttonx, buttony)
@@ -209,7 +202,7 @@ def health(template):  # функция лечения
         # print("лечение")
         pg.moveTo(buttonx, buttony, duration=0)  # перемещение к кнопке
         pg.mouseDown(button='left')  # нажать левую клавишу мыши
-        pg.moveTo(400, buttony, duration=1)  # перемещение
+        pg.moveTo(screen_width_x * 0.5, buttony, duration=1)  # перемещение
         pg.mouseUp(button='left')  # отпустить левую клавиши мыши
         return activity
     except TypeError:
@@ -217,9 +210,9 @@ def health(template):  # функция лечения
 
 
 def throw_a_ball(template):
-    global zero, activity
+    global zero, activity, screen_width_x, screen_height_y
     try:
-        buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 400, 800, 200), confidence=0.7)
+        buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 400, screen_width_x, screen_height_y), confidence=0.7)
         activity = time.time()
         pg.moveTo(buttonx, buttony)
         print(buttonx, buttony)
@@ -236,7 +229,7 @@ def throw_a_ball(template):
 
 
 def punch_in_the_face():
-    global activity
+    global activity, screen_width_x, screen_height_y
     activity = time.time()
     pg.moveTo(400, 460, duration=0)  # перемещение к своему лицу
     pg.mouseDown(button='left')  # нажать левую клавишу мыши
@@ -418,9 +411,9 @@ def grec_standart():
     global activity
     tipe = 'стандарт'
     deck = 'жрец'
-    ss("btn/800x600/btn_grec.png")
-    ss("btn/800x600/btn_game_st.png")
-    start_game("btn/800x600/btn_start.png")
+    ss(active_dir + "btn_grec.png")
+    ss(active_dir + "btn_game_st.png")
+    start_game(active_dir + "btn_start.png")
     if Ggame == 1:
         Ngame += 1
         print("Игра жрецом началась", Gcikl)
@@ -435,11 +428,11 @@ def grec_standart():
             if (time.time() - activity) >= 300:
                 Ggame = 0
             Gcikl += 1
-            ss("btn/800x600/btn_start.png")
-            card_selection("btn/800x600/btn_ok.png")
-            chughoj_hod("btn/800x600/chughoj_hod.png")
-            vash_hod("btn/800x600/btn_end.png")
-            print("hod=", hod)
+            ss(active_dir + "btn_start.png")
+            card_selection(active_dir + "btn_ok.png")
+            chughoj_hod(active_dir + "chughoj_hod.png")
+            vash_hod(active_dir + "btn_end.png")
+            # print("hod=", hod)
             if hod == 1 and game == 1:
                 close_time = time.time() + 15
                 while True:
@@ -447,8 +440,8 @@ def grec_standart():
                     if time.time() > close_time:
                         break
                 pg.press(['right'])
-                simple_press("btn/800x600/btn_end.png")
-                simple_press("btn/800x600/btn_end2.png")
+                simple_press(active_dir + "btn_end.png")
+                simple_press(active_dir + "btn_end2.png")
             elif hod > 1 and hod < 4 and game == 1:
                 close_time = time.time() + delay
                 while True:
@@ -456,11 +449,11 @@ def grec_standart():
                     if time.time() > close_time:
                         break
                 pg.press(['right'])
-                health("btn/800x600/btn_health.png")
-                simple_press("btn/800x600/btn_end.png")
+                health(active_dir + "btn_health.png")
+                simple_press(active_dir + "btn_end.png")
             elif hod == 4 and game == 1:
                 pg.press(['right'])
-                karta("btn/800x600/btn_m0.png")
+                karta(active_dir + "btn_m0.png")
                 if moneta == 1:
                     mana += 1
                     moneta = 0
@@ -469,192 +462,192 @@ def grec_standart():
                 while True:
                     if unit == 0 and mana >= 5:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m5.png")
+                        karta(active_dir + "btn_m5.png")
                         if unit == 1:
                             mana = mana - 5
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                    health("btn/800x600/btn_health.png")
+                    health(active_dir + "btn_health.png")
                     mana = 0
                 moneta = 0
-                simple_press("btn/800x600/btn_end.png")
+                simple_press(active_dir + "btn_end.png")
             elif hod == 5 and game == 1:
                 close_time = time.time() + delay
                 while True:
                     if unit == 0 and mana >= 5:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m5.png")
+                        karta(active_dir + "btn_m5.png")
                         if unit == 1:
                             mana = mana - 5
                     if time.time() > close_time:
                         break
                 if unit == 0 and mana >= 2:
-                    health("btn/800x600/btn_health.png")
+                    health(active_dir + "btn_health.png")
                     mana = 0
                 pg.press(['right'])
-                simple_press("btn/800x600/btn_end.png")
+                simple_press(active_dir + "btn_end.png")
             elif hod == 6 and game == 1:
                 close_time = time.time() + delay
                 while True:
                     ##bla bla
                     if unit == 0:
-                        karta("btn/800x600/btn_m6.png")
+                        karta(active_dir + "btn_m6.png")
                         if unit == 1:
                             mana = 0
                     if unit == 0:
-                        karta("btn/800x600/btn_m5.png")
+                        karta(active_dir + "btn_m5.png")
                         if unit == 1:
                             mana = 1
                     if time.time() > close_time:
                         break
                 if unit == 0 and mana >= 2:
-                    health("btn/800x600/btn_health.png")
+                    health(active_dir + "btn_health.png")
                     mana = 0
                 pg.press(['right'])
-                simple_press("btn/800x600/btn_end.png")
+                simple_press(active_dir + "btn_end.png")
             elif hod == 7 and game == 1:
                 close_time = time.time() + delay
                 while True:
                     ##bla bla
                     if unit == 0:
-                        karta("btn/800x600/btn_m7.png")
+                        karta(active_dir + "btn_m7.png")
                         if unit == 1:
                             mana = 0
                     if unit == 0:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m6.png")
+                        karta(active_dir + "btn_m6.png")
                         if unit == 1:
                             mana = 1
                     if unit == 0:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m5.png")
+                        karta(active_dir + "btn_m5.png")
                         if unit == 1:
                             mana = 2
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                    health("btn/800x600/btn_health.png")
+                    health(active_dir + "btn_health.png")
                     mana = 0
                 pg.press(['right'])
-                simple_press("btn/800x600/btn_end.png")
+                simple_press(active_dir + "btn_end.png")
             elif hod == 8 and game == 1:
                 close_time = time.time() + delay
                 while True:
                     ##bla bla
                     if unit == 0:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m8.png")
+                        karta(active_dir + "btn_m8.png")
                         if unit == 1:
                             mana = 0
                     if unit == 0:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m7.png")
+                        karta(active_dir + "btn_m7.png")
                         if unit == 1:
                             mana = 1
                     if unit == 0:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m6.png")
+                        karta(active_dir + "btn_m6.png")
                         if unit == 1:
                             mana = 2
                     if unit == 0:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m5.png")
+                        karta(active_dir + "btn_m5.png")
                         if unit == 1:
                             mana = 3
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                    health("btn/800x600/btn_health.png")
+                    health(active_dir + "btn_health.png")
                     mana = 0
                 pg.press(['right'])
-                simple_press("btn/800x600/btn_end.png")
+                simple_press(active_dir + "btn_end.png")
             elif hod == 9 and game == 1:
                 close_time = time.time() + delay
                 while True:
                     ##bla bla
                     if unit == 0:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m9.png")
+                        karta(active_dir + "btn_m9.png")
                         if unit == 1:
                             mana = 0
                     if unit == 0:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m8.png")
+                        karta(active_dir + "btn_m8.png")
                         if unit == 1:
                             mana = 1
                     if unit == 0:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m7.png")
+                        karta(active_dir + "btn_m7.png")
                         if unit == 1:
                             mana = 2
                     if unit == 0:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m6.png")
+                        karta(active_dir + "btn_m6.png")
                         if unit == 1:
                             mana = 3
                     if unit == 0:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m5.png")
+                        karta(active_dir + "btn_m5.png")
                         if unit == 1:
                             mana = 4
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                    health("btn/800x600/btn_health.png")
+                    health(active_dir + "btn_health.png")
                     mana = 0
                 pg.press(['right'])
-                simple_press("btn/800x600/btn_end.png")
+                simple_press(active_dir + "btn_end.png")
             elif hod >= 10 and game == 1:
                 close_time = time.time() + delay
                 while True:
                     ##bla bla
                     if unit == 0:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m10.png")
+                        karta(active_dir + "btn_m10.png")
                         if unit == 1:
                             mana = 0
                     if unit == 0:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m9.png")
+                        karta(active_dir + "btn_m9.png")
                         if unit == 1:
                             mana = 1
                     if unit == 0:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m8.png")
+                        karta(active_dir + "btn_m8.png")
                         if unit == 1:
                             mana = 2
                     if unit == 0:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m7.png")
+                        karta(active_dir + "btn_m7.png")
                         if unit == 1:
                             mana = 3
                     if unit == 0:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m6.png")
+                        karta(active_dir + "btn_m6.png")
                         if unit == 1:
                             mana = 4
                     if unit == 0:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m5.png")
+                        karta(active_dir + "btn_m5.png")
                         if unit == 1:
                             mana = 5
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                    health("btn/800x600/btn_health.png")
+                    health(active_dir + "btn_health.png")
                     mana = 0
                 pg.press(['right'])
-                simple_press("btn/800x600/btn_end.png")
-            projgrysh("btn/800x600/end_game.png")
-            vyjgrysh("btn/800x600/victory.png")
-            endGame("btn/800x600/end_game2.png")
+                simple_press(active_dir + "btn_end.png")
+            projgrysh(active_dir + "end_game.png")
+            vyjgrysh(active_dir + "victory.png")
+            endGame(active_dir + "end_game2.png")
             if Ggame == 0:
                 fill_table()  # заполняем БД
             #               print_oll_table()
-            ss("btn/800x600/ok_2.png")
-            ss("btn/800x600/bt.png")
-            ss("btn/800x600/bt2.png")
+            ss(active_dir + "ok_2.png")
+            ss(active_dir + "bt.png")
+            ss(active_dir + "bt2.png")
         return Ggame, Ngame, Gcikl, vygr, progr, start_time, tipe, deck, activity
 
 
@@ -677,9 +670,9 @@ def hant_standart():
     global activity
     tipe = 'стандарт'
     deck = 'охотник'
-    ss("btn/800x600/btn_hant.png")
-    ss("btn/800x600/btn_game_st.png")
-    start_game("btn/800x600/btn_start.png")
+    ss(active_dir + "btn_hant.png")
+    ss(active_dir + "btn_game_st.png")
+    start_game(active_dir + "btn_start.png")
     if Ggame == 1:
         Ngame += 1
         print("игра охотником началась", Gcikl)
@@ -695,9 +688,9 @@ def hant_standart():
             if (time.time() - activity) >= 300:
                 Ggame = 0
             Gcikl += 1
-            card_selection("btn/800x600/btn_ok.png")
-            chughoj_hod("btn/800x600/chughoj_hod.png")
-            vash_hod("btn/800x600/btn_end.png")
+            card_selection(active_dir + "btn_ok.png")
+            chughoj_hod(active_dir + "chughoj_hod.png")
+            vash_hod(active_dir + "btn_end.png")
             print("hod=", hod)
             if hod == 1 and game == 1:
                 close_time = time.time() + 15
@@ -706,8 +699,8 @@ def hant_standart():
                     if time.time() > close_time:
                         break
                 pg.press(['right'])
-                simple_press("btn/800x600/btn_end.png")
-                simple_press("btn/800x600/btn_end2.png")
+                simple_press(active_dir + "btn_end.png")
+                simple_press(active_dir + "btn_end2.png")
             elif hod > 1 and hod < 4 and game == 1:
                 close_time = time.time() + delay
                 while True:
@@ -715,12 +708,12 @@ def hant_standart():
                     if time.time() > close_time:
                         break
                 pg.press(['right'])
-                hero_strength("btn/800x600/btn_strela.png")
-                ss("btn/800x600/btn_end.png")
-                ss("btn/800x600/btn_end2.png")
+                hero_strength(active_dir + "btn_strela.png")
+                ss(active_dir + "btn_end.png")
+                ss(active_dir + "btn_end2.png")
             elif hod == 4 and game == 1:
                 pg.press(['right'])
-                karta("btn/800x600/btn_m0.png")
+                karta(active_dir + "btn_m0.png")
                 if moneta == 1:
                     mana += 1
                     moneta = 0
@@ -729,91 +722,91 @@ def hant_standart():
                 while True:
                     if unit == 0 and mana >= 5:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m5.png")
+                        karta(active_dir + "btn_m5.png")
                         if unit == 1:
                             mana = mana - 5
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                    hero_strength("btn/800x600/btn_strela.png")
+                    hero_strength(active_dir + "btn_strela.png")
                     mana = 0
                 moneta = 0
-                ss("btn/800x600/btn_end.png")
-                ss("btn/800x600/btn_end2.png")
+                ss(active_dir + "btn_end.png")
+                ss(active_dir + "btn_end2.png")
             elif hod == 5 and game == 1:
                 close_time = time.time() + delay
                 while True:
                     ##bla bla
                     if unit == 0:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m5.png")
+                        karta(active_dir + "btn_m5.png")
                         if unit == 1:
                             mana = 1
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                    hero_strength("btn/800x600/btn_strela.png")
+                    hero_strength(active_dir + "btn_strela.png")
                     mana = 0
                 pg.press(['right'])
-                ss("btn/800x600/btn_end.png")
-                ss("btn/800x600/btn_end2.png")
+                ss(active_dir + "btn_end.png")
+                ss(active_dir + "btn_end2.png")
             elif hod == 6 and game == 1:
                 close_time = time.time() + delay
                 while True:
                     ##bla bla
                     if unit == 0:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m6.png")
+                        karta(active_dir + "btn_m6.png")
                         if unit == 1:
                             mana = 0
                     if unit == 0:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m5.png")
+                        karta(active_dir + "btn_m5.png")
                         if unit == 1:
                             mana = 1
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                    hero_strength("btn/800x600/btn_strela.png")
+                    hero_strength(active_dir + "btn_strela.png")
                     mana = 0
                 pg.press(['right'])
-                ss("btn/800x600/btn_end.png")
-                ss("btn/800x600/btn_end2.png")
+                ss(active_dir + "btn_end.png")
+                ss(active_dir + "btn_end2.png")
             elif hod >= 7 and game == 1:
                 close_time = time.time() + delay
                 while True:
                     ##bla bla
                     if unit == 0:
-                        karta("btn/800x600/btn_m7.png")
+                        karta(active_dir + "btn_m7.png")
                         if unit == 1:
                             mana = mana - 7
                     if unit == 0:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m6.png")
+                        karta(active_dir + "btn_m6.png")
                         if unit == 1:
                             mana = mana - 6
                     if unit == 0:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m5.png")
+                        karta(active_dir + "btn_m5.png")
                         if unit == 1:
                             mana = mana - 5
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                    hero_strength("btn/800x600/btn_strela.png")
+                    hero_strength(active_dir + "btn_strela.png")
                     mana = 0
                 pg.press(['right'])
-                ss("btn/800x600/btn_end.png")
-                ss("btn/800x600/btn_end2.png")
-            projgrysh("btn/800x600/end_game.png")
-            vyjgrysh("btn/800x600/victory.png")
-            endGame("btn/800x600/end_game2.png")
+                ss(active_dir + "btn_end.png")
+                ss(active_dir + "btn_end2.png")
+            projgrysh(active_dir + "end_game.png")
+            vyjgrysh(active_dir + "victory.png")
+            endGame(active_dir + "end_game2.png")
             if Ggame == 0:
                 fill_table()  # заполняем БД
             #               print_oll_table()
-            ss("btn/800x600/ok_2.png")
-            ss("btn/800x600/bt.png")
-            ss("btn/800x600/bt2.png")
+            ss(active_dir + "ok_2.png")
+            ss(active_dir + "bt.png")
+            ss(active_dir + "bt2.png")
         return Ggame, Ngame, Gcikl, vygr, progr, start_time, activity
 
 
@@ -836,9 +829,9 @@ def voin_standart():
     global activity
     tipe = 'стандарт'
     deck = 'воин'
-    ss("btn/800x600/btn_voin.png")
-    ss("btn/800x600/btn_game_st.png")
-    start_game("btn/800x600/btn_start.png")
+    ss(active_dir + "btn_voin.png")
+    ss(active_dir + "btn_game_st.png")
+    start_game(active_dir + "btn_start.png")
     if Ggame == 1:
         Ngame += 1
         print("Игра воином началась", Gcikl)
@@ -854,10 +847,10 @@ def voin_standart():
             if (time.time() - activity) >= 300:
                 Ggame = 0
             Gcikl += 1
-            ss("btn/800x600/btn_start.png")
-            card_selection("btn/800x600/btn_ok.png")
-            chughoj_hod("btn/800x600/chughoj_hod.png")
-            vash_hod("btn/800x600/btn_end.png")
+            ss(active_dir + "btn_start.png")
+            card_selection(active_dir + "btn_ok.png")
+            chughoj_hod(active_dir + "chughoj_hod.png")
+            vash_hod(active_dir + "btn_end.png")
             print("hod=", hod)
             if hod == 1 and game == 1:
                 close_time = time.time() + 15
@@ -866,8 +859,8 @@ def voin_standart():
                     if time.time() > close_time:
                         break
                 pg.press(['right'])
-                simple_press("btn/800x600/btn_end.png")
-                simple_press("btn/800x600/btn_end2.png")
+                simple_press(active_dir + "btn_end.png")
+                simple_press(active_dir + "btn_end2.png")
             elif hod > 1 and hod < 4 and game == 1:
                 close_time = time.time() + delay
                 while True:
@@ -875,12 +868,12 @@ def voin_standart():
                     if time.time() > close_time:
                         break
                 pg.press(['right'])
-                hero_strength("btn/800x600/btn_schit.png")
-                ss("btn/800x600/btn_end.png")
-                ss("btn/800x600/btn_end2.png")
+                hero_strength(active_dir + "btn_schit.png")
+                ss(active_dir + "btn_end.png")
+                ss(active_dir + "btn_end2.png")
             elif hod == 4 and game == 1:
                 pg.press(['right'])
-                karta("btn/800x600/btn_m0.png")
+                karta(active_dir + "btn_m0.png")
                 if moneta == 1:
                     mana += 1
                     moneta = 0
@@ -889,91 +882,91 @@ def voin_standart():
                 while True:
                     if unit == 0 and mana >= 5:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m5.png")
+                        karta(active_dir + "btn_m5.png")
                         if unit == 1:
                             mana = mana - 5
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                    hero_strength("btn/800x600/btn_schit.png")
+                    hero_strength(active_dir + "btn_schit.png")
                     mana = 0
                 moneta = 0
-                ss("btn/800x600/btn_end.png")
-                ss("btn/800x600/btn_end2.png")
+                ss(active_dir + "btn_end.png")
+                ss(active_dir + "btn_end2.png")
             elif hod == 5 and game == 1:
                 close_time = time.time() + delay
                 while True:
                     ##bla bla
                     if unit == 0:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m5.png")
+                        karta(active_dir + "btn_m5.png")
                         if unit == 1:
                             mana = 1
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                    hero_strength("btn/800x600/btn_schit.png")
+                    hero_strength(active_dir + "btn_schit.png")
                     mana = 0
                 pg.press(['right'])
-                ss("btn/800x600/btn_end.png")
-                ss("btn/800x600/btn_end2.png")
+                ss(active_dir + "btn_end.png")
+                ss(active_dir + "btn_end2.png")
             elif hod == 6 and game == 1:
                 close_time = time.time() + delay
                 while True:
                     ##bla bla
                     if unit == 0:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m6.png")
+                        karta(active_dir + "btn_m6.png")
                         if unit == 1:
                             mana = 0
                     if unit == 0:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m5.png")
+                        karta(active_dir + "btn_m5.png")
                         if unit == 1:
                             mana = 1
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                    hero_strength("btn/800x600/btn_schit.png")
+                    hero_strength(active_dir + "btn_schit.png")
                     mana = 0
                 pg.press(['right'])
-                ss("btn/800x600/btn_end.png")
-                ss("btn/800x600/btn_end2.png")
+                ss(active_dir + "btn_end.png")
+                ss(active_dir + "btn_end2.png")
             elif hod >= 7 and game == 1:
                 close_time = time.time() + delay
                 while True:
                     ##bla bla
                     if unit == 0:
-                        karta("btn/800x600/btn_m7.png")
+                        karta(active_dir + "btn_m7.png")
                         if unit == 1:
                             mana = mana - 7
                     if unit == 0:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m6.png")
+                        karta(active_dir + "btn_m6.png")
                         if unit == 1:
                             mana = mana - 6
                     if unit == 0:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m5.png")
+                        karta(active_dir + "btn_m5.png")
                         if unit == 1:
                             mana = mana - 5
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                    hero_strength("btn/800x600/btn_schit.png")
+                    hero_strength(active_dir + "btn_schit.png")
                     mana = 0
                 pg.press(['right'])
-                ss("btn/800x600/btn_end.png")
-                ss("btn/800x600/btn_end2.png")
-            projgrysh("btn/800x600/end_game.png")
-            vyjgrysh("btn/800x600/victory.png")
-            endGame("btn/800x600/end_game2.png")
+                ss(active_dir + "btn_end.png")
+                ss(active_dir + "btn_end2.png")
+            projgrysh(active_dir + "end_game.png")
+            vyjgrysh(active_dir + "victory.png")
+            endGame(active_dir + "end_game2.png")
             if Ggame == 0:
                 fill_table()  # заполняем БД
             #                print_oll_table()
-            ss("btn/800x600/ok_2.png")
-            ss("btn/800x600/bt.png")
-            ss("btn/800x600/bt2.png")
+            ss(active_dir + "ok_2.png")
+            ss(active_dir + "bt.png")
+            ss(active_dir + "bt2.png")
         return Ggame, Ngame, Gcikl, vygr, progr, start_time, activity
 
 
@@ -996,9 +989,9 @@ def mag_standart():
     global activity
     tipe = 'стандарт'
     deck = 'маг'
-    ss("btn/800x600/btn_mag.png")
-    ss("btn/800x600/btn_game_st.png")
-    start_game("btn/800x600/btn_start.png")
+    ss(active_dir + "btn_mag.png")
+    ss(active_dir + "btn_game_st.png")
+    start_game(active_dir + "btn_start.png")
     if Ggame == 1:
         Ngame += 1
         print("Игра магом началась", Gcikl)
@@ -1014,10 +1007,10 @@ def mag_standart():
             if (time.time() - activity) >= 300:
                 Ggame = 0
             Gcikl += 1
-            ss("btn/800x600/btn_start.png")
-            card_selection("btn/800x600/btn_ok.png")
-            chughoj_hod("btn/800x600/chughoj_hod.png")
-            vash_hod("btn/800x600/btn_end.png")
+            ss(active_dir + "btn_start.png")
+            card_selection(active_dir + "btn_ok.png")
+            chughoj_hod(active_dir + "chughoj_hod.png")
+            vash_hod(active_dir + "btn_end.png")
             print("hod=", hod)
             if hod == 1 and game == 1:
                 close_time = time.time() + 15
@@ -1026,8 +1019,8 @@ def mag_standart():
                     if time.time() > close_time:
                         break
                 pg.press(['right'])
-                simple_press("btn/800x600/btn_end.png")
-                simple_press("btn/800x600/btn_end2.png")
+                simple_press(active_dir + "btn_end.png")
+                simple_press(active_dir + "btn_end2.png")
             elif hod > 1 and hod < 4 and game == 1:
                 close_time = time.time() + delay
                 while True:
@@ -1035,12 +1028,12 @@ def mag_standart():
                     if time.time() > close_time:
                         break
                 pg.press(['right'])
-                throw_a_ball("btn/800x600/btn_shar.png")
-                ss("btn/800x600/btn_end.png")
-                ss("btn/800x600/btn_end2.png")
+                throw_a_ball(active_dir + "btn_shar.png")
+                ss(active_dir + "btn_end.png")
+                ss(active_dir + "btn_end2.png")
             elif hod == 4 and game == 1:
                 pg.press(['right'])
-                karta("btn/800x600/btn_m0.png")
+                karta(active_dir + "btn_m0.png")
                 if moneta == 1:
                     mana += 1
                     moneta = 0
@@ -1049,91 +1042,91 @@ def mag_standart():
                 while True:
                     if unit == 0 and mana >= 5:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m5.png")
+                        karta(active_dir + "btn_m5.png")
                         if unit == 1:
                             mana = mana - 5
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                    throw_a_ball("btn/800x600/btn_shar.png")
+                    throw_a_ball(active_dir + "btn_shar.png")
                     mana = 0
                 moneta = 0
-                ss("btn/800x600/btn_end.png")
-                ss("btn/800x600/btn_end2.png")
+                ss(active_dir + "btn_end.png")
+                ss(active_dir + "btn_end2.png")
             elif hod == 5 and game == 1:
                 close_time = time.time() + delay
                 while True:
                     ##bla bla
                     if unit == 0:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m5.png")
+                        karta(active_dir + "btn_m5.png")
                         if unit == 1:
                             mana = 1
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                    throw_a_ball("btn/800x600/btn_shar.png")
+                    throw_a_ball(active_dir + "btn_shar.png")
                     mana = 0
                 pg.press(['right'])
-                ss("btn/800x600/btn_end.png")
-                ss("btn/800x600/btn_end2.png")
+                ss(active_dir + "btn_end.png")
+                ss(active_dir + "btn_end2.png")
             elif hod == 6 and game == 1:
                 close_time = time.time() + delay
                 while True:
                     ##bla bla
                     if unit == 0:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m6.png")
+                        karta(active_dir + "btn_m6.png")
                         if unit == 1:
                             mana = 0
                     if unit == 0:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m5.png")
+                        karta(active_dir + "btn_m5.png")
                         if unit == 1:
                             mana = 1
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                    throw_a_ball("btn/800x600/btn_shar.png")
+                    throw_a_ball(active_dir + "btn_shar.png")
                     mana = 0
                 pg.press(['right'])
-                ss("btn/800x600/btn_end.png")
-                ss("btn/800x600/btn_end2.png")
+                ss(active_dir + "btn_end.png")
+                ss(active_dir + "btn_end2.png")
             elif hod >= 7 and game == 1:
                 close_time = time.time() + delay
                 while True:
                     ##bla bla
                     if unit == 0:
-                        karta("btn/800x600/btn_m7.png")
+                        karta(active_dir + "btn_m7.png")
                         if unit == 1:
                             mana = mana - 7
                     if unit == 0:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m6.png")
+                        karta(active_dir + "btn_m6.png")
                         if unit == 1:
                             mana = mana - 6
                     if unit == 0:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m5.png")
+                        karta(active_dir + "btn_m5.png")
                         if unit == 1:
                             mana = mana - 5
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                    throw_a_ball("btn/800x600/btn_shar.png")
+                    throw_a_ball(active_dir + "btn_shar.png")
                     mana = 0
                 pg.press(['right'])
-                ss("btn/800x600/btn_end.png")
-                ss("btn/800x600/btn_end2.png")
-            projgrysh("btn/800x600/end_game.png")
-            vyjgrysh("btn/800x600/victory.png")
-            endGame("btn/800x600/end_game2.png")
+                ss(active_dir + "btn_end.png")
+                ss(active_dir + "btn_end2.png")
+            projgrysh(active_dir + "end_game.png")
+            vyjgrysh(active_dir + "victory.png")
+            endGame(active_dir + "end_game2.png")
             if Ggame == 0:
                 fill_table()  # заполняем БД
             #                print_oll_table()
-            ss("btn/800x600/ok_2.png")
-            ss("btn/800x600/bt.png")
-            ss("btn/800x600/bt2.png")
+            ss(active_dir + "ok_2.png")
+            ss(active_dir + "bt.png")
+            ss(active_dir + "bt2.png")
         return Ggame, Ngame, Gcikl, vygr, progr, start_time, activity
 
 
@@ -1156,9 +1149,9 @@ def roga_standart():
     global activity
     tipe = 'стандарт'
     deck = 'рога'
-    ss("btn/800x600/btn_roga.png")
-    ss("btn/800x600/btn_game_st.png")
-    start_game("btn/800x600/btn_start.png")
+    ss(active_dir + "btn_roga.png")
+    ss(active_dir + "btn_game_st.png")
+    start_game(active_dir + "btn_start.png")
     if Ggame == 1:
         Ngame += 1
         # print("Игра рогой началась", Gcikl)
@@ -1174,10 +1167,10 @@ def roga_standart():
             if (time.time() - activity) >= 300:
                 Ggame = 0
             Gcikl += 1
-            ss("btn/800x600/btn_start.png")
-            card_selection("btn/800x600/btn_ok.png")
-            chughoj_hod("btn/800x600/chughoj_hod.png")
-            vash_hod("btn/800x600/btn_end.png")
+            ss(active_dir + "btn_start.png")
+            card_selection(active_dir + "btn_ok.png")
+            chughoj_hod(active_dir + "chughoj_hod.png")
+            vash_hod(active_dir + "btn_end.png")
             # print("hod=", hod)
             if hod == 1 and game == 1:
                 close_time = time.time() + 20
@@ -1186,8 +1179,8 @@ def roga_standart():
                     if time.time() > close_time:
                         break
                 pg.press(['right'])
-                simple_press("btn/800x600/btn_end.png")
-                simple_press("btn/800x600/btn_end2.png")
+                simple_press(active_dir + "btn_end.png")
+                simple_press(active_dir + "btn_end2.png")
             elif hod > 1 and hod < 4 and game == 1:
                 close_time = time.time() + delay
                 while True:
@@ -1195,13 +1188,13 @@ def roga_standart():
                     if time.time() > close_time:
                         break
                 pg.press(['right'])
-                hero_strength("btn/800x600/btn_two_swords.png")
+                hero_strength(active_dir + "btn_two_swords.png")
                 punch_in_the_face()
-                simple_press("btn/800x600/btn_end.png")
-                simple_press("btn/800x600/btn_end2.png")
+                simple_press(active_dir + "btn_end.png")
+                simple_press(active_dir + "btn_end2.png")
             elif hod == 4 and game == 1:
                 pg.press(['right'])
-                karta("btn/800x600/btn_m0.png")
+                karta(active_dir + "btn_m0.png")
                 if moneta == 1:
                     mana += 1
                     moneta = 0
@@ -1210,95 +1203,95 @@ def roga_standart():
                 while True:
                     if unit == 0 and mana >= 5:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m5.png")
+                        karta(active_dir + "btn_m5.png")
                         if unit == 1:
                             mana = mana - 5
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                    hero_strength("btn/800x600/btn_two_swords.png")
+                    hero_strength(active_dir + "btn_two_swords.png")
                     punch_in_the_face()
                     mana = 0
                 moneta = 0
-                ss("btn/800x600/btn_end.png")
-                ss("btn/800x600/btn_end2.png")
+                ss(active_dir + "btn_end.png")
+                ss(active_dir + "btn_end2.png")
             elif hod == 5 and game == 1:
                 close_time = time.time() + delay
                 while True:
                     ##bla bla
                     if unit == 0:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m5.png")
+                        karta(active_dir + "btn_m5.png")
                         if unit == 1:
                             mana = 1
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                    hero_strength("btn/800x600/btn_two_swords.png")
+                    hero_strength(active_dir + "btn_two_swords.png")
                     punch_in_the_face()
                     mana = 0
                 pg.press(['right'])
-                simple_press("btn/800x600/btn_end.png")
-                simple_press("btn/800x600/btn_end2.png")
+                simple_press(active_dir + "btn_end.png")
+                simple_press(active_dir + "btn_end2.png")
             elif hod == 6 and game == 1:
                 close_time = time.time() + delay
                 while True:
                     ##bla bla
                     if unit == 0 and mana >= 6:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m6.png")
+                        karta(active_dir + "btn_m6.png")
                         if unit == 1:
                             mana = mana - 6
                     if unit == 0 and mana >= 5:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m5.png")
+                        karta(active_dir + "btn_m5.png")
                         if unit == 1:
                             mana = mana - 5
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                    hero_strength("btn/800x600/btn_two_swords.png")
+                    hero_strength(active_dir + "btn_two_swords.png")
                     punch_in_the_face()
                     mana = 0
                 pg.press(['right'])
-                simple_press("btn/800x600/btn_end.png")
-                simple_press("btn/800x600/btn_end2.png")
+                simple_press(active_dir + "btn_end.png")
+                simple_press(active_dir + "btn_end2.png")
             elif hod >= 7 and game == 1:
                 close_time = time.time() + delay
                 while True:
                     ##bla bla
                     if unit == 0:
-                        karta("btn/800x600/btn_m7.png")
+                        karta(active_dir + "btn_m7.png")
                         if unit == 1:
                             mana = mana - 7
                     if unit == 0:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m6.png")
+                        karta(active_dir + "btn_m6.png")
                         if unit == 1:
                             mana = mana - 6
                     if unit == 0:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m5.png")
+                        karta(active_dir + "btn_m5.png")
                         if unit == 1:
                             mana = mana - 5
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                    hero_strength("btn/800x600/btn_two_swords.png")
+                    hero_strength(active_dir + "btn_two_swords.png")
                     punch_in_the_face()
                     mana = 0
                 pg.press(['right'])
-                simple_press("btn/800x600/btn_end.png")
-                simple_press("btn/800x600/btn_end2.png")
-            projgrysh("btn/800x600/end_game.png")
-            vyjgrysh("btn/800x600/victory.png")
-            endGame("btn/800x600/end_game2.png")
+                simple_press(active_dir + "btn_end.png")
+                simple_press(active_dir + "btn_end2.png")
+            projgrysh(active_dir + "end_game.png")
+            vyjgrysh(active_dir + "victory.png")
+            endGame(active_dir + "end_game2.png")
             if Ggame == 0:
                 fill_table()  # заполняем БД
         #               print_oll_table()
-            ss("btn/800x600/ok_2.png")
-            ss("btn/800x600/bt.png")
-            ss("btn/800x600/bt2.png")
+            ss(active_dir + "ok_2.png")
+            ss(active_dir + "bt.png")
+            ss(active_dir + "bt2.png")
         return Ggame, Ngame, Gcikl, vygr, progr, start_time, activity
 
 
@@ -1321,9 +1314,9 @@ def dh_standart():
     global activity
     tipe = 'стандарт'
     deck = ' Д Х '
-    ss("btn/800x600/btn_dh.png")
-    ss("btn/800x600/btn_game_st.png")
-    start_game("btn/800x600/btn_start.png")
+    ss(active_dir + "btn_dh.png")
+    ss(active_dir + "btn_game_st.png")
+    start_game(active_dir + "btn_start.png")
     if Ggame == 1:
         Ngame += 1
         print("Игра ДХ началась", Gcikl)
@@ -1339,10 +1332,10 @@ def dh_standart():
             if (time.time() - activity) >= 300:
                 Ggame = 0
             Gcikl += 1
-            ss("btn/800x600/btn_start.png")
-            card_selection("btn/800x600/btn_ok.png")
-            chughoj_hod("btn/800x600/chughoj_hod.png")
-            vash_hod("btn/800x600/btn_end.png")
+            ss(active_dir + "btn_start.png")
+            card_selection(active_dir + "btn_ok.png")
+            chughoj_hod(active_dir + "chughoj_hod.png")
+            vash_hod(active_dir + "btn_end.png")
             print("hod=", hod)
             if hod == 1 and game == 1:
                 close_time = time.time() + 15
@@ -1351,36 +1344,36 @@ def dh_standart():
                     if time.time() > close_time:
                         break
                 pg.press(['right'])
-                ss("btn/800x600/btn_dh_hand.png")
+                ss(active_dir + "btn_dh_hand.png")
                 punch_in_the_face()
-                ss("btn/800x600/btn_end.png")
-                ss("btn/800x600/btn_end2.png")
+                ss(active_dir + "btn_end.png")
+                ss(active_dir + "btn_end2.png")
             elif hod > 1 and hod < 4 and game == 1:
                 close_time = time.time() + delay
                 while True:
                     ##bla bla
                     if unit == 0 and mana >= 3:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m3.png")
+                        karta(active_dir + "btn_m3.png")
                         if unit == 1:
                             mana = mana - 3
                     if unit == 0 and mana >= 4:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m4.png")
+                        karta(active_dir + "btn_m4.png")
                         if unit == 1:
                             mana = mana - 4
                     if time.time() > close_time:
                         break
                     if mana >=1:
-                        hero_strength("btn/800x600/btn_dh_hand.png")
+                        hero_strength(active_dir + "btn_dh_hand.png")
                         punch_in_the_face()
                         mana = 0
                 pg.press(['right'])
-                ss("btn/800x600/btn_end.png")
-                ss("btn/800x600/btn_end2.png")
+                ss(active_dir + "btn_end.png")
+                ss(active_dir + "btn_end2.png")
             elif hod == 4 and game == 1:
                 pg.press(['right'])
-                karta("btn/800x600/btn_m0.png")
+                karta(active_dir + "btn_m0.png")
                 if moneta == 1:
                     mana += 1
                     pg.press(['right'])
@@ -1389,128 +1382,128 @@ def dh_standart():
                     ##bla bla
                     if unit == 0 and mana >= 3:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m3.png")
+                        karta(active_dir + "btn_m3.png")
                         if unit == 1:
                             mana = mana - 3
                     if unit == 0 and mana >= 4:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m4.png")
+                        karta(active_dir + "btn_m4.png")
                         if unit == 1:
                             mana = mana - 4
                     if unit == 0 and mana >= 5:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m5.png")
+                        karta(active_dir + "btn_m5.png")
                         if unit == 1:
                             mana = mana - 5
                     if time.time() > close_time:
                         break
                     if mana >= 1:
-                        hero_strength("btn/800x600/btn_dh_hand.png")
+                        hero_strength(active_dir + "btn_dh_hand.png")
                         punch_in_the_face()
                         mana = 0
                 moneta = 0
-                ss("btn/800x600/btn_end.png")
-                ss("btn/800x600/btn_end2.png")
+                ss(active_dir + "btn_end.png")
+                ss(active_dir + "btn_end2.png")
             elif hod == 5 and game == 1:
                 close_time = time.time() + delay
                 while True:
                     ##bla bla
                     if unit == 0 and mana >= 3:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m3.png")
+                        karta(active_dir + "btn_m3.png")
                         if unit == 1:
                             mana = mana - 3
                     if unit == 0 and mana >= 4:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m4.png")
+                        karta(active_dir + "btn_m4.png")
                         if unit == 1:
                             mana = mana - 4
                     if unit == 0 and mana >= 5:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m5.png")
+                        karta(active_dir + "btn_m5.png")
                         if unit == 1:
                             mana = mana - 5
                     if time.time() > close_time:
                         break
 
                     if mana >= 1:
-                        hero_strength("btn/800x600/btn_dh_hand.png")
+                        hero_strength(active_dir + "btn_dh_hand.png")
                         punch_in_the_face()
                         mana = 0
                 pg.press(['right'])
-                ss("btn/800x600/btn_end.png")
-                ss("btn/800x600/btn_end2.png")
+                ss(active_dir + "btn_end.png")
+                ss(active_dir + "btn_end2.png")
             elif hod == 6 and game == 1:
                 close_time = time.time() + delay
                 while True:
                     ##bla bla
                     if unit == 0 and mana >= 3:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m3.png")
+                        karta(active_dir + "btn_m3.png")
                         if unit == 1:
                             mana = mana - 3
                     if unit == 0 and mana >= 4:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m4.png")
+                        karta(active_dir + "btn_m4.png")
                         if unit == 1:
                             mana = mana - 4
                     if unit == 0 and mana >= 5:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m5.png")
+                        karta(active_dir + "btn_m5.png")
                         if unit == 1:
                             mana = mana - 5
                     if unit == 0 and mana >= 6:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m6.png")
+                        karta(active_dir + "btn_m6.png")
                         if unit == 1:
                             mana = mana - 6
                     if time.time() > close_time:
                         break
 
                     if mana >= 1:
-                        hero_strength("btn/800x600/btn_dh_hand.png")
+                        hero_strength(active_dir + "btn_dh_hand.png")
                         punch_in_the_face()
                         mana = 0
                 pg.press(['right'])
-                ss("btn/800x600/btn_end.png")
-                ss("btn/800x600/btn_end2.png")
+                ss(active_dir + "btn_end.png")
+                ss(active_dir + "btn_end2.png")
             elif hod >= 7 and game == 1:
                 close_time = time.time() + delay
                 while True:
                     ##bla bla
                     if unit == 0 and mana >= 7:
-                        karta("btn/800x600/btn_m7.png")
+                        karta(active_dir + "btn_m7.png")
                         if unit == 1:
                             mana = mana - 7
                     if unit == 0 and mana >= 6:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m6.png")
+                        karta(active_dir + "btn_m6.png")
                         if unit == 1:
                             mana = mana - 6
                     if unit == 0 and mana >= 5:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m5.png")
+                        karta(active_dir + "btn_m5.png")
                         if unit == 1:
                             mana = mana - 5
                     if time.time() > close_time:
                         break
 
                     if mana >= 1:
-                        hero_strength("btn/800x600/btn_dh_hand.png")
+                        hero_strength(active_dir + "btn_dh_hand.png")
                         punch_in_the_face()
                         mana = 0
                 pg.press(['right'])
-                ss("btn/800x600/btn_end.png")
-                ss("btn/800x600/btn_end2.png")
-            projgrysh("btn/800x600/end_game.png")
-            vyjgrysh("btn/800x600/victory.png")
-            endGame("btn/800x600/end_game2.png")
+                ss(active_dir + "btn_end.png")
+                ss(active_dir + "btn_end2.png")
+            projgrysh(active_dir + "end_game.png")
+            vyjgrysh(active_dir + "victory.png")
+            endGame(active_dir + "end_game2.png")
             if Ggame == 0:
                 fill_table()  # заполняем БД
             #                print_oll_table()
-            ss("btn/800x600/ok_2.png")
-            ss("btn/800x600/bt.png")
-            ss("btn/800x600/bt2.png")
+            ss(active_dir + "ok_2.png")
+            ss(active_dir + "bt.png")
+            ss(active_dir + "bt2.png")
         return Ggame, Ngame, Gcikl, vygr, progr, start_time, activity
 
 
@@ -1533,9 +1526,9 @@ def druid_standart():
     global activity
     tipe = 'стандарт'
     deck = 'друид'
-    ss("btn/800x600/btn_druid.png")
-    ss("btn/800x600/btn_game_st.png")
-    start_game("btn/800x600/btn_start.png")
+    ss(active_dir + "btn_druid.png")
+    ss(active_dir + "btn_game_st.png")
+    start_game(active_dir + "btn_start.png")
     if Ggame == 1:
         Ngame += 1
         print("Игра друидом началась", Gcikl)
@@ -1551,10 +1544,10 @@ def druid_standart():
             if (time.time() - activity) >= 300:
                 Ggame = 0
             Gcikl += 1
-            ss("btn/800x600/btn_start.png")
-            card_selection("btn/800x600/btn_ok.png")
-            chughoj_hod("btn/800x600/chughoj_hod.png")
-            vash_hod("btn/800x600/btn_end.png")
+            ss(active_dir + "btn_start.png")
+            card_selection(active_dir + "btn_ok.png")
+            chughoj_hod(active_dir + "chughoj_hod.png")
+            vash_hod(active_dir + "btn_end.png")
             print("hod=", hod)
             if hod == 1 and game == 1:
                 close_time = time.time() + 15
@@ -1563,8 +1556,8 @@ def druid_standart():
                     if time.time() > close_time:
                         break
                 pg.press(['right'])
-                simple_press("btn/800x600/btn_end.png")
-                simple_press("btn/800x600/btn_end2.png")
+                simple_press(active_dir + "btn_end.png")
+                simple_press(active_dir + "btn_end2.png")
             elif hod > 1 and hod < 4 and game == 1:
                 close_time = time.time() + delay
                 while True:
@@ -1572,13 +1565,13 @@ def druid_standart():
                     if time.time() > close_time:
                         break
                 pg.press(['right'])
-                ss("btn/800x600/btn_leo.png")
+                ss(active_dir + "btn_leo.png")
                 punch_in_the_face()
-                ss("btn/800x600/btn_end.png")
-                ss("btn/800x600/btn_end2.png")
+                ss(active_dir + "btn_end.png")
+                ss(active_dir + "btn_end2.png")
             elif hod == 4 and game == 1:
                 pg.press(['right'])
-                karta("btn/800x600/btn_m0.png")
+                karta(active_dir + "btn_m0.png")
                 if moneta == 1:
                     mana += 1
                     moneta = 0
@@ -1587,95 +1580,95 @@ def druid_standart():
                 while True:
                     if unit == 0 and mana >= 5:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m5.png")
+                        karta(active_dir + "btn_m5.png")
                         if unit == 1:
                             mana = mana - 5
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                    ss("btn/800x600/btn_leo.png")
+                    ss(active_dir + "btn_leo.png")
                     punch_in_the_face()
                     mana = 0
                 moneta = 0
-                ss("btn/800x600/btn_end.png")
-                ss("btn/800x600/btn_end2.png")
+                ss(active_dir + "btn_end.png")
+                ss(active_dir + "btn_end2.png")
             elif hod == 5 and game == 1:
                 close_time = time.time() + delay
                 while True:
                     ##bla bla
                     if unit == 0:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m5.png")
+                        karta(active_dir + "btn_m5.png")
                         if unit == 1:
                             mana = 1
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                    ss("btn/800x600/btn_leo.png")
+                    ss(active_dir + "btn_leo.png")
                     punch_in_the_face()
                     mana = 0
                 pg.press(['right'])
-                ss("btn/800x600/btn_end.png")
-                ss("btn/800x600/btn_end2.png")
+                ss(active_dir + "btn_end.png")
+                ss(active_dir + "btn_end2.png")
             elif hod == 6 and game == 1:
                 close_time = time.time() + delay
                 while True:
                     ##bla bla
                     if unit == 0:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m6.png")
+                        karta(active_dir + "btn_m6.png")
                         if unit == 1:
                             mana = 0
                     if unit == 0:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m5.png")
+                        karta(active_dir + "btn_m5.png")
                         if unit == 1:
                             mana = 1
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                    ss("btn/800x600/btn_leo.png")
+                    ss(active_dir + "btn_leo.png")
                     punch_in_the_face()
                     mana = 0
                 pg.press(['right'])
-                ss("btn/800x600/btn_end.png")
-                ss("btn/800x600/btn_end2.png")
+                ss(active_dir + "btn_end.png")
+                ss(active_dir + "btn_end2.png")
             elif hod >= 7 and game == 1:
                 close_time = time.time() + delay
                 while True:
                     ##bla bla
                     if unit == 0:
-                        karta("btn/800x600/btn_m7.png")
+                        karta(active_dir + "btn_m7.png")
                         if unit == 1:
                             mana = mana - 7
                     if unit == 0:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m6.png")
+                        karta(active_dir + "btn_m6.png")
                         if unit == 1:
                             mana = mana - 6
                     if unit == 0:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m5.png")
+                        karta(active_dir + "btn_m5.png")
                         if unit == 1:
                             mana = mana - 5
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                    ss("btn/800x600/btn_leo.png")
+                    ss(active_dir + "btn_leo.png")
                     punch_in_the_face()
                     mana = 0
                 pg.press(['right'])
-                ss("btn/800x600/btn_end.png")
-                ss("btn/800x600/btn_end2.png")
-            projgrysh("btn/800x600/end_game.png")
-            vyjgrysh("btn/800x600/victory.png")
-            endGame("btn/800x600/end_game2.png")
+                ss(active_dir + "btn_end.png")
+                ss(active_dir + "btn_end2.png")
+            projgrysh(active_dir + "end_game.png")
+            vyjgrysh(active_dir + "victory.png")
+            endGame(active_dir + "end_game2.png")
             if Ggame == 0:
                 fill_table()  # заполняем БД
             #               print_oll_table()
-            ss("btn/800x600/ok_2.png")
-            ss("btn/800x600/bt.png")
-            ss("btn/800x600/bt2.png")
+            ss(active_dir + "ok_2.png")
+            ss(active_dir + "bt.png")
+            ss(active_dir + "bt2.png")
         return Ggame, Ngame, Gcikl, vygr, progr, start_time, activity
 
 
@@ -1698,9 +1691,9 @@ def shaman_standart():
     global activity
     tipe = 'стандарт'
     deck = 'шаман'
-    ss("btn/800x600/btn_shaman.png")
-    ss("btn/800x600/btn_game_st.png")
-    start_game("btn/800x600/btn_start.png")
+    ss(active_dir + "btn_shaman.png")
+    ss(active_dir + "btn_game_st.png")
+    start_game(active_dir + "btn_start.png")
     if Ggame == 1:
         Ngame += 1
         print("игра шаманов началась", Gcikl)
@@ -1716,10 +1709,10 @@ def shaman_standart():
             if (time.time() - activity) >= 300:
                 Ggame = 0
             Gcikl += 1
-            ss("btn/800x600/btn_start.png")
-            card_selection("btn/800x600/btn_ok.png")
-            chughoj_hod("btn/800x600/chughoj_hod.png")
-            vash_hod("btn/800x600/btn_end.png")
+            ss(active_dir + "btn_start.png")
+            card_selection(active_dir + "btn_ok.png")
+            chughoj_hod(active_dir + "chughoj_hod.png")
+            vash_hod(active_dir + "btn_end.png")
             print("hod=", hod)
             if hod == 1 and game == 1:
                 close_time = time.time() + 15
@@ -1728,8 +1721,8 @@ def shaman_standart():
                     if time.time() > close_time:
                         break
                 pg.press(['right'])
-                simple_press("btn/800x600/btn_end.png")
-                simple_press("btn/800x600/btn_end2.png")
+                simple_press(active_dir + "btn_end.png")
+                simple_press(active_dir + "btn_end2.png")
             elif hod > 1 and hod < 4 and game == 1:
                 close_time = time.time() + delay
                 while True:
@@ -1737,12 +1730,12 @@ def shaman_standart():
                     if time.time() > close_time:
                         break
                 pg.press(['right'])
-                hero_strength("btn/800x600/btn_totem.png")
-                ss("btn/800x600/btn_end.png")
-                ss("btn/800x600/btn_end2.png")
+                hero_strength(active_dir + "btn_totem.png")
+                ss(active_dir + "btn_end.png")
+                ss(active_dir + "btn_end2.png")
             elif hod == 4 and game == 1:
                 pg.press(['right'])
-                karta("btn/800x600/btn_m0.png")
+                karta(active_dir + "btn_m0.png")
                 if moneta == 1:
                     mana += 1
                     moneta = 0
@@ -1751,91 +1744,91 @@ def shaman_standart():
                 while True:
                     if unit == 0 and mana >= 5:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m5.png")
+                        karta(active_dir + "btn_m5.png")
                         if unit == 1:
                             mana = mana - 5
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                    hero_strength("btn/800x600/btn_totem.png")
+                    hero_strength(active_dir + "btn_totem.png")
                     mana = 0
                 moneta = 0
-                ss("btn/800x600/btn_end.png")
-                ss("btn/800x600/btn_end2.png")
+                ss(active_dir + "btn_end.png")
+                ss(active_dir + "btn_end2.png")
             elif hod == 5 and game == 1:
                 close_time = time.time() + delay
                 while True:
                     ##bla bla
                     if unit == 0:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m5.png")
+                        karta(active_dir + "btn_m5.png")
                         if unit == 1:
                             mana = 1
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                    hero_strength("btn/800x600/btn_totem.png")
+                    hero_strength(active_dir + "btn_totem.png")
                     mana = 0
                 pg.press(['right'])
-                ss("btn/800x600/btn_end.png")
-                ss("btn/800x600/btn_end2.png")
+                ss(active_dir + "btn_end.png")
+                ss(active_dir + "btn_end2.png")
             elif hod == 6 and game == 1:
                 close_time = time.time() + delay
                 while True:
                     ##bla bla
                     if unit == 0:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m6.png")
+                        karta(active_dir + "btn_m6.png")
                         if unit == 1:
                             mana = 0
                     if unit == 0:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m5.png")
+                        karta(active_dir + "btn_m5.png")
                         if unit == 1:
                             mana = 1
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                    hero_strength("btn/800x600/btn_totem.png")
+                    hero_strength(active_dir + "btn_totem.png")
                     mana = 0
                 pg.press(['right'])
-                ss("btn/800x600/btn_end.png")
-                ss("btn/800x600/btn_end2.png")
+                ss(active_dir + "btn_end.png")
+                ss(active_dir + "btn_end2.png")
             elif hod >= 7 and game == 1:
                 close_time = time.time() + delay
                 while True:
                     ##bla bla
                     if unit == 0:
-                        karta("btn/800x600/btn_m7.png")
+                        karta(active_dir + "btn_m7.png")
                         if unit == 1:
                             mana = mana - 7
                     if unit == 0:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m6.png")
+                        karta(active_dir + "btn_m6.png")
                         if unit == 1:
                             mana = mana - 6
                     if unit == 0:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m5.png")
+                        karta(active_dir + "btn_m5.png")
                         if unit == 1:
                             mana = mana - 5
                     if time.time() > close_time:
                         break
                 if mana >= 2:
-                    hero_strength("btn/800x600/btn_totem.png")
+                    hero_strength(active_dir + "btn_totem.png")
                     mana = 0
                 pg.press(['right'])
-                ss("btn/800x600/btn_end.png")
-                ss("btn/800x600/btn_end2.png")
-            projgrysh("btn/800x600/end_game.png")
-            vyjgrysh("btn/800x600/victory.png")
-            endGame("btn/800x600/end_game2.png")
+                ss(active_dir + "btn_end.png")
+                ss(active_dir + "btn_end2.png")
+            projgrysh(active_dir + "end_game.png")
+            vyjgrysh(active_dir + "victory.png")
+            endGame(active_dir + "end_game2.png")
             if Ggame == 0:
                 fill_table()  # заполняем БД
             #               print_oll_table()
-            ss("btn/800x600/ok_2.png")
-            ss("btn/800x600/bt.png")
-            ss("btn/800x600/bt2.png")
+            ss(active_dir + "ok_2.png")
+            ss(active_dir + "bt.png")
+            ss(active_dir + "bt2.png")
         return Ggame, Ngame, Gcikl, vygr, progr, start_time, activity
 
 
@@ -1858,9 +1851,9 @@ def lock_standart():
     global activity
     tipe = 'стандарт'
     deck = 'лок'
-    ss("btn/800x600/btn_lock.png")
-    ss("btn/800x600/btn_game_st.png")
-    start_game("btn/800x600/btn_start.png")
+    ss(active_dir + "btn_lock.png")
+    ss(active_dir + "btn_game_st.png")
+    start_game(active_dir + "btn_start.png")
     if Ggame == 1:
         Ngame += 1
         print("игра локом началась", Gcikl)
@@ -1876,9 +1869,9 @@ def lock_standart():
             if (time.time() - activity) >= 300:
                 Ggame = 0
             Gcikl += 1
-            card_selection("btn/800x600/btn_ok.png")
-            chughoj_hod("btn/800x600/chughoj_hod.png")
-            vash_hod("btn/800x600/btn_end.png")
+            card_selection(active_dir + "btn_ok.png")
+            chughoj_hod(active_dir + "chughoj_hod.png")
+            vash_hod(active_dir + "btn_end.png")
             # print("hod=", hod)
             if hod == 1 and game == 1:
                 close_time = time.time() + 15
@@ -1887,32 +1880,32 @@ def lock_standart():
                     if time.time() > close_time:
                         break
                 pg.press(['right'])
-                simple_press("btn/800x600/btn_end.png")
-                simple_press("btn/800x600/btn_end2.png")
+                simple_press(active_dir + "btn_end.png")
+                simple_press(active_dir + "btn_end2.png")
             elif hod > 1 and hod < 4 and game == 1:
                 close_time = time.time() + delay
                 while True:
                     if unit == 0 and mana >= 3:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m3.png")
+                        karta(active_dir + "btn_m3.png")
                         if unit == 1:
                             mana = mana - 3
                     if unit == 0 and mana >= 4:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m4.png")
+                        karta(active_dir + "btn_m4.png")
                         if unit == 1:
                             mana = mana - 4
                     if time.time() > close_time:
                         break
                 if mana >= 2:
                     pg.press(['right'])
-                    simple_press("btn/800x600/btn_soul.png")
+                    simple_press(active_dir + "btn_soul.png")
                     mana = 0
-                simple_press("btn/800x600/btn_end.png")
-                simple_press("btn/800x600/btn_end2.png")
+                simple_press(active_dir + "btn_end.png")
+                simple_press(active_dir + "btn_end2.png")
             elif hod == 4 and game == 1:
                 pg.press(['right'])
-                karta("btn/800x600/btn_m0.png")
+                karta(active_dir + "btn_m0.png")
                 if moneta == 1:
                     mana += 1
                     moneta = 0
@@ -1921,149 +1914,147 @@ def lock_standart():
                 while True:
                     if unit == 0 and mana >= 3:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m3.png")
+                        karta(active_dir + "btn_m3.png")
                         if unit == 1:
                             mana = mana - 3
                     if unit == 0 and mana >= 4:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m4.png")
+                        karta(active_dir + "btn_m4.png")
                         if unit == 1:
                             mana = mana - 4
                     if unit == 0 and mana >= 5:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m5.png")
+                        karta(active_dir + "btn_m5.png")
                         if unit == 1:
                             mana = mana - 5
                     if time.time() > close_time:
                         break
                 if mana >= 2:
                     pg.press(['right'])
-                    simple_press("btn/800x600/btn_soul.png")
+                    simple_press(active_dir + "btn_soul.png")
                     mana = 0
-                simple_press("btn/800x600/btn_end.png")
-                simple_press("btn/800x600/btn_end2.png")
+                simple_press(active_dir + "btn_end.png")
+                simple_press(active_dir + "btn_end2.png")
             elif hod == 5 and game == 1:
                 close_time = time.time() + delay
                 while True:
                     ##bla bla
                     if unit == 0 and mana >= 3:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m3.png")
+                        karta(active_dir + "btn_m3.png")
                         if unit == 1:
                             mana = mana - 3
                     if unit == 0 and mana >= 4:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m4.png")
+                        karta(active_dir + "btn_m4.png")
                         if unit == 1:
                             mana = mana - 4
                     if unit == 0 and mana >= 5:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m5.png")
+                        karta(active_dir + "btn_m5.png")
                         if unit == 1:
                             mana = mana - 5
                     if time.time() > close_time:
                         break
                 if mana >= 2:
                     pg.press(['right'])
-                    simple_press("btn/800x600/btn_soul.png")
+                    simple_press(active_dir + "btn_soul.png")
                     mana = 0
-                simple_press("btn/800x600/btn_end.png")
-                simple_press("btn/800x600/btn_end2.png")
+                simple_press(active_dir + "btn_end.png")
+                simple_press(active_dir + "btn_end2.png")
             elif hod == 6 and game == 1:
                 close_time = time.time() + delay
                 while True:
                     if unit == 0 and mana >= 3:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m3.png")
+                        karta(active_dir + "btn_m3.png")
                         if unit == 1:
                             mana = mana - 3
                     if unit == 0 and mana >= 4:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m4.png")
+                        karta(active_dir + "btn_m4.png")
                         if unit == 1:
                             mana = mana - 4
                     if unit == 0 and mana >= 5:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m5.png")
+                        karta(active_dir + "btn_m5.png")
                         if unit == 1:
                             mana = mana - 5
                     if unit == 0 and mana >= 6:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m6.png")
+                        karta(active_dir + "btn_m6.png")
                         if unit == 1:
                             mana = mana - 6
                     if time.time() > close_time:
                         break
                 if mana >= 2:
                     pg.press(['right'])
-                    simple_press("btn/800x600/btn_soul.png")
+                    simple_press(active_dir + "btn_soul.png")
                     mana = 0
-                simple_press("btn/800x600/btn_end.png")
-                simple_press("btn/800x600/btn_end2.png")
+                simple_press(active_dir + "btn_end.png")
+                simple_press(active_dir + "btn_end2.png")
             elif hod >= 7 and game == 1:
                 close_time = time.time() + delay
                 while True:
                     ##bla bla
                     if unit == 0 and mana >= 3:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m3.png")
+                        karta(active_dir + "btn_m3.png")
                         if unit == 1:
                             mana = mana - 3
                     if unit == 0 and mana >= 4:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m4.png")
+                        karta(active_dir + "btn_m4.png")
                         if unit == 1:
                             mana = mana - 4
                     if unit == 0 and mana >= 5:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m5.png")
+                        karta(active_dir + "btn_m5.png")
                         if unit == 1:
                             mana = mana - 5
                     if unit == 0 and mana >= 6:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m6.png")
+                        karta(active_dir + "btn_m6.png")
                         if unit == 1:
                             mana = mana - 6
                     if unit == 0 and mana >= 7:
                         pg.press(['right'])
-                        karta("btn/800x600/btn_m6.png")
+                        karta(active_dir + "btn_m6.png")
                         if unit == 1:
                             mana = mana - 7
                     if time.time() > close_time:
                         break
                 if mana >= 2:
                     pg.press(['right'])
-                    simple_press("btn/800x600/btn_soul.png")
+                    simple_press(active_dir + "btn_soul.png")
                     mana = 0
-                simple_press("btn/800x600/btn_end.png")
-                simple_press("btn/800x600/btn_end2.png")
-            projgrysh("btn/800x600/end_game.png")
-            vyjgrysh("btn/800x600/victory.png")
-            endGame("btn/800x600/end_game2.png")
+                simple_press(active_dir + "btn_end.png")
+                simple_press(active_dir + "btn_end2.png")
+            projgrysh(active_dir + "end_game.png")
+            vyjgrysh(active_dir + "victory.png")
+            endGame(active_dir + "end_game2.png")
             if Ggame == 0:
                 fill_table()  # заполняем БД
             #               print_oll_table()
-            ss("btn/800x600/ok_2.png")
-            ss("btn/800x600/bt.png")
-            ss("btn/800x600/bt2.png")
+            ss(active_dir + "ok_2.png")
+            ss(active_dir + "bt.png")
+            ss(active_dir + "bt2.png")
         return Ggame, Ngame, Gcikl, vygr, progr, start_time, activity
 
 
 def activity_analysis():
     global activity
     if (time.time() - activity) >= 420:
-        simple_press("btn/800x600/btn_gear.png")
-        simple_press("btn/800x600/btn_exit.png")
-        simple_press("btn/800x600/btn_connect_again.png")
+        simple_press(active_dir + "btn_gear.png")
+        simple_press(active_dir + "btn_exit.png")
+        simple_press(active_dir + "btn_connect_again.png")
         time.sleep(600)
     return activity
 
 
 # variables (переменные)
 screen_width_x = 0  # ширина экрана, координата х - максимальная
-screen_height_y = 0 # высота экрана, координата у - максимальная
-
-
+screen_height_y = 0  # высота экрана, координата у - максимальная
 Ngame = 0  # подсчет количества игр !(основное тело цикла)
 vygr = 0  # подсчет выйгрышей в данной сессии
 progr = 0  # подсчет проигранных игр в данной сессии
@@ -2127,7 +2118,7 @@ logging.info('Start game and logged in')
 # исполняемый код
 screen_resolution()  # определяем разрешение экрана
 active_dir = 'btn/' + str(screen_width_x) + 'x' + str(screen_height_y) + '/'
-print(active_dir)
+
 
 startlnk()  # запуск приложения Battle.net
 
@@ -2141,10 +2132,9 @@ while "Бесконечный цикл":  # Цикл анализа
     # print("Цикл =", cikl)
     # print("Колличество игр ", Ngame)
     time.sleep(10)
-    # ss('btn/1920x1080/00_btn_game.png')
-    ss(active_dir + '00_btn_game.png')  #
-    ss(active_dir + "btn_game.png")
-    a = random.randint(1, 9)  # рандомное число от 1 до 9
+    ss(active_dir + "00_btn_game.png")  # выбор кнопки играть в окне batlenet
+    ss(active_dir + "btn_game.png")  # выбор вкладки hearthstone в основном окне
+    a = random.randint(1, 2)  # рандомное число от 1 до 9
     if a == 1:
         grec_standart()
     elif a == 2:
