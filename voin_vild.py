@@ -63,9 +63,9 @@ def simple_press(template):  # функция одинарного нажати�
         return zero
 
 def card_selection(template):  # функция выбора стартовой руки
-    global activity, screen_width_x, screen_height_y, one_mana_st
+    global activity, screen_width_x, screen_height_y, one_mana_st, card_ok
     try:
-        buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, screen_width_x, screen_height_y-20), confidence=0.7)
+        buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, screen_width_x, screen_height_y), confidence=0.7)
         pg.moveTo(int(screen_width_x * 0.31), screen_height_y * 0.5)  # убираем первую карту
         pg.click(int(screen_width_x * 0.31), screen_height_y * 0.5)
         pg.moveTo(int(screen_width_x * 0.43), screen_height_y * 0.5)  # убираем вторую карту
@@ -86,8 +86,9 @@ def card_selection(template):  # функция выбора стартовой 
         pg.moveTo(buttonx, buttony)  # переходим к ожиданию на кнопке ок
         time.sleep(45)
         pg.click(buttonx, buttony)
+        card_ok = 1
         activity = time.time()
-        return activity
+        return activity, card_ok
     except TypeError:
         return zero
 
@@ -107,6 +108,7 @@ def start_game(template):  # функция определения поиска 
         pg.moveTo(buttonx, buttony)
         Gcikl += 1
         hod = 1
+        print('Нашел активную игру')
         Ggame = 1
         cikl = 0
         vygr = 0
@@ -115,6 +117,7 @@ def start_game(template):  # функция определения поиска 
         time.sleep(1)
         return hod, Gcikl, Ggame, cikl, vygr, progr, activity
     except TypeError:
+        print('НЕ нашел активную игру')
         return zero
 
 def vash_hod(template):
@@ -123,7 +126,7 @@ def vash_hod(template):
     global activity, screen_width_x, screen_height_y
     try:
         buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, screen_width_x, screen_height_y), confidence=0.7)
-        if game == 0:
+        if game == 0 and card_ok:
             game = 1
             pg.moveTo(buttonx, buttony, duration=0)
             activity = time.time()
@@ -153,19 +156,21 @@ def vash_hod(template):
 
 def hod_1():
     global card_position, unit
+    time.sleep(5)
     for card in card_position:
         print(card, screen_height_y)
-        pg.moveTo(card, screen_height_y)
+        pg.moveTo(card, screen_height_y-20)
 
         for one in one_mana_h:  # перебираем все карты за 1 маны
             print(active_dir + 'carts/' + str(one))
+            time.sleep(0.1)
             karta(active_dir + 'carts/' + str(one))
             if unit == 1:
                 pointclick()
                 break
     if unit != 1:
         for card in card_position:
-            pg.moveTo(card, screen_height_y)
+            pg.moveTo(card, screen_height_y-20)
             karta(active_dir + 'carts/00_moneta_h.png')
             pointclick()
             if unit == 1:
@@ -181,7 +186,7 @@ def hod_2():
 def hod_3():
     global card_position, unit
     for card in card_position:
-        pg.moveTo(card, screen_height_y)
+        pg.moveTo(card, screen_height_y-20)
 
         for one in three_mana_h:  # перебираем все карты за 1 маны
             print(active_dir + 'carts/' + str(one))
@@ -192,7 +197,7 @@ def hod_3():
 
     if unit != 1:
         for card in card_position:
-            pg.moveTo(card, screen_height_y)
+            pg.moveTo(card, screen_height_y-20)
 
             for one in one_mana_h:  # перебираем все карты за 1 маны
                 print(active_dir + 'carts/' + str(one))
@@ -219,7 +224,7 @@ def hod_4():
 
     if unit != 1:
         for card in card_position:
-            pg.moveTo(card, screen_height_y)
+            pg.moveTo(card, screen_height_y-20)
 
             for one in one_mana_h:  # перебираем все карты за 1 маны
                 print(active_dir + 'carts/' + str(one))
@@ -235,7 +240,7 @@ def hod_4():
 def hod_5():
     global card_position, unit
     for card in card_position:
-        pg.moveTo(card, screen_height_y)
+        pg.moveTo(card, screen_height_y-20)
 
         for one in five_mana_h:  # перебираем все карты за 1 маны
             print(active_dir + 'carts/' + str(one))
@@ -246,7 +251,7 @@ def hod_5():
 
     if unit != 1:
         for card in card_position:
-            pg.moveTo(card, screen_height_y)
+            pg.moveTo(card, screen_height_y-20)
 
             for one in three_mana_h:  # перебираем все карты за 1 маны
                 print(active_dir + 'carts/' + str(one))
@@ -270,7 +275,7 @@ def hod_5():
 def hod_6():
     global card_position, unit
     for card in card_position:
-        pg.moveTo(card, screen_height_y)
+        pg.moveTo(card, screen_height_y-20)
 
         for one in five_mana_h:  # перебираем все карты за 1 маны
             print(active_dir + 'carts/' + str(one))
@@ -281,7 +286,7 @@ def hod_6():
 
     if unit != 1:
         for card in card_position:
-            pg.moveTo(card, screen_height_y)
+            pg.moveTo(card, screen_height_y-20)
 
             for one in three_mana_h:  # перебираем все карты за 1 маны
                 print(active_dir + 'carts/' + str(one))
@@ -305,7 +310,7 @@ def hod_6():
 def hod_7():
     global card_position, unit
     for card in card_position:
-        pg.moveTo(card, screen_height_y)
+        pg.moveTo(card, screen_height_y-20)
 
         for one in seven_mana_h:  # перебираем все карты за 1 маны
             print(active_dir + 'carts/' + str(one))
@@ -316,7 +321,7 @@ def hod_7():
 
     if unit != 1:
         for card in card_position:
-            pg.moveTo(card, screen_height_y)
+            pg.moveTo(card, screen_height_y-20)
 
             for one in five_mana_h:  # перебираем все карты за 1 маны
                 print(active_dir + 'carts/' + str(one))
@@ -348,7 +353,7 @@ def hod_7():
 def hod_8():
     global card_position, unit
     for card in card_position:
-        pg.moveTo(card, screen_height_y)
+        pg.moveTo(card, screen_height_y-20)
 
         for one in seven_mana_h:  # перебираем все карты за 1 маны
             print(active_dir + 'carts/' + str(one))
@@ -359,7 +364,7 @@ def hod_8():
 
     if unit != 1:
         for card in card_position:
-            pg.moveTo(card, screen_height_y)
+            pg.moveTo(card, screen_height_y-20)
 
             for one in five_mana_h:  # перебираем все карты за 1 маны
                 print(active_dir + 'carts/' + str(one))
@@ -391,7 +396,7 @@ def hod_8():
 def hod_9():
     global card_position, unit
     for card in card_position:
-        pg.moveTo(card, screen_height_y)
+        pg.moveTo(card, screen_height_y-20)
 
         for one in nine_mana_h:  # перебираем все карты за 1 маны
             print(active_dir + 'carts/' + str(one))
@@ -402,7 +407,7 @@ def hod_9():
 
     if unit != 1:
         for card in card_position:
-            pg.moveTo(card, screen_height_y)
+            pg.moveTo(card, screen_height_y-20)
 
             for one in seven_mana_h:  # перебираем все карты за 1 маны
                 print(active_dir + 'carts/' + str(one))
@@ -442,7 +447,7 @@ def hod_9():
 def hod_10():
     global card_position, unit
     for card in card_position:
-        pg.moveTo(card, screen_height_y)
+        pg.moveTo(card, screen_height_y-20)
 
         for one in nine_mana_h:  # перебираем все карты за 1 маны
             print(active_dir + 'carts/' + str(one))
@@ -453,7 +458,7 @@ def hod_10():
 
     if unit != 1:
         for card in card_position:
-            pg.moveTo(card, screen_height_y)
+            pg.moveTo(card, screen_height_y-20)
 
             for one in seven_mana_h:  # перебираем все карты за 1 маны
                 print(active_dir + 'carts/' + str(one))
@@ -536,9 +541,9 @@ def karta(template):  # функция покупки юнита
 def projgrysh(template):
     global zero
     global progr
-    global activity
+    global activity, screen_width_x, screen_height_y
     try:
-        buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 1024, 768), confidence=0.7)
+        buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, screen_width_x, screen_height_y), confidence=0.7)
         pg.moveTo(buttonx, buttony)
         # print(buttonx, buttony)
         progr = 1
@@ -553,9 +558,9 @@ def projgrysh(template):
 def vyjgrysh(template):
     global zero
     global vygr
-    global activity
+    global activity, screen_width_x, screen_height_y
     try:
-        buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 1024, 768), confidence=0.7)
+        buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, screen_width_x, screen_height_y), confidence=0.7)
         pg.moveTo(buttonx, buttony)
         # print(buttonx, buttony)
         activity = time.time()
@@ -570,9 +575,9 @@ def vyjgrysh(template):
 def endGame(template):
     global zero
     global Ggame
-    global activity
+    global activity, screen_width_x, screen_height_y
     try:
-        buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, 1024, 768), confidence=0.7)
+        buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, screen_width_x, screen_height_y), confidence=0.7)
         activity = time.time()
         pg.moveTo(buttonx, buttony)
         print(buttonx, buttony)
@@ -704,10 +709,11 @@ moneta = 0  # индикатор монеты в руке
 mana = 0  # счетчик маны во время хода
 zero = 0  # ноль
 delay = 25  # вемя на свой ход
+card_ok = 0  # говорит о том что выбор стартовой руки состоялся
 activity = time.time()  # анализ активности игрового процесса
 
 one_mana_st = dict.fromkeys(['01_geleznaja_shkura_st.png', '01_shitonosec_st.png', '01_soldat_st.png'], 1)
-one_mana_h = dict.fromkeys(['01_geleznaja_shkura_h.png', '01_shitonosec_h.png', '01_soldat_h.png'], 1)
+one_mana_h = dict.fromkeys(['01_geleznaja_shkura_h.png', '01_shitonosec_h.png', '01_soldat_h.png', '01_elemental_h.png'], 1)
 three_mana_h = dict.fromkeys(['03_block_h.png', '03_instructor_h.png', '03_kobold_h.png', '03_laty_h.png', '03_oglushit_h.png', '03_sektant_h.png',
                               '03_smoljanoj_strag_h.png', '03_storog_h.png', '03_zastava_h.png'], 3)
 five_mana_h = dict.fromkeys(['05_barns_h.png', '05_golem_h.png'], 5)
@@ -799,6 +805,7 @@ def voin_vild_deck():
             chughoj_hod(active_dir + "chughoj_hod.png")
             vash_hod(active_dir + "btn_end.png")
             print("hod=", hod)
+            # окончание игры
             projgrysh(active_dir + "end_game.png")
             vyjgrysh(active_dir + "victory.png")
             endGame(active_dir + "end_game2.png")
@@ -808,11 +815,5 @@ def voin_vild_deck():
             ss(active_dir + "bt.png")
             ss(active_dir + "bt2.png")
         return Ggame, Ngame, Gcikl, vygr, progr, start_time, activity
-
-
-    # На случай потери соединения
-    ss(active_dir + "ok_2.png")
-    ss(active_dir + "bt.png")
-    ss(active_dir + "bt2.png")
     pointclick()
     activity_analysis()
