@@ -65,7 +65,7 @@ def simple_press(template):  # функция одинарного нажати�
 def card_selection(template):  # функция выбора стартовой руки
     global activity, screen_width_x, screen_height_y, one_mana_st
     try:
-        buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, screen_width_x, screen_height_y), confidence=0.7)
+        buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, screen_width_x, screen_height_y-20), confidence=0.7)
         pg.moveTo(int(screen_width_x * 0.31), screen_height_y * 0.5)  # убираем первую карту
         pg.click(int(screen_width_x * 0.31), screen_height_y * 0.5)
         pg.moveTo(int(screen_width_x * 0.43), screen_height_y * 0.5)  # убираем вторую карту
