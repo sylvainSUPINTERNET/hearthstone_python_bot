@@ -213,7 +213,7 @@ def hod_3():
 def hod_4():
     global card_position, unit
     for card in card_position:
-        pg.moveTo(card, screen_height_y)
+        pg.moveTo(card, screen_height_y-20)
 
         for one in three_mana_h:  # перебираем все карты за 1 маны
             print(active_dir + 'carts/' + str(one))
@@ -715,8 +715,8 @@ activity = time.time()  # анализ активности игрового п�
 one_mana_st = dict.fromkeys(['01_geleznaja_shkura_st.png', '01_shitonosec_st.png', '01_soldat_st.png'], 1)
 one_mana_h = dict.fromkeys(['01_geleznaja_shkura_h.png', '01_shitonosec_h.png', '01_soldat_h.png', '01_elemental_h.png',
                             '01_torgovka_h.png'], 1)
-three_mana_h = dict.fromkeys(['03_block_h.png', '03_kobold_h.png', '03_laty_h.png',
-                              '03_lord_h.png', '03_mantija.png', '03_vladyka_h.png',
+three_mana_h = dict.fromkeys(['03_block_h.png', '03_kobold_h.png', '03_laty_h.png', '03_agent_h.png',
+                              '03_lord_h.png', '03_mantija_h.png', '03_vladyka_h.png',
                               '03_smoljanoj_strag_h.png', '03_storog_h.png'], 3)
 five_mana_h = dict.fromkeys(['05_golem_h.png', '05_potasovka_h.png'], 5)
 seven_mana_h = dict.fromkeys(['07_duh_h.png'], 7)
@@ -805,7 +805,6 @@ def voin_vild_deck():
             Gcikl += 1
             card_selection(active_dir + "btn_ok.png")  # выбор стартовой руки
             chughoj_hod(active_dir + "chughoj_hod.png")
-            vash_hod(active_dir + "btn_end.png")
             print("hod=", hod)
             # окончание игры
             projgrysh(active_dir + "end_game.png")
@@ -816,6 +815,7 @@ def voin_vild_deck():
             ss(active_dir + "ok_2.png")
             ss(active_dir + "bt.png")
             ss(active_dir + "bt2.png")
+            vash_hod(active_dir + "btn_end.png")
         return Ggame, Ngame, Gcikl, vygr, progr, start_time, activity
     pointclick()
     activity_analysis()
