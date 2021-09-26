@@ -713,11 +713,13 @@ card_ok = 0  # говорит о том что выбор стартовой р�
 activity = time.time()  # анализ активности игрового процесса
 
 one_mana_st = dict.fromkeys(['01_geleznaja_shkura_st.png', '01_shitonosec_st.png', '01_soldat_st.png'], 1)
-one_mana_h = dict.fromkeys(['01_geleznaja_shkura_h.png', '01_shitonosec_h.png', '01_soldat_h.png', '01_elemental_h.png'], 1)
-three_mana_h = dict.fromkeys(['03_block_h.png', '03_instructor_h.png', '03_kobold_h.png', '03_laty_h.png', '03_oglushit_h.png', '03_sektant_h.png',
-                              '03_smoljanoj_strag_h.png', '03_storog_h.png', '03_zastava_h.png'], 3)
-five_mana_h = dict.fromkeys(['05_barns_h.png', '05_golem_h.png'], 5)
-seven_mana_h = dict.fromkeys(['07_duh_h.png', '07_vruchenie_h.png'], 7)
+one_mana_h = dict.fromkeys(['01_geleznaja_shkura_h.png', '01_shitonosec_h.png', '01_soldat_h.png', '01_elemental_h.png',
+                            '01_torgovka_h.png'], 1)
+three_mana_h = dict.fromkeys(['03_block_h.png', '03_kobold_h.png', '03_laty_h.png',
+                              '03_lord_h.png', '03_mantija.png', '03_vladyka_h.png',
+                              '03_smoljanoj_strag_h.png', '03_storog_h.png'], 3)
+five_mana_h = dict.fromkeys(['05_golem_h.png', '05_potasovka_h.png'], 5)
+seven_mana_h = dict.fromkeys(['07_duh_h.png'], 7)
 nine_mana_h = dict.fromkeys(['09_baku.png'], 9)
 
 
