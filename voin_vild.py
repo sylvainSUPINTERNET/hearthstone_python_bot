@@ -527,6 +527,7 @@ def karta(template):  # функция покупки юнита
     global activity, screen_width_x, screen_height_y
     try:
         buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, int(screen_height_y * 0.5), screen_width_x, int(screen_height_y * 0.5)), confidence=0.7)
+        pg.moveTo(buttonx, screen_height_y-20)
         print('карта найдена', buttonx, 'x', buttony)
         activity = time.time()
         pg.mouseDown(button='left')  # нажать левую клавишу мыши
