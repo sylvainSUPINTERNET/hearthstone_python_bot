@@ -108,7 +108,7 @@ def start_game(template):  # функция определения поиска 
         Gcikl += 1
         hod = 1
         #print('Нашел активную игру')
-        logging.info('подбор противника')
+        logging.info('Start game')
         Ggame = 1
         cikl = 0
         vygr = 0
@@ -547,12 +547,12 @@ def projgrysh(template):
         buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, screen_width_x, screen_height_y), confidence=0.7)
         pg.moveTo(buttonx, buttony)
         # print(buttonx, buttony)
-        logging.info('Пройгрыш!!!')
+        logging.info('Losing!')  # запись в логфайл
         progr = 1
         pg.moveTo(buttonx, buttony, duration=0)
-        pg.doubleClick(buttonx, buttony)
+        # pg.doubleClick(buttonx, buttony)
         activity = time.time()
-        time.sleep(2)
+        time.sleep(1)
         return progr, activity
     except TypeError:
         return zero
@@ -563,13 +563,12 @@ def vyjgrysh(template):
     global activity, screen_width_x, screen_height_y
     try:
         buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, screen_width_x, screen_height_y), confidence=0.7)
-        pg.moveTo(buttonx, buttony)
         # print(buttonx, buttony)
-        logging.info('Выйгрыш!!!')
+        logging.info('victory!')  # запись в логфайл
         activity = time.time()
         vygr = 1
         pg.moveTo(buttonx, buttony, duration=0)
-        pg.doubleClick(buttonx, buttony)
+        # pg.doubleClick(buttonx, buttony)
         time.sleep(1)
         return vygr, activity
     except TypeError:
@@ -586,7 +585,7 @@ def endGame(template):
         # print(buttonx, buttony)
         Ggame = 0
         # print("Конец игры")
-        pg.doubleClick(buttonx, buttony)
+        # pg.doubleClick(buttonx, buttony)
         time.sleep(1)
         return Ggame, activity
     except TypeError:
@@ -678,7 +677,7 @@ def fill_table():  # заполняем строку таблицы
     globallosing = result_old[19] + progr
     globalpercent = round(((globalvictory / (globalvictory + globallosing)) * 100), 2)
 
-    logging.info('Итого за игру:', date, startgame, endgame, tipe, deck, hod, 'Итого процент побед:', globalpercent)
+    logging.info('End game')  # запись в логфайл
 
     c.execute("""INSERT INTO total(date, startgame, endgame, l_days, l_hours, l_minuts, l_seconds, 
                 g_days, g_hours, g_minuts, g_seconds, tipe, deck, hod, localvictory, locallosing,
