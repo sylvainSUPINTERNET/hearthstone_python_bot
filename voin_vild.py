@@ -64,7 +64,7 @@ def card_selection(template):  # функция выбора стартовой 
     global activity, screen_width_x, screen_height_y, one_mana_st, card_ok
     try:
         buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, screen_width_x, screen_height_y), confidence=0.7)
-        logging.info('выбор стартовой руки')  # запись в файл лога
+        logging.info('Start hand ok')  # запись в файл лога
         pg.moveTo(int(screen_width_x * 0.31), screen_height_y * 0.5)  # убираем первую карту
         pg.click(int(screen_width_x * 0.31), screen_height_y * 0.5)
         pg.moveTo(int(screen_width_x * 0.43), screen_height_y * 0.5)  # убираем вторую карту
