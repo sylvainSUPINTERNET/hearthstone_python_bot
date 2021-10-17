@@ -136,13 +136,12 @@ def endGame(template):
         Ggame = 0
         # print("Конец игры")
         # pg.doubleClick(buttonx, buttony)
-
         while Ggame == 0:
             time.sleep(1)
             ss(active_dir + "present.png")  # поиск подарка
             present(active_dir + "btn_ready.png")  # поиск кнопки готово
             present(active_dir + "losing_m.png")
-
+        logging.info('End game')
         Ggame = 0
         time.sleep(1)
         return Ggame, activity
