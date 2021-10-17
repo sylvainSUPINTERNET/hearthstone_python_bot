@@ -270,7 +270,7 @@ delay = 25  # вемя на свой ход
 activity = time.time()  # анализ активности игрового процесса
 zero = 0
 
-boss_level = dict.fromkeys(['enemy_1.png', 'enemy_2.png', 'enemy_3.png', 'enemy_4.png', 'enemy_5.png'], 1)
+boss_level = dict.fromkeys(['enemy_1.png', 'enemy_2.png', 'enemy_3.png', 'enemy_4.png', 'enemy_5.png', 'enemy_6.png', 'enemy_7.png'], 1)
 
 # sys.path.append(r'D:\00. Обучение\05. Git\00. project\00.botHS\btn\800x600')
 # sys.path.append(os.path.join(sys.path[0], '/btn/800x600'))
@@ -318,9 +318,7 @@ logging.info('Start game and logged in')
 
 screen_resolution()  # определяем разрешение экрана
 active_dir = 'btn/' + str(screen_width_x) + 'x' + str(screen_height_y) + '/'
-card_position = (int(screen_width_x * 0.35), int(screen_width_x * 0.38), int(screen_width_x * 0.41), int(screen_width_x * 0.45),
-                 int(screen_width_x * 0.47), int(screen_width_x * 0.5), int(screen_width_x * 0.53), int(screen_width_x * 0.55),
-                 int(screen_width_x * 0.59))
+
 
 def mercenaries_deck():
     global Ggame, Ngame, Gcikl, game, hod, mana, moneta, tipe, deck, vygr, progr
