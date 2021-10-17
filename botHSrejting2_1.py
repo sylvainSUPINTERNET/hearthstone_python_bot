@@ -5,7 +5,7 @@ import subprocess  # Запуск приложений windows
 import time  # работа со временем
 import keyboard  # работа с нажатиями клавиш
 import voin_vild
-
+import mercenaries
 
 def startlnk():  # функция запуска приложения
     subprocess.Popen('C:\Program Files (x86)\Battle.net\Battle.net Launcher.exe')  # запуск приложения
@@ -17,8 +17,8 @@ def startlnk():  # функция запуска приложения
 
 def main():
     while "Бесконечный цикл":  # Цикл анализа
-        voin_vild.voin_vild_deck()
-
+        # voin_vild.voin_vild_deck()
+        mercenaries.mercenaries_deck()
 
 startlnk()  # запуск приложения Battle.net
 if __name__ == "__main__":
