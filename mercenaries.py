@@ -359,13 +359,14 @@ def mercenaries_deck():
                 time.sleep(1)
                 pg.doubleClick()  # произвольное нажатие после прогресса первой тройки героев
 
-
             ss(active_dir + "ugol.png")  # выбор способности для одного из героев для следующих уровней`
             time.sleep(1)
             ss(active_dir + "btn_take.png")  # выбор кнопки взять способность
 
             for one in boss_level:  # перебираем всех боссов уровней
+                time.sleep(1)
                 ss(active_dir + str(one))  # выбор противника (следующего уровня)
+                time.sleep(1)
                 level_game(active_dir + "btn_game_st_2.png")  # выбор N-го уровня игры (кнопка играть)
 
 

@@ -162,7 +162,7 @@ def hod_1():
         pg.moveTo(card, screen_height_y-20)
 
         for one in one_mana_h:  # перебираем все карты за 1 маны
-            # print(active_dir + 'carts/' + str(one))
+            print(active_dir + 'carts/' + str(one))
             time.sleep(0.1)
             karta(active_dir + 'carts/' + str(one))
             if unit == 1:
@@ -189,7 +189,7 @@ def hod_3():
         pg.moveTo(card, screen_height_y-20)
 
         for one in three_mana_h:  # перебираем все карты за 1 маны
-            # print(active_dir + 'carts/' + str(one))
+            print(active_dir + 'carts/' + str(one))
             karta(active_dir + 'carts/' + str(one))
             if unit == 1:
                 pointclick()
@@ -528,7 +528,7 @@ def karta(template):  # функция покупки юнита
     try:
         buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, int(screen_height_y * 0.5), screen_width_x, int(screen_height_y * 0.5)), confidence=0.7)
         pg.moveTo(buttonx, screen_height_y-20)
-        # print('карта найдена', buttonx, 'x', buttony)
+        print('карта найдена', buttonx, 'x', buttony)
         activity = time.time()
         pg.mouseDown(button='left')  # нажать левую клавишу мыши
         pg.moveTo(screen_width_x / 2, screen_height_y / 2, duration=1)  # перемещение
@@ -536,7 +536,7 @@ def karta(template):  # функция покупки юнита
         unit = 1
         return unit, hod, game, moneta, mana, activity
     except TypeError:
-        # print("карта не найдена")
+        print("карта не найдена")
         return zero
 
 def projgrysh(template):
