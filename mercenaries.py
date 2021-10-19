@@ -24,9 +24,9 @@ def ss(template):  # функция определения и двойного �
     try:
         buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, screen_width_x, screen_height_y), confidence=0.7)
         activity = time.time()
-        pg.moveTo(buttonx, buttony)
-        pg.doubleClick(buttonx, buttony)
-        time.sleep(1)
+        # pg.moveTo(buttonx, buttony)
+        pg.click(buttonx, buttony)
+        pg.click(buttonx, buttony)
         return activity
     except TypeError:
         return zero
@@ -80,20 +80,18 @@ def level_game(template):
     try:
         buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, screen_width_x, screen_height_y), confidence=0.7)
         pg.moveTo(buttonx, buttony, duration=0)
+        time.sleep(6)
         pg.click(buttonx, buttony)
+        print('игра уровня')
         if game == 0:
             game = 1
             while game == 1:
                 activity = time.time()
-                time.sleep(2)
                 ss(active_dir + "played_out.png")  # выбор стартовой руки (нажатие на кнопку разыграно)
-                time.sleep(2)
-                ss(active_dir + "milhaus.png")  # выбор милхауса
+                # ss(active_dir + "milhaus.png")  # выбор милхауса
                 time.sleep(1)
                 ss(active_dir + "magic_explosion.png")  # выбор чарадейского взрыва Милхауса
-                time.sleep(1)
                 ss(active_dir + "all_is_ready.png")  # выбор кнопки все готово
-                time.sleep(1)
                 end_level(active_dir + "victory_m.png")  # поиск выйгрыша уровня
             return game, activity
     except TypeError:
@@ -107,9 +105,15 @@ def end_level(template):
         pg.moveTo(buttonx, buttony)
         if game == 1:
             game = 0
-        # print("Уровень пройден")
+        print("Уровень пройден")
         activity = time.time()
         time.sleep(1)
+        for i in range(1, 4):
+            print('3 произвольных нажатия на этой же точке')
+            time.sleep(1)
+            pg.doubleClick()  # произвольное нажатие после прогресса первой тройки героев
+            time.sleep(1)
+            pg.doubleClick()  # произвольное нажатие после прогресса первой тройки героев
         return game, activity
     except TypeError:
         return zero
@@ -120,6 +124,7 @@ def present(template):  # функция открытия поиска всех 
         buttonx, buttony = pg.locateCenterOnScreen(template, region=(0, 0, screen_width_x, screen_height_y), confidence=0.7)
         pg.doubleClick(buttonx, buttony)
         activity = time.time()
+        print('распаковка')
         Ggame = 1
         return Ggame, activity
     except TypeError:
@@ -134,7 +139,7 @@ def endGame(template):
         activity = time.time()
         pg.moveTo(buttonx, buttony)
         Ggame = 0
-        # print("Конец игры")
+        print("Конец игры")
         # pg.doubleClick(buttonx, buttony)
         while Ggame == 0:
             time.sleep(1)
@@ -268,6 +273,7 @@ game = 0  # индикатор игры (одного уровня)
 delay = 25  # вемя на свой ход
 activity = time.time()  # анализ активности игрового процесса
 zero = 0
+previous_condition = 0  # переменная проверки выполнения последовательности шагов
 
 boss_level = dict.fromkeys(['enemy_1.png', 'enemy_2.png', 'enemy_3.png', 'enemy_4.png', 'enemy_5.png', 'enemy_6.png', 'enemy_7.png'], 1)
 
@@ -326,58 +332,48 @@ def mercenaries_deck():
     tipe = 'наемники'
     deck = 'гринд 4'
     cikl += 1
-    time.sleep(1)
     ss(active_dir + "00_btn_game.png")  # выбор кнопки играть в окне batlenet
     ss(active_dir + "btn_mercenaries.png")  # выбор вкладки наемники в основном окне
     ss(active_dir + "btn_pvp.png")  # выбор режима pvp
     ss(active_dir + "normal_mode.png")  # выбор обычного режима
     ss(active_dir + "select.png")  # нажатие на кнопку выбор
     ss(active_dir + "ok_3.png")  # кнопка статистики предыдущей игры
-    time.sleep(1)
-    pointclick()
-    time.sleep(1)
     start_game(active_dir + "level_4.png")  # пошел выбор противника, игра активна
     if Ggame == 1:
         Ngame += 1
         start_time = datetime.now()  # текущие дата и время
-        if Ggame == 1:
-            ss(active_dir + "select_2.png")  # нажатие на кнопку выбор (подтверждение выбора уровня)
-            time.sleep(1)
-            ss(active_dir + "select_2.png")  # нажатие на кнопку выбор (текущей колоды колоды)
-            time.sleep(4)
-            ss(active_dir + "confirm.png")  # выбор кнопки подтвердить
-            time.sleep(5)
         while Ggame == 1:  # проверка активности в игре
             if (time.time() - activity) >= 280:
                 pointclick()
             if (time.time() - activity) >= 300:
                 Ggame = 0
             Gcikl += 1
+            ss(active_dir + "select_2.png")  # нажатие на кнопку выбор (подтверждение выбора уровня)
+            ss(active_dir + "select_2.png")  # нажатие на кнопку выбор (текущей колоды колоды)
+            ss(active_dir + "confirm.png")  # выбор кнопки подтвердить
             level_game(active_dir + "btn_game_st_2.png")  # выбор N-го уровня игры (кнопка играть)
+            # print("кнопка играть")
 
-            for i in range(1, 4):
-                time.sleep(1)
-                pg.doubleClick()  # произвольное нажатие после прогресса первой тройки героев
+            # for i in range(1, 4):
+            #     print('3 произвольных нажатия на этой же точке')
+            #     time.sleep(1)
+            #     pg.doubleClick()  # произвольное нажатие после прогресса первой тройки героев
 
+            # print('поиск способности')
             ss(active_dir + "ugol.png")  # выбор способности для одного из героев для следующих уровней`
-            time.sleep(1)
             ss(active_dir + "btn_take.png")  # выбор кнопки взять способность
 
             for one in boss_level:  # перебираем всех боссов уровней
-                time.sleep(1)
                 ss(active_dir + str(one))  # выбор противника (следующего уровня)
-                time.sleep(1)
                 level_game(active_dir + "btn_game_st_2.png")  # выбор N-го уровня игры (кнопка играть)
-
+                # print('выбор боса')
 
             # окончание игры
 
             endGame(active_dir + "present.png")  # просмотр статистики за игру и нажатие на кнопку ок
             endGame(active_dir + "losing_m.png")  # пройгрыш
             if Ggame == 0:
-                time.sleep(1)
                 pointclick()
                 fill_table()  # заполняем БД
         return Ggame, Ngame, Gcikl, vygr, progr, start_time, activity
-    pointclick()
     activity_analysis()
