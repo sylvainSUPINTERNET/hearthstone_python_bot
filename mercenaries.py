@@ -89,8 +89,11 @@ def level_game(template):
                 activity = time.time()
                 ss(active_dir + "played_out.png")  # выбор стартовой руки (нажатие на кнопку разыграно)
                 # ss(active_dir + "milhaus.png")  # выбор милхауса
-                time.sleep(1)
-                ss(active_dir + "magic_explosion.png")  # выбор чарадейского взрыва Милхауса
+                for i in range(1, 5):
+                    time.sleep(1)
+                    ss(active_dir + "magic_explosion.png")  # выбор чарадейского взрыва Милхауса
+                    ss(active_dir + "vortex.png")  # выбор шторма
+                    ss(active_dir + "blade.png")  # выбор клинков
                 ss(active_dir + "all_is_ready.png")  # выбор кнопки все готово
                 end_level(active_dir + "victory_m.png")  # поиск выйгрыша уровня
             return game, activity
@@ -109,7 +112,7 @@ def end_level(template):
         activity = time.time()
         time.sleep(1)
         for i in range(1, 4):
-            print('3 произвольных нажатия на этой же точке')
+            # print('3 произвольных нажатия на этой же точке')
             time.sleep(1)
             pg.doubleClick()  # произвольное нажатие после прогресса первой тройки героев
             time.sleep(1)
@@ -275,7 +278,11 @@ activity = time.time()  # анализ активности игрового п�
 zero = 0
 previous_condition = 0  # переменная проверки выполнения последовательности шагов
 
-boss_level = dict.fromkeys(['enemy_1.png', 'enemy_2.png', 'enemy_3.png', 'enemy_4.png', 'enemy_5.png', 'enemy_6.png', 'enemy_7.png'], 1)
+boss_level = dict.fromkeys(['enemy_1.png', 'enemy_2.png', 'enemy_3.png', 'enemy_4.png', 'enemy_5.png', 'enemy_6.png',
+                            'enemy_7.png', 'enemy_8.png', 'enemy_9.png', 'enemy_10.png', 'enemy_11.png', 'enemy_12.png',
+                            'enemy_13.png', 'enemy_14.png', 'enemy_15.png', 'enemy_16.png', 'enemy_17.png', 'enemy_18.png',
+                            'enemy_19.png', 'enemy_20.png', 'enemy_21.png', 'enemy_22.png', 'enemy_23.png', 'enemy_24.png',
+                            'enemy_25.png', 'enemy_26.png'], 1)
 
 # sys.path.append(r'D:\00. Обучение\05. Git\00. project\00.botHS\btn\800x600')
 # sys.path.append(os.path.join(sys.path[0], '/btn/800x600'))
@@ -325,7 +332,7 @@ screen_resolution()  # определяем разрешение экрана
 active_dir = 'btn/' + str(screen_width_x) + 'x' + str(screen_height_y) + '/'
 
 
-def mercenaries_deck():
+def mercenaries_deck_mission_1_standart():
     global Ggame, Ngame, Gcikl, game, hod, mana, moneta, tipe, deck, vygr, progr
     global cikl, unit, start_time, delay, activity
 
@@ -367,6 +374,70 @@ def mercenaries_deck():
                 ss(active_dir + str(one))  # выбор противника (следующего уровня)
                 level_game(active_dir + "btn_game_st_2.png")  # выбор N-го уровня игры (кнопка играть)
                 # print('выбор боса')
+
+            # окончание игры
+
+            endGame(active_dir + "present.png")  # просмотр статистики за игру и нажатие на кнопку ок
+            endGame(active_dir + "losing_m.png")  # пройгрыш
+            if Ggame == 0:
+                pointclick()
+                fill_table()  # заполняем БД
+        return Ggame, Ngame, Gcikl, vygr, progr, start_time, activity
+    activity_analysis()
+
+def mercenaries_deck_mission_2_hero():
+    global Ggame, Ngame, Gcikl, game, hod, mana, moneta, tipe, deck, vygr, progr
+    global cikl, unit, start_time, delay, activity
+
+    tipe = 'наемники'
+    deck = 'гринд 4'
+    cikl += 1
+    ss(active_dir + "00_btn_game.png")  # выбор кнопки играть в окне batlenet
+    ss(active_dir + "btn_mercenaries.png")  # выбор вкладки наемники в основном окне
+    ss(active_dir + "btn_pvp.png")  # выбор режима pvp
+    ss(active_dir + "hero_mode.png")  # выбор обычного режима
+    ss(active_dir + "select.png")  # нажатие на кнопку выбор
+    ss(active_dir + "btn_close.png")  # нажатие на кнопку закрыть
+
+    ss(active_dir + "ok_3.png")  # кнопка статистики предыдущей игры
+    start_game(active_dir + "level_8.png")  # пошел выбор противника, игра активна
+    if Ggame == 1:
+        Ngame += 1
+        start_time = datetime.now()  # текущие дата и время
+        while Ggame == 1:  # проверка активности в игре
+            if (time.time() - activity) >= 280:
+                pointclick()
+            if (time.time() - activity) >= 300:
+                Ggame = 0
+            Gcikl += 1
+            ss(active_dir + "select_2.png")  # нажатие на кнопку выбор (подтверждение выбора уровня)
+            ss(active_dir + "select_2.png")  # нажатие на кнопку выбор (текущей колоды колоды)
+
+
+            ss(active_dir + "hero_diablo.png")  # нажатие на героя диабло (квест)
+            ss(active_dir + "hero_milh.png")  # нажатие на героя милхауса (квест)
+            ss(active_dir + "hero_saurfang.png")  # нажатие на героя саурфанга (квест)
+            ss(active_dir + "hero_samuro.png")  # нажатие на героя самуро (квест)
+
+            ss(active_dir + "hero_diablo.png")  # нажатие на кнопку выбор (текущей колоды колоды)
+            ss(active_dir + "select_3.png")  # нажатие на кнопку выбор (подуровня - квест, )
+            ss(active_dir + "select_4.png")  # нажатие на кнопку выбор
+
+            ss(active_dir + "confirm.png")  # выбор кнопки подтвердить
+            level_game(active_dir + "btn_game_st_2.png")  # выбор N-го уровня игры (кнопка играть)
+            # print("кнопка играть")
+
+            # print('поиск способности')
+            ss(active_dir + "ugol.png")  # выбор способности для одного из героев для следующих уровней`
+            ss(active_dir + "btn_take.png")  # выбор кнопки взять способность
+
+            for one in boss_level:  # перебираем всех боссов уровней
+                ss(active_dir + str(one))  # выбор противника (следующего уровня)
+                level_game(active_dir + "btn_game_st_2.png")  # выбор N-го уровня игры (кнопка играть)
+                # print('выбор боса')
+                ss(active_dir + "select_2.png")
+                ss(active_dir + "select_3.png")
+                ss(active_dir + "select_4.png")
 
             # окончание игры
 

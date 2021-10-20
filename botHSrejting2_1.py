@@ -18,7 +18,8 @@ def startlnk():  # функция запуска приложения
 def main():
     while "Бесконечный цикл":  # Цикл анализа
         # voin_vild.voin_vild_deck()
-        mercenaries.mercenaries_deck()
+        # mercenaries.mercenaries_deck_mission_1_standart()
+        mercenaries.mercenaries_deck_mission_2_hero()
 
 startlnk()  # запуск приложения Battle.net
 if __name__ == "__main__":
