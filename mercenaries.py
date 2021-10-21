@@ -147,7 +147,8 @@ def endGame(template):
         while Ggame == 0:
             time.sleep(1)
             ss(active_dir + "present.png")  # поиск подарка
-            present(active_dir + "btn_ready.png")  # поиск кнопки готово
+            present(active_dir + "btn_ready.png")  # поиск кнопки готово на 3 подарка
+            present(active_dir + "btn_ready2.png")  # поиск кнопки готово на 4 подарка
             present(active_dir + "losing_m.png")
         logging.info('End game')
         Ggame = 0
@@ -282,7 +283,9 @@ boss_level = dict.fromkeys(['enemy_1.png', 'enemy_2.png', 'enemy_3.png', 'enemy_
                             'enemy_7.png', 'enemy_8.png', 'enemy_9.png', 'enemy_10.png', 'enemy_11.png', 'enemy_12.png',
                             'enemy_13.png', 'enemy_14.png', 'enemy_15.png', 'enemy_16.png', 'enemy_17.png', 'enemy_18.png',
                             'enemy_19.png', 'enemy_20.png', 'enemy_21.png', 'enemy_22.png', 'enemy_23.png', 'enemy_24.png',
-                            'enemy_25.png', 'enemy_26.png'], 1)
+                            'enemy_25.png', 'enemy_26.png', 'enemy_27.png', 'enemy_28.png', 'enemy_29.png', 'enemy_30.png',
+                            'enemy_31.png', 'enemy_32.png', 'enemy_33.png', 'enemy_34.png', 'enemy_35.png', 'enemy_36.png',
+                            'enemy_37.png', 'enemy_38.png'], 1)
 
 # sys.path.append(r'D:\00. Обучение\05. Git\00. project\00.botHS\btn\800x600')
 # sys.path.append(os.path.join(sys.path[0], '/btn/800x600'))
@@ -337,7 +340,7 @@ def mercenaries_deck_mission_1_standart():
     global cikl, unit, start_time, delay, activity
 
     tipe = 'наемники'
-    deck = 'гринд 4'
+    deck = 'гринд 8'
     cikl += 1
     ss(active_dir + "00_btn_game.png")  # выбор кнопки играть в окне batlenet
     ss(active_dir + "btn_mercenaries.png")  # выбор вкладки наемники в основном окне
@@ -415,7 +418,7 @@ def mercenaries_deck_mission_2_hero():
 
 
             ss(active_dir + "hero_diablo.png")  # нажатие на героя диабло (квест)
-            ss(active_dir + "hero_milh.png")  # нажатие на героя милхауса (квест)
+            # ss(active_dir + "hero_milh.png")  # нажатие на героя милхауса (квест)
             ss(active_dir + "hero_saurfang.png")  # нажатие на героя саурфанга (квест)
             ss(active_dir + "hero_samuro.png")  # нажатие на героя самуро (квест)
 
