@@ -259,7 +259,7 @@ def activity_analysis():
     if (time.time() - activity) >= 420:
         simple_press(active_dir + "btn_gear.png")
         simple_press(active_dir + "btn_exit.png")
-        simple_press(active_dir + "btn_connect_again.png")
+        # simple_press(active_dir + "btn_connect_again.png")
         time.sleep(600)
     return activity
 
@@ -285,7 +285,8 @@ boss_level = dict.fromkeys(['enemy_1.png', 'enemy_2.png', 'enemy_3.png', 'enemy_
                             'enemy_19.png', 'enemy_20.png', 'enemy_21.png', 'enemy_22.png', 'enemy_23.png', 'enemy_24.png',
                             'enemy_25.png', 'enemy_26.png', 'enemy_27.png', 'enemy_28.png', 'enemy_29.png', 'enemy_30.png',
                             'enemy_31.png', 'enemy_32.png', 'enemy_33.png', 'enemy_34.png', 'enemy_35.png', 'enemy_36.png',
-                            'enemy_37.png', 'enemy_38.png'], 1)
+                            'enemy_37.png', 'enemy_38.png', 'enemy_39.png', 'enemy_40.png', 'enemy_41.png', 'enemy_42.png',
+                            'enemy_43.png', 'enemy_44.png'], 1)
 
 # sys.path.append(r'D:\00. Обучение\05. Git\00. project\00.botHS\btn\800x600')
 # sys.path.append(os.path.join(sys.path[0], '/btn/800x600'))
@@ -425,6 +426,7 @@ def mercenaries_deck_mission_2_hero():
             ss(active_dir + "hero_diablo.png")  # нажатие на кнопку выбор (текущей колоды колоды)
             ss(active_dir + "select_3.png")  # нажатие на кнопку выбор (подуровня - квест, )
             ss(active_dir + "select_4.png")  # нажатие на кнопку выбор
+            ss(active_dir + "select_5.png")  # нажатие на кнопку выбор
 
             ss(active_dir + "confirm.png")  # выбор кнопки подтвердить
             level_game(active_dir + "btn_game_st_2.png")  # выбор N-го уровня игры (кнопка играть)
@@ -433,6 +435,7 @@ def mercenaries_deck_mission_2_hero():
             # print('поиск способности')
             ss(active_dir + "ugol.png")  # выбор способности для одного из героев для следующих уровней`
             ss(active_dir + "btn_take.png")  # выбор кнопки взять способность
+            ss(active_dir + "btn_take2.png")  # выбор кнопки заменить способность
 
             for one in boss_level:  # перебираем всех боссов уровней
                 ss(active_dir + str(one))  # выбор противника (следующего уровня)
@@ -441,6 +444,7 @@ def mercenaries_deck_mission_2_hero():
                 ss(active_dir + "select_2.png")
                 ss(active_dir + "select_3.png")
                 ss(active_dir + "select_4.png")
+                ss(active_dir + "select_5.png")
 
             # окончание игры
 
