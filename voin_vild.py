@@ -33,6 +33,8 @@ def ss(template):  # функция определения и двойного �
 
 def pointclick():  # функция произвольного нажатия в цикле
     global screen_width_x, screen_height_y
+    vyjgrysh(active_dir + "victory.png")
+    projgrysh(active_dir + "end_game.png")
     pg.doubleClick(screen_width_x * 0.95, screen_height_y * 0.1)
 
 def hero_strength(template):  # функция силы героя воин
@@ -552,7 +554,6 @@ def projgrysh(template):
         pg.moveTo(buttonx, buttony, duration=0)
         # pg.doubleClick(buttonx, buttony)
         activity = time.time()
-        time.sleep(1)
         return progr, activity
     except TypeError:
         return zero
@@ -569,7 +570,6 @@ def vyjgrysh(template):
         vygr = 1
         pg.moveTo(buttonx, buttony, duration=0)
         # pg.doubleClick(buttonx, buttony)
-        time.sleep(1)
         return vygr, activity
     except TypeError:
         return zero
@@ -822,6 +822,8 @@ def voin_vild_deck():
             ss(active_dir + "bt.png")
             ss(active_dir + "bt2.png")
             vash_hod(active_dir + "btn_end.png")
+            vyjgrysh(active_dir + "victory.png")
+            projgrysh(active_dir + "end_game.png")
         return Ggame, Ngame, Gcikl, vygr, progr, start_time, activity
     pointclick()
     activity_analysis()
