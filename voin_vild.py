@@ -797,6 +797,7 @@ def voin_vild_deck():
     ss(active_dir + "btn_left.png")  # переходим в левое окно с колодами
     ss(active_dir + "voin_vild.png")  # вабираем колоду вольного воина
     ss(active_dir + "btn_game_st.png")  # нажимаем кнопку старт
+    ss(active_dir + "ok_4.png")  # нажимаем кнопку ok если игра не успела загрузиться
     start_game(active_dir + "btn_start.png")  # пошел выбор противника, игра активна
     if Ggame == 1:
         Ngame += 1
@@ -821,6 +822,7 @@ def voin_vild_deck():
             ss(active_dir + "ok_2.png")
             ss(active_dir + "bt.png")
             ss(active_dir + "bt2.png")
+            ss(active_dir + "ok_4.png")  # нажимаем кнопку ok если игра не успела загрузиться
             vash_hod(active_dir + "btn_end.png")
             vyjgrysh(active_dir + "victory.png")
             projgrysh(active_dir + "end_game.png")
