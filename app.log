@@ -1,24 +1,114 @@
-2021-10-27 18:07:30,523 - root - INFO - Start game and logged in
-2021-10-27 18:07:30,615 - root - INFO - 1920 screen width
-2021-10-27 18:07:30,616 - root - INFO - 1080 screen height
-2021-10-27 18:07:30,637 - root - INFO - Start game and logged in
-2021-10-27 18:07:30,717 - root - INFO - 1920 screen width
-2021-10-27 18:07:30,717 - root - INFO - 1080 screen height
-2021-10-27 18:08:37,355 - root - INFO - Start game
-2021-10-27 18:09:15,649 - root - INFO - Start hand ok
-2021-10-27 18:27:03,341 - root - INFO - End game
-2021-10-27 18:27:10,449 - root - INFO - Losing!
-2021-10-27 18:27:21,753 - root - INFO - Start game
-2021-10-27 18:28:05,323 - root - INFO - Start hand ok
-2021-10-27 18:44:09,599 - root - INFO - End game
-2021-10-27 18:44:16,728 - root - INFO - Losing!
-2021-10-27 18:44:27,980 - root - INFO - Start game
-2021-10-27 18:44:57,877 - root - INFO - Start hand ok
-2021-10-27 18:58:21,770 - root - INFO - End game
-2021-10-27 18:58:29,027 - root - INFO - Losing!
-2021-10-27 18:58:40,463 - root - INFO - Start game
-2021-10-27 18:59:16,469 - root - INFO - Start hand ok
-2021-10-27 19:38:45,818 - root - INFO - End game
-2021-10-27 19:38:52,825 - root - INFO - Losing!
-2021-10-27 19:39:04,111 - root - INFO - Start game
-2021-10-27 19:39:47,472 - root - INFO - Start hand ok
+2021-10-27 23:33:16,597 - root - INFO - Start game and logged in
+2021-10-27 23:33:16,707 - root - INFO - 1920 screen width
+2021-10-27 23:33:16,707 - root - INFO - 1080 screen height
+2021-10-27 23:33:16,708 - root - INFO - Start game and logged in
+2021-10-27 23:33:16,799 - root - INFO - 1920 screen width
+2021-10-27 23:33:16,799 - root - INFO - 1080 screen height
+2021-10-27 23:33:34,084 - root - INFO - Start game
+2021-10-27 23:34:09,540 - root - INFO - Start hand ok
+2021-10-27 23:50:38,606 - root - INFO - End game
+2021-10-27 23:50:45,725 - root - INFO - Losing!
+2021-10-27 23:51:02,253 - root - INFO - Start game
+2021-10-27 23:51:43,039 - root - INFO - Start hand ok
+2021-10-28 00:08:18,029 - root - INFO - End game
+2021-10-28 00:08:25,037 - root - INFO - Losing!
+2021-10-28 00:08:36,380 - root - INFO - Start game
+2021-10-28 00:09:19,903 - root - INFO - Start hand ok
+2021-10-28 00:19:22,848 - root - INFO - End game
+2021-10-28 00:19:30,061 - root - INFO - Losing!
+2021-10-28 00:19:41,294 - root - INFO - Start game
+2021-10-28 00:20:11,045 - root - INFO - Start hand ok
+2021-10-28 02:05:23,462 - root - INFO - End game
+2021-10-28 02:05:32,434 - root - INFO - Start game
+2021-10-28 02:06:17,861 - root - INFO - Start hand ok
+2021-10-28 02:30:18,234 - root - INFO - End game
+2021-10-28 02:30:25,368 - root - INFO - Losing!
+2021-10-28 02:30:43,052 - root - INFO - Start game
+2021-10-28 02:31:28,959 - root - INFO - Start hand ok
+2021-10-28 02:53:15,598 - root - INFO - End game
+2021-10-28 02:53:22,735 - root - INFO - Losing!
+2021-10-28 02:53:33,959 - root - INFO - Start game
+2021-10-28 02:54:14,882 - root - INFO - Start hand ok
+2021-10-28 03:05:52,605 - root - INFO - End game
+2021-10-28 03:06:17,157 - root - INFO - Start game
+2021-10-28 03:07:09,242 - root - INFO - Start hand ok
+2021-10-28 03:23:57,763 - root - INFO - End game
+2021-10-28 03:24:04,894 - root - INFO - Losing!
+2021-10-28 03:24:16,188 - root - INFO - Start game
+2021-10-28 03:24:51,793 - root - INFO - Start hand ok
+2021-10-28 03:36:00,788 - root - INFO - End game
+2021-10-28 03:36:07,861 - root - INFO - Losing!
+2021-10-28 03:36:19,166 - root - INFO - Start game
+2021-10-28 03:36:51,730 - root - INFO - Start hand ok
+2021-10-28 04:00:24,839 - root - INFO - End game
+2021-10-28 04:00:32,002 - root - INFO - Losing!
+2021-10-28 04:00:49,587 - root - INFO - Start game
+2021-10-28 04:01:40,644 - root - INFO - Start hand ok
+2021-10-28 04:13:41,992 - root - INFO - End game
+2021-10-28 04:13:49,142 - root - INFO - Losing!
+2021-10-28 04:14:00,393 - root - INFO - Start game
+2021-10-28 04:14:32,767 - root - INFO - Start hand ok
+2021-10-28 04:23:40,522 - root - INFO - End game
+2021-10-28 04:23:47,631 - root - INFO - Losing!
+2021-10-28 04:23:58,959 - root - INFO - Start game
+2021-10-28 04:24:59,754 - root - INFO - Start hand ok
+2021-10-28 04:39:42,630 - root - INFO - End game
+2021-10-28 04:39:49,736 - root - INFO - Losing!
+2021-10-28 04:40:01,148 - root - INFO - Start game
+2021-10-28 04:40:38,653 - root - INFO - Start hand ok
+2021-10-28 04:45:41,672 - root - INFO - victory!
+2021-10-28 04:45:42,792 - root - INFO - victory!
+2021-10-28 04:45:44,500 - root - INFO - End game
+2021-10-28 04:45:46,232 - root - INFO - victory!
+2021-10-28 04:45:51,398 - root - INFO - victory!
+2021-10-28 04:46:09,250 - root - INFO - Start game
+2021-10-28 04:46:44,688 - root - INFO - Start hand ok
+2021-10-28 05:02:41,097 - root - INFO - End game
+2021-10-28 05:02:48,270 - root - INFO - Losing!
+2021-10-28 05:02:59,525 - root - INFO - Start game
+2021-10-28 05:03:51,309 - root - INFO - Start hand ok
+2021-10-28 05:17:26,332 - root - INFO - End game
+2021-10-28 05:17:33,479 - root - INFO - Losing!
+2021-10-28 05:17:51,202 - root - INFO - Start game
+2021-10-28 05:18:31,559 - root - INFO - Start hand ok
+2021-10-28 05:34:43,453 - root - INFO - End game
+2021-10-28 05:34:50,470 - root - INFO - Losing!
+2021-10-28 05:35:06,965 - root - INFO - Start game
+2021-10-28 05:35:36,774 - root - INFO - Start hand ok
+2021-10-28 05:45:44,250 - root - INFO - End game
+2021-10-28 05:45:51,345 - root - INFO - Losing!
+2021-10-28 05:46:09,021 - root - INFO - Start game
+2021-10-28 05:46:42,018 - root - INFO - Start hand ok
+2021-10-28 05:49:25,163 - root - INFO - victory!
+2021-10-28 05:49:26,298 - root - INFO - victory!
+2021-10-28 05:49:27,994 - root - INFO - End game
+2021-10-28 05:49:29,640 - root - INFO - victory!
+2021-10-28 05:49:34,887 - root - INFO - victory!
+2021-10-28 05:49:46,404 - root - INFO - Start game
+2021-10-28 05:50:25,696 - root - INFO - Start hand ok
+2021-10-28 06:02:29,454 - root - INFO - victory!
+2021-10-28 06:02:31,146 - root - INFO - End game
+2021-10-28 06:02:32,873 - root - INFO - victory!
+2021-10-28 06:02:38,110 - root - INFO - victory!
+2021-10-28 06:02:56,035 - root - INFO - Start game
+2021-10-28 06:03:51,224 - root - INFO - Start hand ok
+2021-10-28 06:16:16,891 - root - INFO - End game
+2021-10-28 06:16:23,944 - root - INFO - Losing!
+2021-10-28 06:16:41,705 - root - INFO - Start game
+2021-10-28 06:17:08,525 - root - INFO - Start hand ok
+2021-10-28 06:31:15,298 - root - INFO - End game
+2021-10-28 06:31:22,451 - root - INFO - Losing!
+2021-10-28 06:31:33,741 - root - INFO - Start game
+2021-10-28 06:32:23,196 - root - INFO - Start hand ok
+2021-10-28 06:49:47,018 - root - INFO - End game
+2021-10-28 06:49:54,264 - root - INFO - Losing!
+2021-10-28 06:50:05,608 - root - INFO - Start game
+2021-10-28 06:50:48,975 - root - INFO - Start hand ok
+2021-10-28 07:10:50,281 - root - INFO - End game
+2021-10-28 07:10:57,410 - root - INFO - Losing!
+2021-10-28 07:11:15,064 - root - INFO - Start game
+2021-10-28 07:12:07,838 - root - INFO - Start hand ok
+2021-10-28 07:21:42,777 - root - INFO - End game
+2021-10-28 07:21:49,982 - root - INFO - Losing!
+2021-10-28 07:22:01,298 - root - INFO - Start game
+2021-10-28 07:22:31,108 - root - INFO - Start hand ok
