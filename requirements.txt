@@ -1,0 +1,11 @@
+import subprocess  # Запуск приложений windows
+import time  # работа со временем
+import keyboard  # работа с нажатиями клавиш
+import datetime  # работа с датой и времени
+import sqlite3  # Импортируем библиотеку, соответствующую типу нашей базы данных
+import os  # для работы с командной строкой (определение экрана)
+import logging  # модуль логирования
+import time  # работа со временем
+from datetime import datetime
+import pyautogui as pg  # работа с картинками
+
