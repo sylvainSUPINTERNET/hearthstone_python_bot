@@ -1,3 +1,12 @@
+![Profile views](https://gpvc.arturio.dev/BEPb) 
+![GitHub top language](https://img.shields.io/github/languages/top/BEPb/hearthstone_python_bot) 
+![GitHub language count](https://img.shields.io/github/languages/count/BEPb/hearthstone_python_bot)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/BEPb/hearthstone_python_bot)
+![GitHub repo size](https://img.shields.io/github/repo-size/BEPb/hearthstone_python_bot) 
+![GitHub](https://img.shields.io/github/license/BEPb/hearthstone_python_bot) 
+![GitHub last commit](https://img.shields.io/github/last-commit/BEPb/hearthstone_python_bot)
+
+![GitHub User's stars](https://img.shields.io/github/stars/BEPb?style=social)
 ## Бот игры HEARTSTONE
 
 ____
