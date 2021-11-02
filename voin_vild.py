@@ -783,7 +783,6 @@ card_position = (int(screen_width_x * 0.35), int(screen_width_x * 0.38), int(scr
 def voin_vild_deck():
     global Ggame, Ngame, Gcikl, game, hod, mana, moneta, tipe, deck, vygr, progr
     global cikl, unit, start_time, delay, activity
-
     tipe = 'вольный'
     deck = 'воин'
     cikl += 1
