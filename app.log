@@ -1,24 +1,19 @@
-2021-11-06 17:39:30,260 - root - INFO - Start game and logged in
-2021-11-06 17:39:30,376 - root - INFO - 1920 screen width
-2021-11-06 17:39:30,377 - root - INFO - 1080 screen height
-2021-11-06 17:39:30,378 - root - INFO - Start game and logged in
-2021-11-06 17:39:30,452 - root - INFO - 1920 screen width
-2021-11-06 17:39:30,452 - root - INFO - 1080 screen height
-2021-11-06 17:40:16,136 - root - INFO - Start game
-2021-11-06 17:41:03,741 - root - INFO - Start hand ok
-2021-11-06 18:03:07,089 - root - INFO - End game
-2021-11-06 18:03:14,098 - root - INFO - Losing!
-2021-11-06 18:03:26,504 - root - INFO - Start game
-2021-11-06 18:04:07,345 - root - INFO - Start hand ok
-2021-11-06 18:17:53,726 - root - INFO - End game
-2021-11-06 18:18:13,041 - root - INFO - Start game
-2021-11-06 18:18:53,106 - root - INFO - Start hand ok
-2021-11-06 18:51:24,047 - root - INFO - End game
-2021-11-06 18:51:43,138 - root - INFO - Start game
-2021-11-06 18:52:46,611 - root - INFO - Start hand ok
-2021-11-06 18:59:46,181 - root - INFO - End game
-2021-11-06 19:00:05,381 - root - INFO - Start game
-2021-11-06 19:00:37,718 - root - INFO - Start hand ok
-2021-11-06 19:17:18,022 - root - INFO - End game
-2021-11-06 19:17:47,448 - root - INFO - Start game
-2021-11-06 19:18:45,268 - root - INFO - Start hand ok
+2021-11-12 18:23:54,775 - root - INFO - Start game and logged in
+2021-11-12 18:23:55,009 - root - INFO - 1920 screen width
+2021-11-12 18:23:55,009 - root - INFO - 1080 screen height
+2021-11-12 18:23:55,011 - root - INFO - Start game and logged in
+2021-11-12 18:23:55,101 - root - INFO - 1920 screen width
+2021-11-12 18:23:55,101 - root - INFO - 1080 screen height
+2021-11-12 18:25:22,564 - root - INFO - Start game
+2021-11-12 18:26:00,328 - root - INFO - Start hand ok
+2021-11-12 18:30:32,402 - root - INFO - victory!
+2021-11-12 18:30:34,910 - root - INFO - End game
+2021-11-12 18:30:38,892 - root - INFO - victory!
+2021-11-12 18:30:48,277 - root - INFO - victory!
+2021-11-12 18:31:08,395 - root - INFO - Start game
+2021-11-12 18:32:06,807 - root - INFO - Start hand ok
+2021-11-12 18:45:40,681 - root - INFO - End game
+2021-11-12 18:45:45,248 - root - INFO - Losing!
+2021-11-12 18:46:19,549 - root - INFO - Start game
+2021-11-12 18:47:15,271 - root - INFO - Start hand ok
+2021-11-12 19:09:27,817 - root - INFO - End game
