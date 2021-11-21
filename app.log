@@ -1,61 +1,16 @@
-2021-11-14 13:59:51,974 - root - INFO - Start game and logged in
-2021-11-14 13:59:52,145 - root - INFO - 1920 screen width
-2021-11-14 13:59:52,146 - root - INFO - 1080 screen height
-2021-11-14 13:59:52,154 - root - INFO - Start game and logged in
-2021-11-14 13:59:52,282 - root - INFO - 1920 screen width
-2021-11-14 13:59:52,282 - root - INFO - 1080 screen height
-2021-11-14 14:00:09,487 - root - INFO - Start game
-2021-11-14 14:00:38,748 - root - INFO - Start hand ok
-2021-11-14 14:15:24,159 - root - INFO - End game
-2021-11-14 14:15:31,173 - root - INFO - Losing!
-2021-11-14 14:15:42,218 - root - INFO - Start game
-2021-11-14 14:16:11,074 - root - INFO - Start hand ok
-2021-11-14 14:32:39,454 - root - INFO - End game
-2021-11-14 14:32:46,371 - root - INFO - Losing!
-2021-11-14 14:33:08,745 - root - INFO - Start game
-2021-11-14 14:33:51,718 - root - INFO - Start hand ok
-2021-11-14 14:51:26,847 - root - INFO - End game
-2021-11-14 14:51:33,832 - root - INFO - Losing!
-2021-11-14 14:52:21,802 - root - INFO - Start game
-2021-11-14 14:52:53,317 - root - INFO - Start hand ok
-2021-11-14 15:09:26,494 - root - INFO - End game
-2021-11-14 15:09:33,414 - root - INFO - Losing!
-2021-11-14 15:09:44,426 - root - INFO - Start game
-2021-11-14 15:10:46,327 - root - INFO - Start hand ok
-2021-11-14 16:03:47,426 - root - INFO - End game
-2021-11-14 16:03:54,343 - root - INFO - Losing!
-2021-11-14 16:04:05,390 - root - INFO - Start game
-2021-11-14 16:04:33,927 - root - INFO - Start hand ok
-2021-11-14 16:08:21,711 - root - INFO - victory!
-2021-11-14 16:08:22,758 - root - INFO - victory!
-2021-11-14 16:08:24,845 - root - INFO - End game
-2021-11-14 16:08:26,604 - root - INFO - victory!
-2021-11-14 16:08:31,603 - root - INFO - victory!
-2021-11-14 16:08:44,032 - root - INFO - Start game
-2021-11-14 16:09:21,073 - root - INFO - Start hand ok
-2021-11-14 16:22:20,412 - root - INFO - End game
-2021-11-14 16:22:27,291 - root - INFO - Losing!
-2021-11-14 16:22:39,596 - root - INFO - Start game
-2021-11-14 16:23:33,010 - root - INFO - Start hand ok
-2021-11-14 16:32:27,231 - root - INFO - End game
-2021-11-14 16:32:34,073 - root - INFO - Losing!
-2021-11-14 16:32:45,062 - root - INFO - Start game
-2021-11-14 16:33:24,941 - root - INFO - Start hand ok
-2021-11-14 16:41:01,182 - root - INFO - End game
-2021-11-14 16:41:02,687 - root - INFO - victory!
-2021-11-14 16:41:07,684 - root - INFO - victory!
-2021-11-14 16:41:20,236 - root - INFO - Start game
-2021-11-14 16:41:55,258 - root - INFO - Start hand ok
-2021-11-14 16:57:04,836 - root - INFO - End game
-2021-11-14 16:57:23,781 - root - INFO - Start game
-2021-11-14 16:58:11,764 - root - INFO - Start hand ok
-2021-11-14 16:59:41,410 - root - INFO - victory!
-2021-11-14 16:59:43,073 - root - INFO - End game
-2021-11-14 16:59:44,603 - root - INFO - victory!
-2021-11-14 16:59:49,601 - root - INFO - victory!
-2021-11-14 17:00:00,985 - root - INFO - Start game
-2021-11-14 17:00:29,578 - root - INFO - Start hand ok
-2021-11-14 17:09:33,572 - root - INFO - End game
-2021-11-14 17:09:40,413 - root - INFO - Losing!
-2021-11-14 17:09:52,698 - root - INFO - Start game
-2021-11-14 17:10:32,690 - root - INFO - Start hand ok
+2021-11-20 11:24:09,210 - root - INFO - Start game and logged in
+2021-11-20 11:24:09,480 - root - INFO - 1920 screen width
+2021-11-20 11:24:09,481 - root - INFO - 1080 screen height
+2021-11-20 11:24:09,534 - root - INFO - Start game and logged in
+2021-11-20 11:24:09,658 - root - INFO - 1920 screen width
+2021-11-20 11:24:09,658 - root - INFO - 1080 screen height
+2021-11-20 11:25:16,716 - root - INFO - Start game
+2021-11-20 11:25:50,269 - root - INFO - Start hand ok
+2021-11-20 11:42:04,018 - root - INFO - End game
+2021-11-20 11:42:11,004 - root - INFO - Losing!
+2021-11-20 11:42:23,327 - root - INFO - Start game
+2021-11-20 11:43:09,559 - root - INFO - Start hand ok
+2021-11-20 11:57:13,203 - root - INFO - End game
+2021-11-20 11:57:20,265 - root - INFO - Losing!
+2021-11-20 11:57:32,654 - root - INFO - Start game
+2021-11-20 11:58:02,047 - root - INFO - Start hand ok
