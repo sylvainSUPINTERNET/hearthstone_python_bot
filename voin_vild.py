@@ -819,6 +819,8 @@ def voin_vild_deck():
             if Ggame == 0:
                 fill_table()  # заполняем БД
             ss(active_dir + "ok_2.png")
+            ss(active_dir + "btn_close.png")
+            ss(active_dir + "btn_close2.png")
             ss(active_dir + "bt.png")
             ss(active_dir + "bt2.png")
             ss(active_dir + "ok_4.png")  # нажимаем кнопку ok если игра не успела загрузиться
