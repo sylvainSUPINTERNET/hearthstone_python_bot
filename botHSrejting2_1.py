@@ -11,7 +11,7 @@ import voin_vild
 # import mercenaries
 
 def startlnk():  # функция запуска приложения
-    subprocess.Popen('C:\Program Files (x86)\Battle.net\Battle.net Launcher.exe')  # запуск приложения
+    subprocess.Popen(r'D:\02. soft\01. games\battlenet\Battle.net\Battle.net Launcher.exe')  # запуск приложения
     time.sleep(10)  # время ожидания запуска battle.net
     keyboard.send("windows+up")  # разворачивает приложение на все окно
 
